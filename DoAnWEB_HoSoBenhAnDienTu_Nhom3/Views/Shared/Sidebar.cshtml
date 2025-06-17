@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="sidebar" id="sidebar">
+        <!-- Header -->
+        <div class="sidebar-header">
+            <h4><i class="fas fa-hospital"></i> Hồ Sơ Bệnh Án</h4>
+        </div>
+
+        <!-- Menu -->
+        <ul class="sidebar-menu">
+            <!-- Trang chủ -->
+            <li>
+                <a href="@Url.Action("Index", "Home")"
+                   class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                    <i class="fas fa-home"></i> Trang chủ
+                </a>
+            </li>
+
+            <!-- Hồ sơ bệnh án -->
+            <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaLamSang" ||
+                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ||
+                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "open" : "")">
+                <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                    <i class="fas fa-file-medical"></i> Hồ sơ bệnh án
+                </a>
+                <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaLamSang" ||
+                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ||
+                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "open" : "")">
+                    <li>
+                        <a href="@Url.Action("Index", "KetQuaLamSang")"
+                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaLamSang" ? "active" : "")">
+                            <i class="fas fa-stethoscope"></i> Kết quả lâm sàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "KetQuaXetNghiem")"
+                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ? "active" : "")">
+                            <i class="fas fa-vial"></i> Kết quả xét nghiệm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "DonDieuTri")"
+                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "active" : "")">
+                            <i class="fas fa-prescription-bottle"></i> Đơn điều trị
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Quản lý tài khoản -->
+            <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ||
+                                    ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("ChangePassword") == true ? "open" : "")">
+                <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                    <i class="fas fa-user-cog"></i> Quản lý tài khoản
+                </a>
+                <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ||
+                                    ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("ChangePassword") == true ? "open" : "")">
+                    <li>
+                        <a href="@Url.Action("Index", "QuanLyNguoiDung")"
+                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ? "active" : "")">
+                            <i class="fas fa-users"></i> Quản lý người dùng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Identity/Account/Manage/ChangePassword"
+                           class="@(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("ChangePassword") == true ? "active" : "")">
+                            <i class="fas fa-key"></i> Đổi mật khẩu
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Đăng xuất -->
+            <li class="logout">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post" style="margin: 0;">
+                    <button type="submit" style="background: none; border: none; width: 100%; text-align: left; color: #dc3545; padding: 15px 20px; cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+}

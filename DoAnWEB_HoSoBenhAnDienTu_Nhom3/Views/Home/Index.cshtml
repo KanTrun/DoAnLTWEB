@@ -1,0 +1,281 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+    var benhNhan = ViewBag.BenhNhan as DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan;
+}
+
+<div class="container-fluid p-0">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container mt-4">
+            @if (benhNhan != null)
+            {
+                <!-- Hiển thị thông tin bệnh nhân -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-user-circle"></i>
+                                    Thông tin cá nhân
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <i class="fas fa-user-circle fa-5x text-primary mb-3"></i>
+                                            <h5>@benhNhan.HoTen</h5>
+                                            <p class="text-muted">Bệnh nhân</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><strong>Ngày sinh:</strong> @benhNhan.NgaySinh.ToString("dd/MM/yyyy")</p>
+                                                <p><strong>Giới tính:</strong> @(benhNhan.GioiTinh ?? "Chưa cập nhật")</p>
+                                                <p><strong>Số điện thoại:</strong> @(benhNhan.SoDienThoai ?? "Chưa cập nhật")</p>
+                                                <p><strong>Số bảo hiểm:</strong> @(benhNhan.SoBaoHiem ?? "Chưa cập nhật")</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><strong>Nhóm máu:</strong> @(benhNhan.NhomMau ?? "Chưa cập nhật")</p>
+                                                <p><strong>Địa chỉ:</strong> @(benhNhan.DiaChi ?? "Chưa cập nhật")</p>
+                                                <p><strong>Dị ứng:</strong> @(benhNhan.DiUng ?? "Không có")</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                                Cập nhật thông tin
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Thông báo chưa có thông tin -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Chưa có thông tin cá nhân</h5>
+                            <p>Bạn chưa cập nhật thông tin cá nhân. Vui lòng nhập thông tin để sử dụng đầy đủ các tính năng của hệ thống.</p>
+                            <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-primary">
+                                <i class="fas fa-user-plus"></i>
+                                Nhập thông tin cá nhân
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Các tính năng chính -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-file-medical fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Hồ sơ bệnh án</h5>
+                            <p class="card-text">Xem và quản lý hồ sơ bệnh án của bạn.</p>
+                            <a href="#" class="btn btn-primary">Xem hồ sơ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
+                            <h5 class="card-title">Lịch khám</h5>
+                            <p class="card-text">Đặt lịch và theo dõi lịch khám bệnh.</p>
+                            <a href="#" class="btn btn-success">Đặt lịch</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-pills fa-3x text-warning mb-3"></i>
+                            <h5 class="card-title">Toa thuốc</h5>
+                            <p class="card-text">Xem toa thuốc và hướng dẫn sử dụng.</p>
+                            <a href="#" class="btn btn-warning">Xem toa thuốc</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Landing Page cho người chưa đăng nhập -->
+        <div class="landing-hero">
+            <div class="container">
+                <div class="row min-vh-100 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="landing-content">
+                            <div class="landing-badge">
+                                <i class="fas fa-heartbeat me-2"></i>
+                                Hệ thống Y tế Hiện đại
+                            </div>
+                            <h1 class="landing-title">
+                                Hồ sơ Bệnh án <span class="text-gradient">Điện tử</span>
+                            </h1>
+                            <p class="landing-description">
+                                Quản lý thông tin sức khỏe một cách thông minh, an toàn và tiện lợi.
+                                Trải nghiệm dịch vụ y tế số hóa tiên tiến.
+                            </p>
+                            <div class="landing-buttons">
+                                <a class="btn-custom btn-primary" asp-area="Identity" asp-page="/Account/Login">
+                                    <i class="fas fa-sign-in-alt me-2"></i>
+                                    Đăng nhập
+                                </a>
+                                <a class="btn-custom btn-outline" asp-area="Identity" asp-page="/Account/Register">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    Đăng ký
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="landing-visual">
+                            <div class="medical-card">
+                                <div class="card-header">
+                                    <div class="avatar">
+                                        <i class="fas fa-user-md"></i>
+                                    </div>
+                                    <div class="info">
+                                        <h6>Hồ sơ Bệnh nhân</h6>
+                                        <span>Quản lý thông tin</span>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="stat-item">
+                                        <i class="fas fa-heartbeat text-danger"></i>
+                                        <span>Nhịp tim: 72 BPM</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-thermometer-half text-warning"></i>
+                                        <span>Nhiệt độ: 36.5°C</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-weight text-info"></i>
+                                        <span>Cân nặng: 65kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-title">Tính năng nổi bật</h2>
+                        <p class="section-subtitle">Khám phá những tính năng hiện đại của hệ thống</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h5>Bảo mật tuyệt đối</h5>
+                            <p>Thông tin được mã hóa và bảo vệ theo tiêu chuẩn quốc tế</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h5>Truy cập mọi lúc</h5>
+                            <p>Sử dụng trên mọi thiết bị, mọi nơi với giao diện thân thiện</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h5>Theo dõi sức khỏe</h5>
+                            <p>Phân tích và theo dõi tình trạng sức khỏe một cách chi tiết</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast show" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                @TempData["SuccessMessage"]
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Thêm footer này vào cuối file, trước thẻ đóng </div> cuối cùng -->
+<!-- Footer -->
+<footer class="landing-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="footer-brand">
+                    <h5><i class="fas fa-heartbeat me-2"></i>Hồ sơ Bệnh án Điện tử</h5>
+                    <p class="footer-description">
+                        Hệ thống quản lý thông tin sức khỏe hiện đại, an toàn và tiện lợi.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h6 class="footer-title">Liên kết</h6>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Về chúng tôi</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Dịch vụ</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Hỗ trợ</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="footer-title">Liên hệ</h6>
+                <div class="footer-contact">
+                    <p><i class="fas fa-phone me-2"></i>0123 456 789</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@hospital.com</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>123 Đường ABC, TP.HCM</p>
+                </div>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="footer-copyright">
+                    © 2024 Hồ sơ Bệnh án Điện tử. Tất cả quyền được bảo lưu.
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

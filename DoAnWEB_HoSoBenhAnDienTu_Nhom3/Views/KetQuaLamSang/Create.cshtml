@@ -1,0 +1,146 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaLamSang
+
+@{
+    ViewData["Title"] = "Nhập kết quả lâm sàng";
+    var benhNhan = ViewBag.BenhNhan as DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-file-medical text-primary"></i> Nhập kết quả lâm sàng</h2>
+                <a href="@Url.Action("ChonBenhNhan")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+            </div>
+
+            @if (benhNhan != null)
+            {
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-user me-2"></i>Thông tin bệnh nhân</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Họ tên:</strong> @benhNhan.HoTen</p>
+                                <p><strong>Ngày sinh:</strong> @benhNhan.NgaySinh.ToString("dd/MM/yyyy") (@benhNhan.Tuoi tuổi)</p>
+                                <p><strong>Giới tính:</strong> @(benhNhan.GioiTinh ?? "Chưa cập nhật")</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Số điện thoại:</strong> @(benhNhan.SoDienThoai ?? "Chưa cập nhật")</p>
+                                <p><strong>Nhóm máu:</strong> @(benhNhan.NhomMau ?? "Chưa xác định")</p>
+                                <p><strong>Dị ứng:</strong> @(benhNhan.DiUng ?? "Không")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Nhập thông tin kết quả lâm sàng</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="MaBenhNhan" />
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="NgayKham" class="form-label">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i>Ngày khám
+                                </label>
+                                <input asp-for="NgayKham" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="NgayKham" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BacSiKham" class="form-label">
+                                    <i class="fas fa-user-md text-primary me-2"></i>Bác sĩ khám
+                                </label>
+                                <input asp-for="BacSiKham" class="form-control" />
+                                <span asp-validation-for="BacSiKham" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label asp-for="NhietDo" class="form-label">
+                                    <i class="fas fa-thermometer-half text-danger me-2"></i>Nhiệt độ (°C)
+                                </label>
+                                <input asp-for="NhietDo" class="form-control" type="number" step="0.1" min="35" max="45" placeholder="36.5" />
+                                <span asp-validation-for="NhietDo" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label asp-for="HuyetAp" class="form-label">
+                                    <i class="fas fa-heartbeat text-danger me-2"></i>Huyết áp
+                                </label>
+                                <input asp-for="HuyetAp" class="form-control" placeholder="120/80" />
+                                <span asp-validation-for="HuyetAp" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label asp-for="NhipTim" class="form-label">
+                                    <i class="fas fa-heart text-danger me-2"></i>Nhịp tim (bpm)
+                                </label>
+                                <input asp-for="NhipTim" class="form-control" type="number" min="40" max="200" placeholder="72" />
+                                <span asp-validation-for="NhipTim" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label asp-for="NhipTho" class="form-label">
+                                    <i class="fas fa-lungs text-info me-2"></i>Nhịp thở (lần/phút)
+                                </label>
+                                <input asp-for="NhipTho" class="form-control" type="number" min="10" max="40" placeholder="16" />
+                                <span asp-validation-for="NhipTho" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ChanDoan" class="form-label">
+                                <i class="fas fa-diagnoses text-warning me-2"></i>Chẩn đoán
+                            </label>
+                            <textarea asp-for="ChanDoan" class="form-control" rows="3" placeholder="Nhập chẩn đoán của bác sĩ..."></textarea>
+                            <span asp-validation-for="ChanDoan" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="KetQua" class="form-label">
+                                <i class="fas fa-clipboard-list text-success me-2"></i>Kết quả chi tiết
+                            </label>
+                            <textarea asp-for="KetQua" class="form-control" rows="4" placeholder="Nhập kết quả khám chi tiết..."></textarea>
+                            <span asp-validation-for="KetQua" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="GhiChu" class="form-label">
+                                <i class="fas fa-sticky-note text-secondary me-2"></i>Ghi chú
+                            </label>
+                            <textarea asp-for="GhiChu" class="form-control" rows="3" placeholder="Ghi chú thêm (nếu có)..."></textarea>
+                            <span asp-validation-for="GhiChu" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="@Url.Action("ChonBenhNhan")" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Hủy
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Lưu kết quả
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

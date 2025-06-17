@@ -1,0 +1,130 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.ManageUserViewModel
+@{
+    ViewData["Title"] = "Quản lý người dùng";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <i class="fas fa-user-edit"></i>
+                        @(Model.IsExisting ? "Cập nhật thông tin cá nhân" : "Nhập thông tin cá nhân")
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @if (!Model.IsExisting)
+                    {
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            Vui lòng nhập đầy đủ thông tin cá nhân để sử dụng hệ thống.
+                        </div>
+                    }
+
+                    <form asp-action="Index" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="HoTen" class="form-label"></label>
+                                    <input asp-for="HoTen" class="form-control" placeholder="Nhập họ và tên" />
+                                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="NgaySinh" class="form-label"></label>
+                                    <input asp-for="NgaySinh" class="form-control" type="date" />
+                                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="GioiTinh" class="form-label"></label>
+                                    <select asp-for="GioiTinh" class="form-control">
+                                        <option value="">-- Chọn giới tính --</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                        <option value="Khác">Khác</option>
+                                    </select>
+                                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="SoDienThoai" class="form-label"></label>
+                                    <input asp-for="SoDienThoai" class="form-control" placeholder="Nhập số điện thoại" />
+                                    <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="SoBaoHiem" class="form-label"></label>
+                                    <input asp-for="SoBaoHiem" class="form-control" placeholder="Nhập số bảo hiểm y tế" />
+                                    <span asp-validation-for="SoBaoHiem" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="NhomMau" class="form-label"></label>
+                                    <select asp-for="NhomMau" class="form-control">
+                                        <option value="">-- Chọn nhóm máu --</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="AB">AB</option>
+                                        <option value="O">O</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                    <span asp-validation-for="NhomMau" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="DiaChi" class="form-label"></label>
+                            <textarea asp-for="DiaChi" class="form-control" rows="3" placeholder="Nhập địa chỉ"></textarea>
+                            <span asp-validation-for="DiaChi" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="DiUng" class="form-label"></label>
+                            <textarea asp-for="DiUng" class="form-control" rows="2" placeholder="Nhập thông tin dị ứng (nếu có)"></textarea>
+                            <span asp-validation-for="DiUng" class="text-danger"></span>
+                            <small class="form-text text-muted">Ví dụ: Dị ứng thuốc Penicillin, dị ứng tôm cua...</small>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                @(Model.IsExisting ? "Cập nhật thông tin" : "Lưu thông tin")
+                            </button>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                Quay lại trang chủ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

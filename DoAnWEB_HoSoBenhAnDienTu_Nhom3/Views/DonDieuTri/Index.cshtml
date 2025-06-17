@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Đơn điều trị";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-prescription-bottle text-primary"></i> Đơn điều trị</h2>
+
+                @* Chỉ Admin (Bác sĩ) mới thấy nút Thêm đơn mới *@
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="@Url.Action("Create")" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Thêm đơn mới
+                    </a>
+                }
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Danh sách đơn điều trị</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Chức năng đang được phát triển. Sẽ hiển thị danh sách các đơn thuốc và phương pháp điều trị.
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ngày kê đơn</th>
+                                    <th>Bác sĩ</th>
+                                    <th>Chẩn đoán</th>
+                                    <th>Số loại thuốc</th>
+                                    <th>Trạng thái</th>
+                                    @* Chỉ Admin mới thấy cột Thao tác *@
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <th>Thao tác</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="@(User.IsInRole("Admin") ? "6" : "5")" class="text-center text-muted">
+                                        Chưa có dữ liệu
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

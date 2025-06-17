@@ -1,0 +1,127 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hồ Sơ Bệnh Án Điện Tử</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <div class="medical-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h3>Hồ Sơ Bệnh Án Điện Tử</h3>
+                <p>Đăng ký tài khoản mới</p>
+            </div>
+
+            <div class="register-body">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="form-label">
+                            <i class="fas fa-envelope"></i>Email
+                        </label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Nhập địa chỉ email của bạn" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Password" class="form-label">
+                            <i class="fas fa-lock"></i>Mật khẩu
+                        </label>
+                        <div class="input-group">
+                            <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Nhập mật khẩu của bạn" />
+                            <button type="button" class="toggle-password" data-target="Input_Password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.ConfirmPassword" class="form-label">
+                            <i class="fas fa-lock"></i>Xác nhận mật khẩu
+                        </label>
+                        <div class="input-group">
+                            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Nhập lại mật khẩu của bạn" />
+                            <button type="button" class="toggle-password" data-target="Input_ConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button id="register-submit" type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-2"></i>Đăng ký tài khoản
+                        </button>
+                    </div>
+
+                    <div class="register-footer">
+                        <div class="text-center">
+                            <p class="mb-0">
+                                Đã có tài khoản?
+                                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập ngay
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            document.querySelectorAll('.toggle-password').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+
+            // Form submission with loading state
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                const submitBtn = document.getElementById('register-submit');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý...';
+                submitBtn.disabled = true;
+            });
+
+            // Auto-focus on first input
+            document.getElementById('Input_Email').focus();
+        });
+    </script>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
