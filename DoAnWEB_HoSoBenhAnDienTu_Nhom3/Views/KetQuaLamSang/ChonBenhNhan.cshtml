@@ -1,121 +1,63 @@
-﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan>
+﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.BenhNhanSelectViewModel>
 
 @{
     ViewData["Title"] = "Chọn bệnh nhân";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2><i class="fas fa-user-plus text-primary"></i> Chọn bệnh nhân để nhập kết quả lâm sàng</h2>
-                <a href="@Url.Action("Index")" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Quay lại
-                </a>
-            </div>
+<div class="patient-selection-container">
+    <h2 class="section-title">Chọn bệnh nhân để nhập kết quả lâm sàng</h2>
 
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Danh sách bệnh nhân</h5>
-                </div>
-                <div class="card-body">
-                    @if (Model.Any())
+    <div class="table-responsive">
+        <table class="patient-table">
+            <thead>
+                <tr>
+                    <th>Họ tên</th>
+                    <th>Giới tính</th>
+                    <th>Ngày sinh</th>
+                    <th>Đánh giá gần nhất</th>
+                    <th>Thăm khám</th>
+                    <th>Đánh giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var bn in Model)
                     {
-                        <div class="row">
-                            @foreach (var benhNhan in Model)
-                            {
-                                <div class="col-md-6 col-lg-4 mb-4">
-                                    <div class="card h-100 shadow-sm border-0 patient-card">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center mb-3">
-                                                <div class="patient-avatar me-3">
-                                                    <i class="fas fa-user-circle fa-3x text-primary"></i>
-                                                </div>
-                                                <div>
-                                                    <h6 class="card-title mb-1 fw-bold">@benhNhan.HoTen</h6>
-                                                    <small class="text-muted">ID: @benhNhan.MaBenhNhan</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="patient-info">
-                                                <div class="info-item mb-2">
-                                                    <i class="fas fa-birthday-cake text-info me-2"></i>
-                                                    <span>@benhNhan.NgaySinh.ToString("dd/MM/yyyy")</span>
-                                                    <span class="badge bg-light text-dark ms-2">@benhNhan.Tuoi tuổi</span>
-                                                </div>
-
-                                                @if (!string.IsNullOrEmpty(benhNhan.GioiTinh))
-                                                {
-                                                    <div class="info-item mb-2">
-                                                        <i class="fas @(benhNhan.GioiTinh == "Nam" ? "fa-mars text-primary" : "fa-venus text-danger") me-2"></i>
-                                                        <span>@benhNhan.GioiTinh</span>
-                                                    </div>
-                                                }
-
-                                                @if (!string.IsNullOrEmpty(benhNhan.SoDienThoai))
-                                                {
-                                                    <div class="info-item mb-2">
-                                                        <i class="fas fa-phone text-success me-2"></i>
-                                                        <span>@benhNhan.SoDienThoai</span>
-                                                    </div>
-                                                }
-
-                                                @if (!string.IsNullOrEmpty(benhNhan.NhomMau))
-                                                {
-                                                    <div class="info-item mb-2">
-                                                        <i class="fas fa-tint text-danger me-2"></i>
-                                                        <span>Nhóm máu: @benhNhan.NhomMau</span>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
-                                        <div class="card-footer bg-transparent">
-                                            <a href="@Url.Action("Create", new { maBenhNhan = benhNhan.MaBenhNhan })"
-                                               class="btn btn-primary w-100">
-                                                <i class="fas fa-plus me-2"></i>Nhập kết quả lâm sàng
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                        <tr>
+                            <td data-label="Họ tên:">@bn.HoTen</td>
+                            <td data-label="Giới tính:">@bn.GioiTinh</td>
+                            <td data-label="Ngày sinh:">@bn.NgaySinh.ToString("dd/MM/yyyy")</td>
+                            <td data-label="Đánh giá gần nhất:">
+                                @if (bn.NgayKhamGanNhat.HasValue)
+                                {
+                                    @bn.NgayKhamGanNhat.Value.ToString("dd/MM/yyyy HH:mm")
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Chưa đánh giá</span>
+                                }
+                            </td>
+                            <td class="action-cell">
+                                <a href="@Url.Action("Create", "ThamKhamLamSang", new { maBenhNhan = bn.MaBenhNhan })" class="action-button btn btn-success">
+                                    <i class="fas fa-stethoscope"></i> Xem
+                                </a>
+                            </td>
+                            <td class="action-cell">
+                                <a href="@Url.Action("Create", "KetQuaLamSang", new { maBenhNhan = bn.MaBenhNhan })" class="action-button btn btn-primary">
+                                    <i class="fas fa-edit"></i> Xem
+                                </a>
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        <div class="alert alert-info text-center">
-                            <i class="fas fa-info-circle fa-2x mb-3"></i>
-                            <h5>Không có bệnh nhân nào</h5>
-                            <p class="mb-0">Hiện tại chưa có bệnh nhân nào trong hệ thống.</p>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="no-data-message">Không có dữ liệu bệnh nhân nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
-<style>
-    .patient-card {
-        transition: all 0.3s ease;
-        border-radius: 15px;
-    }
-
-        .patient-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-        }
-
-    .patient-avatar {
-        opacity: 0.8;
-    }
-
-    .info-item {
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-    }
-
-        .info-item i {
-            width: 20px;
-        }
-</style>

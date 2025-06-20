@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -20,15 +21,29 @@
             </li>
 
             <!-- Hồ sơ bệnh án -->
-            <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaLamSang" ||
-                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ||
-                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "open" : "")">
+            <li class="has-submenu" id="medical-menu">
                 <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
                     <i class="fas fa-file-medical"></i> Hồ sơ bệnh án
                 </a>
-                <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaLamSang" ||
-                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ||
-                                    ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "open" : "")">
+
+                <!-- Đánh giá hồ sơ - chỉ Admin -->
+                @if (User.IsInRole("Admin"))
+                {
+                <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "HoSoBenhAn" ? "open" : "")">
+                    <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                        <i class="fas fa-clipboard-check"></i> Đánh giá hồ sơ
+                    </a>
+                    <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "HoSoBenhAn" ? "open" : "")">
+                        <li>
+                            <a href="@Url.Action("Index", "HoSoBenhAn")"
+                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "HoSoBenhAn" ? "active" : "")">
+                                <i class="fas fa-users"></i> Hồ sơ bệnh nhân
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                }
+                <ul class="submenu" id="medical-submenu">
                     <li>
                         <a href="@Url.Action("Index", "KetQuaLamSang")"
                            class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaLamSang" ? "active" : "")">
@@ -36,10 +51,20 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "KetQuaXetNghiem")"
-                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ? "active" : "")">
-                            <i class="fas fa-vial"></i> Kết quả xét nghiệm
-                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a href="@Url.Action("ChonBenhNhan", "KetQuaXetNghiem")"
+                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" && ViewContext.RouteData.Values["Action"]?.ToString() == "ChonBenhNhan" ? "active" : "")">
+                                <i class="fas fa-vial"></i> Kết quả xét nghiệm
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("KetQuaCuaToi", "KetQuaXetNghiem")"
+                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" && ViewContext.RouteData.Values["Action"]?.ToString() == "KetQuaCuaToi" ? "active" : "")">
+                                <i class="fas fa-vial"></i> Kết quả xét nghiệm
+                            </a>
+                        }
                     </li>
                     <li>
                         <a href="@Url.Action("Index", "DonDieuTri")"
@@ -50,28 +75,51 @@
                 </ul>
             </li>
 
+
             <!-- Quản lý tài khoản -->
-            <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ||
-                                    ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("ChangePassword") == true ? "open" : "")">
-                <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
-                    <i class="fas fa-user-cog"></i> Quản lý tài khoản
-                </a>
-                <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ||
-                                    ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("ChangePassword") == true ? "open" : "")">
-                    <li>
-                        <a href="@Url.Action("Index", "QuanLyNguoiDung")"
-                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ? "active" : "")">
-                            <i class="fas fa-users"></i> Quản lý người dùng
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Identity/Account/Manage/ChangePassword"
-                           class="@(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("ChangePassword") == true ? "active" : "")">
-                            <i class="fas fa-key"></i> Đổi mật khẩu
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            @if (User.IsInRole("Admin"))
+            {
+
+                <li class="has-submenu" id="admin-account-menu">
+                    <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                        <i class="fas fa-users-cog"></i> Quản lý hệ thống
+                    </a>
+                    <ul class="submenu" id="admin-account-submenu">
+                        <li>
+                            <a href="@Url.Action("Index", "QuanLyNguoiDung")"
+                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" ? "active" : "")">
+                                <i class="fas fa-users"></i> Quản lý người dùng
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Identity/Account/Manage/ChangePassword">
+                                <i class="fas fa-key"></i> Đổi mật khẩu
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="has-submenu" id="user-account-menu">
+                    <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                        <i class="fas fa-user-cog"></i> Tài khoản của tôi
+                    </a>
+                    <ul class="submenu" id="user-account-submenu">
+                        <li>
+                            <a href="@Url.Action("Index", "QuanLyNguoiDung")"
+                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "QuanLyNguoiDung" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                                <i class="fas fa-user-edit"></i> Thông tin cá nhân
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Identity/Account/Manage/ChangePassword">
+                                <i class="fas fa-key"></i> Đổi mật khẩu
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
 
             <!-- Đăng xuất -->
             <li class="logout">

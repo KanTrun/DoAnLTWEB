@@ -1,0 +1,55 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ChiDinhXetNghiem
+@{
+    var maBenhNhan = ViewBag.MaBenhNhan;
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="benhAnPro-container">
+    <h2 class="benhAnPro-title">Chỉ Định Xét Nghiệm Mới</h2>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+    <form asp-action="ChiDinhMoi" method="post" class="benhAnPro-form">
+        <input type="hidden" asp-for="MaHoSo" />
+        <div class="benhAnPro-formGroup">
+            <label asp-for="MaBacSi"></label>
+            <select asp-for="MaBacSi" class="benhAnPro-inputSelect" asp-items="ViewBag.BacSiList" required>
+                <option value="">-- Chọn bác sĩ --</option>
+            </select>
+            <span asp-validation-for="MaBacSi" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="NgayChiDinh"></label>
+            <input asp-for="NgayChiDinh" class="benhAnPro-inputDate" type="date" />
+            <span asp-validation-for="NgayChiDinh" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="TenXetNghiem"></label>
+            <input asp-for="TenXetNghiem" class="benhAnPro-inputSelect" maxlength="200" />
+            <span asp-validation-for="TenXetNghiem" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="MoTa"></label>
+            <textarea asp-for="MoTa" class="benhAnPro-inputTextarea" maxlength="1000"></textarea>
+            <span asp-validation-for="MoTa" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="TrangThai"></label>
+            <input asp-for="TrangThai" class="benhAnPro-inputSelect" maxlength="20" readonly />
+            <span asp-validation-for="TrangThai" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="NgayTao"></label>
+            <input asp-for="NgayTao" class="benhAnPro-inputDate" type="datetime-local" readonly />
+        </div>
+        <div class="benhAnPro-btnGroup">
+            <button type="submit" class="benhAnPro-btnLuu">Lưu chỉ định</button>
+            <a href="@Url.Action("XemChiDinh", new { maBenhNhan = maBenhNhan })" class="benhAnPro-btnBack">Quay lại</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

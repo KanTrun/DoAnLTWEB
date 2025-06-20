@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ChiDinhXetNghiem>
+@{
+    var maBenhNhan = ViewBag.MaBenhNhan;
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="benhanBlue-container">
+    <h2 class="benhanBlue-title">Chỉ Định Xét Nghiệm</h2>
+    <div class="benhanBlue-tableWrap">
+        <table class="benhanBlue-table">
+            <thead>
+                <tr>
+                    <th>Tên xét nghiệm</th>
+                    <th>Ngày chỉ định</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TenXetNghiem</td>
+                        <td>@item.NgayChiDinh.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <span class="benhanBlue-badge @((item.TrangThai == "Đã đánh giá") ? "benhanBlue-badge-success" : "benhanBlue-badge-secondary")">
+                                @item.TrangThai
+                            </span>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("ChiDinhMoi", "KetQuaXetNghiem", new { maChiDinh = item.MaChiDinh })" class="benhanBlue-btn benhanBlue-btn-edit">Chỉnh sửa</a>
+                            @if (item.TrangThai != "Đã đánh giá")
+                            {
+                                <a href="@Url.Action("DanhGiaKetQua", "KetQuaXetNghiem", new { maChiDinh = item.MaChiDinh })" class="benhanBlue-btn benhanBlue-btn-eval">Đánh giá</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="@Url.Action("ChonBenhNhan")" class="benhanBlue-btn benhanBlue-btn-back">Quay lại</a>
+</div>

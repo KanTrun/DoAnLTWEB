@@ -1,0 +1,36 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaXetNghiem
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="benhAnPro-container">
+    <h2 class="benhAnPro-title">Đánh Giá Kết Quả Xét Nghiệm</h2>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form asp-action="DanhGiaKetQua" method="post" class="benhAnPro-form">
+        <input type="hidden" asp-for="MaChiDinh" />
+        @if (Model.MaKetQuaXN != 0)
+        {
+            <input type="hidden" asp-for="MaKetQuaXN" />
+        }
+        <div class="benhAnPro-formGroup">
+            <label asp-for="GiaTriKetQua"></label>
+            <input asp-for="GiaTriKetQua" class="benhAnPro-inputSelect" />
+            <span asp-validation-for="GiaTriKetQua" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="KhoangThamChieu"></label>
+            <input asp-for="KhoangThamChieu" class="benhAnPro-inputSelect" />
+            <span asp-validation-for="KhoangThamChieu" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="NgayTraKetQua"></label>
+            <input asp-for="NgayTraKetQua" class="benhAnPro-inputDate" type="date" />
+            <span asp-validation-for="NgayTraKetQua" class="text-danger"></span>
+        </div>
+        <div class="benhAnPro-btnGroup">
+            <button type="submit" class="benhAnPro-btnLuu">Lưu kết quả</button>
+            <a href="@Url.Action("XemChiDinh", new { maBenhNhan = ViewBag.MaBenhNhan })" class="benhAnPro-btnBack">Quay lại</a>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

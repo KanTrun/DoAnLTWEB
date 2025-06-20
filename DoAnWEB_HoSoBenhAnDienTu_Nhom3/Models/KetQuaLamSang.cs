@@ -41,6 +41,6 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 
         // Navigation properties
         [ForeignKey("MaBenhNhan")]
-        public virtual BenhNhan BenhNhan { get; set; }
+        public virtual BenhNhan? BenhNhan { get; set; }
     }
 }

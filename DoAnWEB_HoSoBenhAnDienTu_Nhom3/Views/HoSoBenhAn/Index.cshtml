@@ -1,0 +1,56 @@
+﻿@model IEnumerable<dynamic>
+@{
+    ViewBag.Title = "Danh sách bệnh nhân";
+}
+<div class="benhAnPro-container">
+    <h2 class="benhAnPro-title">Danh sách bệnh nhân</h2>
+    <div class="benhAnPro-tableWrap">
+        <table class="benhAnPro-table" id="benhAnTable">
+            <thead>
+                <tr>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Ngày đánh giá gần nhất</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.HoTen</td>
+                        <td>@item.NgaySinh.ToString("dd/MM/yyyy")</td>
+                        <td>@item.GioiTinh</td>
+                        <td>@(item.NgayDanhGiaGanNhat != null ? ((DateTime)item.NgayDanhGiaGanNhat).ToString("dd/MM/yyyy") : "Chưa có")</td>
+                        <td>
+                            <a href="@Url.Action("DanhGia", "HoSoBenhAn", new { id = item.MaBenhNhan })" class="benhAnPro-btnDanhGia">
+                                <i class="fas fa-notes-medical"></i> Đánh giá
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Hiệu ứng fade-in từng dòng khi cuộn vào view
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll("#benhAnTable tbody tr");
+        const observer = new window.IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("row-fade-in");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        rows.forEach(row => {
+            row.style.opacity = 0;
+            observer.observe(row);
+        });
+    });
+</script>

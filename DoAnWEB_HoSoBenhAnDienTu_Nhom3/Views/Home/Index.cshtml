@@ -1,49 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Trang chủ";
     var benhNhan = ViewBag.BenhNhan as DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan;
+    var bacSi = ViewBag.BacSi as DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BacSi;
+    var vaiTro = ViewBag.VaiTro as string;
 }
 
 <div class="container-fluid p-0">
     @if (User.Identity.IsAuthenticated)
     {
         <div class="container mt-4">
-            @if (benhNhan != null)
+            @if (vaiTro == "BacSi" || vaiTro == "Admin")
             {
-                <!-- Hiển thị thông tin bệnh nhân -->
+                <!-- Trang chủ cho Bác sĩ/Admin -->
                 <div class="row mb-4">
                     <div class="col-md-12">
-                        <div class="card border-primary">
-                            <div class="card-header bg-primary text-white">
+                        <div class="card border-success">
+                            <div class="card-header bg-success text-white">
                                 <h5 class="card-title mb-0">
-                                    <i class="fas fa-user-circle"></i>
-                                    Thông tin cá nhân
+                                    <i class="fas fa-user-md"></i>
+                                    Thông tin Bác sĩ
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="text-center">
-                                            <i class="fas fa-user-circle fa-5x text-primary mb-3"></i>
-                                            <h5>@benhNhan.HoTen</h5>
-                                            <p class="text-muted">Bệnh nhân</p>
-                                        </div>
+                                    <div class="col-md-3 text-center">
+                                        <i class="fas fa-user-md fa-5x text-success mb-3"></i>
+                                        <h5>@bacSi?.HoTen</h5>
+                                        <p class="text-muted">Bác sĩ</p>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p><strong>Ngày sinh:</strong> @benhNhan.NgaySinh.ToString("dd/MM/yyyy")</p>
-                                                <p><strong>Giới tính:</strong> @(benhNhan.GioiTinh ?? "Chưa cập nhật")</p>
-                                                <p><strong>Số điện thoại:</strong> @(benhNhan.SoDienThoai ?? "Chưa cập nhật")</p>
-                                                <p><strong>Số bảo hiểm:</strong> @(benhNhan.SoBaoHiem ?? "Chưa cập nhật")</p>
+                                                <p><strong>Khoa:</strong> @bacSi?.Khoa?.TenKhoa</p>
+                                                <p><strong>Chuyên khoa:</strong> @(bacSi?.ChuyenKhoa ?? "Chưa cập nhật")</p>
+                                                <p><strong>Số điện thoại:</strong> @(bacSi?.SoDienThoai ?? "Chưa cập nhật")</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><strong>Nhóm máu:</strong> @(benhNhan.NhomMau ?? "Chưa cập nhật")</p>
-                                                <p><strong>Địa chỉ:</strong> @(benhNhan.DiaChi ?? "Chưa cập nhật")</p>
-                                                <p><strong>Dị ứng:</strong> @(benhNhan.DiUng ?? "Không có")</p>
+                                                <p><strong>Email:</strong> @(bacSi?.Email ?? "Chưa cập nhật")</p>
                                             </div>
                                         </div>
                                         <div class="mt-3">
-                                            <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                                            <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-outline-success btn-sm">
                                                 <i class="fas fa-edit"></i>
                                                 Cập nhật thông tin
                                             </a>
@@ -54,59 +51,262 @@
                         </div>
                     </div>
                 </div>
-            }
-            else
-            {
-                <!-- Thông báo chưa có thông tin -->
+                <!-- Biểu đồ thống kê -->
                 <div class="row mb-4">
-                    <div class="col-md-12">
-                        <div class="alert alert-warning">
-                            <h5><i class="fas fa-exclamation-triangle"></i> Chưa có thông tin cá nhân</h5>
-                            <p>Bạn chưa cập nhật thông tin cá nhân. Vui lòng nhập thông tin để sử dụng đầy đủ các tính năng của hệ thống.</p>
-                            <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-primary">
-                                <i class="fas fa-user-plus"></i>
-                                Nhập thông tin cá nhân
-                            </a>
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <div class="card shadow-sm h-100 w-100">
+                            <div class="card-header bg-success text-white">
+                                <i class="fas fa-chart-pie me-2"></i> Thống kê số lượng Bệnh nhân & Bác sĩ
+                            </div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <div class="chart-container">
+                                    <canvas id="pieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <div class="card shadow-sm h-100 w-100">
+                            <div class="card-header bg-success text-white">
+                                <i class="fas fa-chart-bar me-2"></i> Thống kê đánh giá lâm sàng & xét nghiệm
+                            </div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <div class="chart-container">
+                                    <canvas id="barChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Kết thúc phần biểu đồ -->
+
+                <!-- Các tính năng cho Bác sĩ/Admin -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-users fa-3x text-success mb-3"></i>
+                                <h5 class="card-title">Quản lý bệnh nhân</h5>
+                                <p class="card-text">Xem danh sách, tìm kiếm và quản lý thông tin bệnh nhân.</p>
+                                <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-success">Quản lý</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-notes-medical fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Kết quả lâm sàng</h5>
+                                <p class="card-text">Nhập và xem kết quả lâm sàng cho bệnh nhân.</p>
+                                <a asp-controller="KetQuaLamSang" asp-action="Index" class="btn btn-primary">Xem kết quả</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-calendar-check fa-3x text-info mb-3"></i>
+                                <h5 class="card-title">Lịch khám</h5>
+                                <p class="card-text">Quản lý lịch khám và lịch làm việc.</p>
+                                <a href="#" class="btn btn-info">Quản lý lịch</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          }
+          else
+          {
+                <!-- Trang chủ cho Bệnh nhân -->
+                @if (benhNhan != null)
+                {
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fas fa-user-circle"></i>
+                                        Thông tin cá nhân
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="text-center">
+                                                <i class="fas fa-user-circle fa-5x text-primary mb-3"></i>
+                                                <h5>@benhNhan.HoTen</h5>
+                                                <p class="text-muted">Bệnh nhân</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p><strong>Ngày sinh:</strong> @benhNhan.NgaySinh.ToString("dd/MM/yyyy")</p>
+                                                    <p><strong>Giới tính:</strong> @(benhNhan.GioiTinh ?? "Chưa cập nhật")</p>
+                                                    <p><strong>Số điện thoại:</strong> @(benhNhan.SoDienThoai ?? "Chưa cập nhật")</p>
+                                                    <p><strong>Số bảo hiểm:</strong> @(benhNhan.SoBaoHiem ?? "Chưa cập nhật")</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><strong>Nhóm máu:</strong> @(benhNhan.NhomMau ?? "Chưa cập nhật")</p>
+                                                    <p><strong>Địa chỉ:</strong> @(benhNhan.DiaChi ?? "Chưa cập nhật")</p>
+                                                    <p><strong>Dị ứng:</strong> @(benhNhan.DiUng ?? "Không có")</p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                    Cập nhật thông tin
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (ViewBag.DanhSachThamKham != null && ((List<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ThamKhamLamSang>)ViewBag.DanhSachThamKham).Any())
+                    {
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0"><i class="fas fa-stethoscope"></i> Lịch sử thăm khám lâm sàng</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Ngày thăm khám</th>
+                                                <th>Bác sĩ</th>
+                                                <th>Triệu chứng</th>
+                                                <th>Kết quả thăm khám</th>
+                                                <th>Ghi chú</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var tk in (List<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ThamKhamLamSang>)ViewBag.DanhSachThamKham)
+                                            {
+                                                <tr>
+                                                    <td>@tk.NgayThamKham.ToString("dd/MM/yyyy HH:mm")</td>
+                                                    <td>@(tk.BacSi != null ? tk.BacSi.HoTen : "Không xác định")</td>
+                                                    <td>@(string.IsNullOrEmpty(tk.TrieuChung) ? "-" : tk.TrieuChung)</td>
+                                                    <td>@(string.IsNullOrEmpty(tk.KetQuaThamKham) ? "-" : tk.KetQuaThamKham)</td>
+                                                    <td>@(string.IsNullOrEmpty(tk.GhiChu) ? "-" : tk.GhiChu)</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle"></i> Bạn chưa có lịch sử thăm khám lâm sàng nào.
+                        </div>
+                    }
+
+                    <!-- Hồ sơ bệnh án -->
+                    var hoSoList = ViewBag.HoSoBenhAnList as List<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.HoSoBenhAn>;
+                    if (hoSoList != null && hoSoList.Any())
+                    {
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="card border-info shadow-sm">
+                                    <div class="card-header bg-info text-white">
+                                        <h5 class="mb-0"><i class="fas fa-file-medical"></i> Hồ sơ bệnh án của bạn</h5>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover mb-0">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        
+                                                        <th>Ngày nhập viện</th>
+                                                        <th>Ngày xuất viện</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Lý do nhập viện</th>
+                                                        <th>Tóm tắt bệnh án</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var hs in hoSoList)
+                                                    {
+                                                        <tr>
+                                                            
+                                                            <td>@hs.NgayNhapVien.ToString("dd/MM/yyyy")</td>
+                                                            <td>@(hs.NgayXuatVien?.ToString("dd/MM/yyyy") ?? "Chưa xuất viện")</td>
+                                                            <td>@hs.TrangThai</td>
+                                                            <td>@(hs.LyDoNhapVien ?? "-")</td>
+                                                            <td>@(hs.TomTatBenhAn ?? "-")</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle"></i> Bạn chưa có hồ sơ bệnh án nào.
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning">
+                                <h5><i class="fas fa-exclamation-triangle"></i> Chưa có thông tin cá nhân</h5>
+                                <p>Bạn chưa cập nhật thông tin cá nhân. Vui lòng nhập thông tin để sử dụng đầy đủ các tính năng của hệ thống.</p>
+                                <a asp-controller="QuanLyNguoiDung" asp-action="Index" class="btn btn-primary">
+                                    <i class="fas fa-user-plus"></i>
+                                    Nhập thông tin cá nhân
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Các tính năng chính cho bệnh nhân -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-medical fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Hồ sơ bệnh án</h5>
+                                <p class="card-text">Xem và quản lý hồ sơ bệnh án của bạn.</p>
+                                <a href="#" class="btn btn-primary">Xem hồ sơ</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
+                                <h5 class="card-title">Lịch khám</h5>
+                                <p class="card-text">Đặt lịch và theo dõi lịch khám bệnh.</p>
+                                <a href="#" class="btn btn-success">Đặt lịch</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-pills fa-3x text-warning mb-3"></i>
+                                <h5 class="card-title">Toa thuốc</h5>
+                                <p class="card-text">Xem toa thuốc và hướng dẫn sử dụng.</p>
+                                <a href="#" class="btn btn-warning">Xem toa thuốc</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             }
-
-            <!-- Các tính năng chính -->
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-file-medical fa-3x text-primary mb-3"></i>
-                            <h5 class="card-title">Hồ sơ bệnh án</h5>
-                            <p class="card-text">Xem và quản lý hồ sơ bệnh án của bạn.</p>
-                            <a href="#" class="btn btn-primary">Xem hồ sơ</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
-                            <h5 class="card-title">Lịch khám</h5>
-                            <p class="card-text">Đặt lịch và theo dõi lịch khám bệnh.</p>
-                            <a href="#" class="btn btn-success">Đặt lịch</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-pills fa-3x text-warning mb-3"></i>
-                            <h5 class="card-title">Toa thuốc</h5>
-                            <p class="card-text">Xem toa thuốc và hướng dẫn sử dụng.</p>
-                            <a href="#" class="btn btn-warning">Xem toa thuốc</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    }
+     }
     else
     {
         <!-- Landing Page cho người chưa đăng nhập -->
@@ -230,6 +430,62 @@
     </div>
 }
 
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container mb-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="announcement-table announcement-yellow shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-bullhorn fa-lg text-warning me-2"></i>
+                        <h5 class="mb-0 fw-bold text-warning">Thông báo quan trọng</h5>
+                    </div>
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <td class="fw-semibold text-dark" style="width: 38%;">[01/07/2025]</td>
+                                <td>Bảo trì hệ thống từ <b>22:00</b> đến <b>23:30</b> ngày 02/07/2025. Vui lòng không truy cập trong thời gian này.</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-dark">[25/06/2025]</td>
+                                <td>Ra mắt dịch vụ đặt lịch khám trực tuyến. Đăng nhập để trải nghiệm ngay!</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-dark">[20/06/2025]</td>
+                                <td>Vui lòng cập nhật thông tin cá nhân để đảm bảo quyền lợi và hỗ trợ tốt nhất.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="announcement-table announcement-green shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-leaf fa-lg text-success me-2"></i>
+                        <h5 class="mb-0 fw-bold text-success">Khuyến nghị & Hỗ trợ</h5>
+                    </div>
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <td class="fw-semibold text-dark" style="width: 38%;">Bảo mật</td>
+                                <td>Bệnh viện cam kết bảo vệ tuyệt đối thông tin cá nhân và hồ sơ sức khỏe của quý khách.</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-dark">Hỗ trợ 24/7</td>
+                                <td>Liên hệ tổng đài <b>0123 456 789</b> hoặc email <b>info@hospital.com</b> khi cần hỗ trợ.</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-dark">Hướng dẫn sử dụng</td>
+                                <td>Tham khảo mục <b>Hỗ trợ</b> để biết thêm về các tính năng mới và cách sử dụng hệ thống.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <!-- Thêm footer này vào cuối file, trước thẻ đóng </div> cuối cùng -->
 <!-- Footer -->
 <footer class="landing-footer">
@@ -279,3 +535,72 @@
         </div>
     </div>
 </footer>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@if (User.Identity.IsAuthenticated && (vaiTro == "BacSi" || vaiTro == "Admin"))
+{
+    <script>
+        // Màu pastel chuyên nghiệp
+        const pieColors = ['#4F8A8B', '#F9ED69'];
+        const barColors = ['#6A89CC', '#F8C291'];
+
+        // Pie Chart: Số lượng bệnh nhân và bác sĩ
+        new Chart(document.getElementById('pieChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Bệnh nhân', 'Bác sĩ'],
+                datasets: [{
+                    data: [@ViewBag.SoLuongBenhNhan, @ViewBag.SoLuongBacSi],
+                    backgroundColor: pieColors,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#333', font: { size: 13, weight: 'bold' } } }
+                },
+                layout: { padding: 0 }
+            }
+        });
+
+        // Bar Chart: Số lượng bệnh nhân đã đánh giá lâm sàng & xét nghiệm
+        const maxY = Math.max(@ViewBag.SoUserKiemTraLamSang, @ViewBag.SoUserKiemTraXetNghiem) + 1;
+        new Chart(document.getElementById('barChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Đã đánh giá lâm sàng', 'Đã đánh giá xét nghiệm'],
+                datasets: [{
+                    label: 'Số lượng bệnh nhân',
+                    data: [
+        @ViewBag.SoUserKiemTraLamSang,
+        @ViewBag.SoUserKiemTraXetNghiem
+                    ],
+                    backgroundColor: barColors,
+                    borderRadius: 8,
+                    maxBarThickness: 36
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: { display: false },
+                },
+                layout: { padding: 0 },
+                scales: {
+                    x: {
+                        ticks: { color: '#333', font: { size: 12 } },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: maxY,
+                        ticks: { color: '#333', font: { size: 12 }, stepSize: 1 },
+                        grid: { color: '#eee' }
+                    }
+                }
+            }
+        });
+    </script>
+}

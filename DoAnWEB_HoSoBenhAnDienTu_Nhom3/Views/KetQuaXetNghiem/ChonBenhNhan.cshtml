@@ -1,0 +1,174 @@
+﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.KetQuaXetNghiemChonBenhNhanViewModel>
+<link rel="stylesheet" href="~/css/ketqua-xetnghiem.css" />
+
+<div class="ketquaXN-full-container">
+    <div class="ketquaXN-card">
+        <div class="ketquaXN-card-header">
+            <h2><i class="fas fa-user-check me-2"></i>Chọn Bệnh Nhân Đã Đánh Giá Lâm Sàng</h2>
+        </div>
+        <div class="ketquaXN-card-body">
+            <div class="ketquaXN-table-wrap">
+                <table class="ketquaXN-table">
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th>Đánh giá gần đây</th>
+                            <th>Đánh giá lâm sàng</th>
+                            <th>Chỉ định</th>
+                            <th>Xét nghiệm</th>
+                            <th>Đánh giá xét nghiệm</th>
+                            <th>Chỉnh sửa chỉ định</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr class="ketquaXN-row-fade-in">
+                                    <td>
+                                        <div class="ketquaXN-patient-info">
+                                            <h6>@item.HoTen</h6>
+                                            <span>@item.MaBenhNhan</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="ketquaXN-badge ketquaXN-badge-info">@item.NgaySinh.ToString("dd/MM/yyyy")</span>
+                                    </td>
+                                    <td>
+                                        <span class="ketquaXN-badge @(item.GioiTinh.ToLower() == "nam" ? "ketquaXN-badge-info" : "ketquaXN-badge-warning")">
+                                            @item.GioiTinh
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if (item.NgayKhamGanNhat.HasValue)
+                                        {
+                                            <span class="ketquaXN-badge ketquaXN-badge-info">@item.NgayKhamGanNhat.Value.ToString("dd/MM/yyyy")</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="ketquaXN-empty-state">Chưa có</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.DaDanhGiaLamSang)
+                                        {
+                                            <span class="ketquaXN-badge ketquaXN-badge-success">
+                                                <i class="fas fa-check me-1"></i>Đã đánh giá
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="ketquaXN-badge ketquaXN-badge-secondary">
+                                                <i class="fas fa-clock me-1"></i>Chưa đánh giá
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ChiDinhMoi", "KetQuaXetNghiem", new { maBenhNhan = item.MaBenhNhan })"
+                                           class="ketquaXN-btn ketquaXN-btn-primary">
+                                            <i class="fas fa-plus"></i>Chỉ định
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if (item.DanhSachChiDinh != null && item.DanhSachChiDinh.Any())
+                                        {
+                                            <div class="ketquaXN-action-group">
+                                                @foreach (var chiDinh in item.DanhSachChiDinh)
+                                                {
+                                                    <div class="ketquaXN-test-item">
+                                                        <div class="ketquaXN-test-name">@chiDinh.TenXetNghiem</div>
+                                                        <div class="ketquaXN-test-code">@chiDinh.MaChiDinh</div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="ketquaXN-empty-state">Chưa có chỉ định</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.DanhSachChiDinh != null && item.DanhSachChiDinh.Any())
+                                        {
+                                            <div class="ketquaXN-action-group">
+                                                @foreach (var chiDinh in item.DanhSachChiDinh)
+                                                {
+                                                    @if (chiDinh.DaDanhGiaKetQua)
+                                                    {
+                                                        <span class="ketquaXN-badge ketquaXN-badge-success">
+                                                            <i class="fas fa-check me-1"></i>Đã đánh giá
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Url.Action("DanhGiaKetQua", "KetQuaXetNghiem", new { maChiDinh = chiDinh.MaChiDinh })"
+                                                           class="ketquaXN-btn ketquaXN-btn-success">
+                                                            <i class="fas fa-edit"></i>Đánh giá
+                                                        </a>
+                                                    }
+                                                }
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.DanhSachChiDinh != null && item.DanhSachChiDinh.Any())
+                                        {
+                                            <div class="ketquaXN-action-group">
+                                                @foreach (var chiDinh in item.DanhSachChiDinh)
+                                                {
+                                                    <a href="@Url.Action("ChiDinhMoi", "KetQuaXetNghiem", new { maBenhNhan = item.MaBenhNhan, maChiDinh = chiDinh.MaChiDinh })"
+                                                       class="ketquaXN-btn ketquaXN-btn-warning">
+                                                        <i class="fas fa-edit"></i>Chỉnh sửa
+                                                    </a>
+                                                }
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9" class="ketquaXN-no-data">
+                                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                                    <h5>Không có dữ liệu</h5>
+                                    <p>Chưa có bệnh nhân nào được đánh giá lâm sàng.</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fade-in animation
+        const tableRows = document.querySelectorAll('.ketquaXN-row-fade-in');
+        tableRows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                row.style.transition = 'all 0.6s ease-out';
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+
+        // Button interactions
+        const buttons = document.querySelectorAll('.ketquaXN-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    });
+</script>

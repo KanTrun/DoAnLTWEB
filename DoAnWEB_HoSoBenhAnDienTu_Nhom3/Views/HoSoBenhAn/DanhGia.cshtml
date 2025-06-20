@@ -1,0 +1,78 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.HoSoBenhAn
+
+@{
+    ViewBag.Title = "Đánh giá bệnh nhân";
+}
+
+<div class="benhAnPro-evalContainer">
+    <h2 class="benhAnPro-evalTitle">Đánh giá bệnh nhân</h2>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="benhAnPro-alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+    <form asp-action="DanhGia" method="post" class="benhAnPro-form" id="benhAnForm">
+        <input type="hidden" asp-for="MaBenhNhan" />
+        <div class="benhAnPro-formGroup">
+            <label asp-for="MaHinhThuc"></label>
+            <select asp-for="MaHinhThuc" class="benhAnPro-inputSelect" asp-items="ViewBag.HinhThucList"></select>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="NgayNhapVien"></label>
+            <input asp-for="NgayNhapVien" class="benhAnPro-inputDate" type="date" />
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="NgayXuatVien"></label>
+            <input asp-for="NgayXuatVien" class="benhAnPro-inputDate" type="date" />
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="TrangThai"></label>
+            <select asp-for="TrangThai" class="benhAnPro-inputSelect">
+                <option value="Đang điều trị">Đang điều trị</option>
+                <option value="Đã xuất viện">Đã xuất viện</option>
+            </select>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="LyDoNhapVien"></label>
+            <textarea asp-for="LyDoNhapVien" class="benhAnPro-inputTextarea"></textarea>
+        </div>
+        <div class="benhAnPro-formGroup">
+            <label asp-for="TomTatBenhAn"></label>
+            <textarea asp-for="TomTatBenhAn" class="benhAnPro-inputTextarea"></textarea>
+        </div>
+        <div class="benhAnPro-btnGroup">
+            <button type="submit" class="benhAnPro-btnLuu"><i class="fas fa-save"></i> Lưu đánh giá</button>
+            <a href="@Url.Action("Index", "HoSoBenhAn")" class="benhAnPro-btnBack"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Hiệu ứng shake khi submit lỗi và highlight khi focus
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById("benhAnForm");
+        form.addEventListener("submit", function (e) {
+            var invalid = form.querySelectorAll(":invalid");
+            if (invalid.length > 0) {
+                invalid.forEach(function (el) {
+                    el.classList.add("input-shake");
+                    setTimeout(function () { el.classList.remove("input-shake"); }, 600);
+                });
+            }
+        });
+        // Highlight input khi focus
+        var inputs = form.querySelectorAll("input, select, textarea");
+        inputs.forEach(function (el) {
+            el.addEventListener("focus", function () {
+                el.classList.add("input-focus");
+            });
+            el.addEventListener("blur", function () {
+                el.classList.remove("input-focus");
+            });
+        });
+    });
+</script>

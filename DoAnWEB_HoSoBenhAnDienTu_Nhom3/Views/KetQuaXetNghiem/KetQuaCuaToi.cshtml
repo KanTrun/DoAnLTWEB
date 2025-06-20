@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.KetQuaXetNghiemKetQuaCuaToiViewModel>
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="benhAnPro-container">
+    <h2 class="benhAnPro-title">Kết Quả Xét Nghiệm Của Tôi</h2>
+    <div class="benhAnPro-tableWrap">
+        <table class="benhAnPro-table">
+            <thead>
+                <tr>
+                    <th>Tên xét nghiệm</th>
+                    <th>Ngày chỉ định</th>
+                    <th>Giá trị kết quả</th>
+                    <th>Khoảng tham chiếu</th>
+                    <th>Ngày trả kết quả</th>
+                    <th>Bác sĩ đánh giá</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TenXetNghiem</td>
+                        <td>@item.NgayChiDinh.ToString("dd/MM/yyyy")</td>
+                        <td>@item.GiaTriKetQua</td>
+                        <td>@item.KhoangThamChieu</td>
+                        <td>@item.NgayTraKetQua.ToString("dd/MM/yyyy")</td>
+                        <td>@item.BacSiDanhGia</td>
+                        <td>
+                            <a href="@Url.Action("ChiTietKetQuaCuaToi", "KetQuaXetNghiem", new { id = item.MaKetQuaXN })" class="benhAnPro-btnDanhGia benhAnPro-btnXem">Xem</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

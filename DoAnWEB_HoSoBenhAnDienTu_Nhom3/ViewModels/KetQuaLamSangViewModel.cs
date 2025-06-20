@@ -68,5 +68,6 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels
         public string? GioiTinh { get; set; }
         public string? SoDienThoai { get; set; }
         public int Tuoi => DateTime.Now.Year - NgaySinh.Year;
+        public DateTime? NgayKhamGanNhat { get; set; }
     }
 }

@@ -8,10 +8,10 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
         [Key]
         public int MaChiDinh { get; set; }
 
-        [Required]
+      
         public int MaHoSo { get; set; }
 
-        [Required]
+        
         public int MaBacSi { get; set; }
 
         [Required]
@@ -31,10 +31,10 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 
         // Navigation properties
         [ForeignKey("MaHoSo")]
-        public virtual HoSoBenhAn HoSo { get; set; }
+        public virtual HoSoBenhAn? HoSo { get; set; }
 
         [ForeignKey("MaBacSi")]
-        public virtual BacSi BacSi { get; set; }
+        public virtual BacSi? BacSi { get; set; }
 
         // SỬA TÊN Navigation property
         public virtual ICollection<KetQuaXetNghiem> KetQuas { get; set; } = new List<KetQuaXetNghiem>();

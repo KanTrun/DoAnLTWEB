@@ -35,11 +35,12 @@
                     @if (Model.Any())
                     {
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover align-middle">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Email</th>
-                                        <th>Quyền hiện tại</th>
+                                        <th>Quyền hệ thống</th>
+                                        <th>Vai trò DB</th>
                                         <th>Trạng thái</th>
                                         <th>Thao tác</th>
                                     </tr>
@@ -67,6 +68,16 @@
                                                 }
                                             </td>
                                             <td>
+                                                @if (!string.IsNullOrEmpty(user.VaiTroDb))
+                                                {
+                                                    <span class="badge bg-info text-dark">@user.VaiTroDb</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">Chưa có</span>
+                                                }
+                                            </td>
+                                            <td>
                                                 @if (user.LockoutEnd == null || user.LockoutEnd <= DateTime.Now)
                                                 {
                                                     <span class="badge bg-success">
@@ -81,35 +92,19 @@
                                                 }
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group">
+                                                <div class="action-group">
                                                     <!-- Dropdown thay đổi quyền -->
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                            <i class="fas fa-edit"></i> Đổi quyền
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <form method="post" asp-action="ChangeRole" class="d-inline">
-                                                                    <input type="hidden" name="userId" value="@user.UserId" />
-                                                                    <input type="hidden" name="newRole" value="Admin" />
-                                                                    <button type="submit" class="dropdown-item @(user.Role == "Admin" ? "disabled" : "")"
-                                                                            disabled="@(user.Role == "Admin")">
-                                                                        <i class="fas fa-user-md text-danger"></i> Admin (Bác sĩ)
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                            <li>
-                                                                <form method="post" asp-action="ChangeRole" class="d-inline">
-                                                                    <input type="hidden" name="userId" value="@user.UserId" />
-                                                                    <input type="hidden" name="newRole" value="User" />
-                                                                    <button type="submit" class="dropdown-item @(user.Role == "User" ? "disabled" : "")"
-                                                                            disabled="@(user.Role == "User")">
-                                                                        <i class="fas fa-user text-primary"></i> User (Bệnh nhân)
-                                                                    </button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                    <form method="post" asp-action="ChangeRole" class="d-inline">
+                                                        <input type="hidden" name="userId" value="@user.UserId" />
+                                                        <select name="newRole" class="form-select form-select-sm d-inline w-auto" onchange="this.form.submit()">
+                                                            <option value="Admin" selected="@(user.Role == "Admin" ? "selected" : null)">Admin (Bác sĩ)</option>
+                                                            <option value="User" selected="@(user.Role == "User" ? "selected" : null)">User (Bệnh nhân)</option>
+
+                                                        </select>
+                                                        <noscript>
+                                                            <button type="submit" class="btn btn-sm btn-primary">Đổi quyền</button>
+                                                        </noscript>
+                                                    </form>
 
                                                     <!-- Toggle trạng thái -->
                                                     <form method="post" asp-action="ToggleStatus" class="d-inline">
@@ -117,6 +112,7 @@
                                                         @if (user.LockoutEnd == null || user.LockoutEnd <= DateTime.Now)
                                                         {
                                                             <button type="submit" class="btn btn-outline-warning btn-sm"
+                                                                    title="Khóa tài khoản"
                                                                     onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
                                                                 <i class="fas fa-ban"></i> Khóa
                                                             </button>
@@ -124,6 +120,7 @@
                                                         else
                                                         {
                                                             <button type="submit" class="btn btn-outline-success btn-sm"
+                                                                    title="Mở khóa tài khoản"
                                                                     onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?')">
                                                                 <i class="fas fa-check"></i> Mở khóa
                                                             </button>
@@ -190,13 +187,13 @@
         @if (TempData["SuccessMessage"] != null)
         {
             <text>
-                    toastr.success('@TempData["SuccessMessage"]');
+                toastr.success('@TempData["SuccessMessage"]');
             </text>
         }
         @if (TempData["ErrorMessage"] != null)
         {
             <text>
-                    toastr.error('@TempData["ErrorMessage"]');
+                toastr.error('@TempData["ErrorMessage"]');
             </text>
         }
     </script>

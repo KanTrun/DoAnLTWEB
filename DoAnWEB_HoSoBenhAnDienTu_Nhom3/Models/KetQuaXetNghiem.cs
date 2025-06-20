@@ -19,8 +19,8 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
         [Required]
         public DateTime NgayTraKetQua { get; set; }
 
-        // Navigation properties
+        // Navigation property: PHẢI nullable để tránh lỗi ModelState khi binding
         [ForeignKey("MaChiDinh")]
-        public virtual ChiDinhXetNghiem ChiDinh { get; set; }
+        public virtual ChiDinhXetNghiem? ChiDinh { get; set; }
     }
 }

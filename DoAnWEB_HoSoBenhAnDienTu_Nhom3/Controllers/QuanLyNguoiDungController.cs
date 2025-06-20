@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models;
 using DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Areas.Identity.Data;
 
 namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
@@ -48,7 +49,13 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Tìm thông tin bệnh nhân
+            // PHÂN QUYỀN: Nếu là Bác sĩ/Admin thì chuyển sang form Doctor
+            if (taiKhoan.VaiTro == "BacSi" || taiKhoan.VaiTro == "Admin")
+            {
+                return RedirectToAction("Doctor");
+            }
+
+            // Nếu là bệnh nhân thì hiển thị form bệnh nhân như cũ
             var benhNhan = await _context.BenhNhan
                 .FirstOrDefaultAsync(b => b.MaTaiKhoan == taiKhoan.MaTaiKhoan);
 
@@ -73,6 +80,7 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
 
             return View(viewModel);
         }
+
 
         // POST: QuanLyNguoiDung/Index
         [HttpPost]
@@ -156,5 +164,111 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
                 return View(model);
             }
         }
+
+        // GET: QuanLyNguoiDung/Doctor
+        public async Task<IActionResult> Doctor()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return NotFound("Không tìm thấy thông tin người dùng.");
+
+            var taiKhoan = await _context.TaiKhoanNguoiDung
+                .Include(t => t.BacSi)
+                .FirstOrDefaultAsync(t => t.TenDangNhap == user.UserName);
+
+            if (taiKhoan == null)
+                return NotFound("Không tìm thấy tài khoản người dùng.");
+
+            var model = new ManageDoctorViewModel
+            {
+                IsExisting = taiKhoan.BacSi != null,
+                HoTen = taiKhoan.BacSi?.HoTen,
+                ChuyenKhoa = taiKhoan.BacSi?.ChuyenKhoa,
+                SoDienThoai = taiKhoan.BacSi?.SoDienThoai,
+                Email = taiKhoan.BacSi?.Email,
+                MaKhoa = taiKhoan.BacSi?.MaKhoa,
+                MaBacSi = taiKhoan.BacSi?.MaBacSi,
+                KhoaList = await _context.Khoa
+                    .Select(k => new SelectListItem
+                    {
+                        Value = k.MaKhoa.ToString(),
+                        Text = k.TenKhoa
+                    }).ToListAsync()
+            };
+            return View(model);
+        }
+
+        // POST: QuanLyNguoiDung/Doctor
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Doctor(ManageDoctorViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.KhoaList = await _context.Khoa
+                    .Select(k => new SelectListItem
+                    {
+                        Value = k.MaKhoa.ToString(),
+                        Text = k.TenKhoa
+                    }).ToListAsync();
+                return View(model);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return NotFound("Không tìm thấy thông tin người dùng.");
+
+            var taiKhoan = await _context.TaiKhoanNguoiDung
+                .Include(t => t.BacSi)
+                .FirstOrDefaultAsync(t => t.TenDangNhap == user.UserName);
+
+            if (taiKhoan == null)
+                return NotFound("Không tìm thấy tài khoản người dùng.");
+
+            try
+            {
+                if (taiKhoan.BacSi == null)
+                {
+                    // Thêm mới bác sĩ
+                    var bacSi = new BacSi
+                    {
+                        MaTaiKhoan = taiKhoan.MaTaiKhoan,
+                        HoTen = model.HoTen.Trim(),
+                        ChuyenKhoa = model.ChuyenKhoa?.Trim(),
+                        SoDienThoai = model.SoDienThoai?.Trim(),
+                        Email = model.Email?.Trim(),
+                        MaKhoa = model.MaKhoa ?? 0
+                    };
+                    _context.BacSi.Add(bacSi);
+                    TempData["SuccessMessage"] = "Thêm thông tin bác sĩ thành công!";
+                }
+                else
+                {
+                    // Cập nhật bác sĩ
+                    taiKhoan.BacSi.HoTen = model.HoTen.Trim();
+                    taiKhoan.BacSi.ChuyenKhoa = model.ChuyenKhoa?.Trim();
+                    taiKhoan.BacSi.SoDienThoai = model.SoDienThoai?.Trim();
+                    taiKhoan.BacSi.Email = model.Email?.Trim();
+                    taiKhoan.BacSi.MaKhoa = model.MaKhoa ?? 0;
+                    _context.BacSi.Update(taiKhoan.BacSi);
+                    TempData["SuccessMessage"] = "Cập nhật thông tin bác sĩ thành công!";
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Có lỗi xảy ra khi lưu thông tin. Vui lòng thử lại.");
+                model.KhoaList = await _context.Khoa
+                    .Select(k => new SelectListItem
+                    {
+                        Value = k.MaKhoa.ToString(),
+                        Text = k.TenKhoa
+                    }).ToListAsync();
+                return View(model);
+            }
+        }
+
     }
 }

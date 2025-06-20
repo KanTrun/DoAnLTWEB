@@ -1,0 +1,31 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaXetNghiem
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="benhanDetail-container">
+    <h2 class="benhanDetail-title">Chi Tiết Kết Quả Xét Nghiệm</h2>
+    <div class="benhanDetail-tableWrap">
+        <table class="benhanDetail-table">
+            <tr>
+                <th>Tên xét nghiệm</th>
+                <td>@Model.ChiDinh.TenXetNghiem</td>
+            </tr>
+            <tr>
+                <th>Giá trị kết quả</th>
+                <td>@Model.GiaTriKetQua</td>
+            </tr>
+            <tr>
+                <th>Khoảng tham chiếu</th>
+                <td>@Model.KhoangThamChieu</td>
+            </tr>
+            <tr>
+                <th>Ngày trả kết quả</th>
+                <td>@Model.NgayTraKetQua.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <th>Bác sĩ đánh giá</th>
+                <td>@Model.ChiDinh.BacSi.HoTen</td>
+            </tr>
+        </table>
+    </div>
+    <a href="@Url.Action("KetQuaCuaToi")" class="benhanDetail-btnBack">Quay lại</a>
+</div>

@@ -1,16 +1,16 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3/css/site.0plk0uk870.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"0plk0uk870"},{"Name":"integrity","Value":"sha256-1CJ0hg5Y8LQXEOIqez\u002BTa2rrpGsQ/mBaWx522xKZkVk="},{"Name":"label","Value":"_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"91556"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00221CJ0hg5Y8LQXEOIqez\u002BTa2rrpGsQ/mBaWx522xKZkVk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 19 Jun 2025 19:08:45 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-of7\u002BG9XbU3lj\u002B9jCdNFJlppX\u002Bxk1YX6FVNtVDh5wFjM="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"46843"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022of7\u002BG9XbU3lj\u002B9jCdNFJlppX\u002Bxk1YX6FVNtVDh5wFjM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 16 Jun 2025 19:27:10 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3/css/site.lbomq8eepr.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"lbomq8eepr"},{"Name":"integrity","Value":"sha256-of7\u002BG9XbU3lj\u002B9jCdNFJlppX\u002Bxk1YX6FVNtVDh5wFjM="},{"Name":"label","Value":"_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"46843"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022of7\u002BG9XbU3lj\u002B9jCdNFJlppX\u002Bxk1YX6FVNtVDh5wFjM=\u0022"},{"Name":"Last-Modified","Value":"Mon, 16 Jun 2025 19:27:10 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-1CJ0hg5Y8LQXEOIqez\u002BTa2rrpGsQ/mBaWx522xKZkVk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"91556"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00221CJ0hg5Y8LQXEOIqez\u002BTa2rrpGsQ/mBaWx522xKZkVk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 19 Jun 2025 19:08:45 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css'))</AssetFile>

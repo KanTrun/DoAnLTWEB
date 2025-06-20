@@ -48,10 +48,20 @@
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "KetQuaXetNghiem")"
-                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ? "active" : "")">
-                                <i class="fas fa-vial"></i> Kết quả xét nghiệm
-                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Action("ChonBenhNhan", "KetQuaXetNghiem")"
+                                   class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ? "active" : "")">
+                                    <i class="fas fa-vial"></i> Kết quả xét nghiệm
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("KetQuaCuaToi", "KetQuaXetNghiem")"
+                                   class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "KetQuaXetNghiem" ? "active" : "")">
+                                    <i class="fas fa-vial"></i> Kết quả xét nghiệm
+                                </a>
+                            }
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "DonDieuTri")"
@@ -61,6 +71,25 @@
                         </li>
                     </ul>
                 </li>
+
+                <!-- Đánh giá hồ sơ - CHỈ ADMIN THẤY -->
+                @if (User.IsInRole("Admin"))
+                {
+
+                    <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "HoSoBenhAn" ? "open" : "")">
+                        <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                            <i class="fas fa-clipboard-check"></i> Đánh giá hồ sơ
+                        </a>
+                        <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "HoSoBenhAn" ? "open" : "")">
+                            <li>
+                                <a href="@Url.Action("Index", "HoSoBenhAn")"
+                                   class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "HoSoBenhAn" ? "active" : "")">
+                                    <i class="fas fa-users"></i> Hồ sơ bệnh nhân
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
 
                 <!-- Phân quyền - CHỈ ADMIN MỚI THẤY -->
                 @if (User.IsInRole("Admin"))
@@ -251,7 +280,6 @@
         </script>
     }
 
-    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

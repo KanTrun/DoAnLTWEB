@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaXetNghiem>
+@{
+    var maChiDinh = ViewBag.MaChiDinh;
+}
+<h2>Kết Quả Xét Nghiệm</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Giá trị kết quả</th>
+            <th>Khoảng tham chiếu</th>
+            <th>Ngày trả kết quả</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.GiaTriKetQua</td>
+                <td>@item.KhoangThamChieu</td>
+                <td>@item.NgayTraKetQua.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("XemChiDinh", new { maBenhNhan = 0 })" class="btn btn-secondary">Quay lại</a>

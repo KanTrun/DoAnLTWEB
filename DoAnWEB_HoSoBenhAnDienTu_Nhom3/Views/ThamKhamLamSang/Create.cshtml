@@ -1,0 +1,124 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ThamKhamLamSang
+
+@{
+    ViewData["Title"] = "Thăm khám lâm sàng";
+    var benhNhan = ViewBag.BenhNhan as DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan;
+    var hoSo = ViewBag.HoSo;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-stethoscope text-success"></i> Thăm khám lâm sàng</h2>
+                <a href="@Url.Action("ChonBenhNhan", "KetQuaLamSang")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+            </div>
+
+            @if (benhNhan != null)
+            {
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-user me-2"></i>Thông tin bệnh nhân</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Họ tên:</strong> @benhNhan.HoTen</p>
+                                <p><strong>Ngày sinh:</strong> @benhNhan.NgaySinh.ToString("dd/MM/yyyy")</p>
+                                <p><strong>Giới tính:</strong> @(benhNhan.GioiTinh ?? "Chưa cập nhật")</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Số điện thoại:</strong> @(benhNhan.SoDienThoai ?? "Chưa cập nhật")</p>
+                                <p><strong>Địa chỉ:</strong> @(benhNhan.DiaChi ?? "Chưa cập nhật")</p>
+                                <p><strong>Số bảo hiểm:</strong> @(benhNhan.SoBaoHiem ?? "Chưa cập nhật")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="card thamkham-form-card">
+                <div class="card-header">
+                    <h5 class="mb-0">Nhập thông tin thăm khám lâm sàng</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="MaThamKham" />
+                        <input type="hidden" asp-for="MaHoSo" />
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="NgayThamKham" class="form-label">
+                                    <i class="fas fa-calendar-alt text-success me-2"></i>Ngày thăm khám <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="NgayThamKham" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="NgayThamKham" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="MaBacSi" class="form-label">
+                                    <i class="fas fa-user-md text-success me-2"></i>Bác sĩ thăm khám <span class="text-danger">*</span>
+                                </label>
+                                <select asp-for="MaBacSi" class="form-select" asp-items="ViewBag.BacSiList">
+                                    <option value="">-- Chọn bác sĩ --</option>
+                                </select>
+                                <span asp-validation-for="MaBacSi" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="TrieuChung" class="form-label">
+                                <i class="fas fa-notes-medical text-info me-2"></i>Triệu chứng
+                            </label>
+                            <textarea asp-for="TrieuChung" class="form-control" rows="3" placeholder="Nhập triệu chứng lâm sàng..."></textarea>
+                            <span asp-validation-for="TrieuChung" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="KetQuaThamKham" class="form-label">
+                                <i class="fas fa-clipboard-check text-primary me-2"></i>Kết quả thăm khám
+                            </label>
+                            <textarea asp-for="KetQuaThamKham" class="form-control" rows="3" placeholder="Nhập kết quả thăm khám..."></textarea>
+                            <span asp-validation-for="KetQuaThamKham" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="GhiChu" class="form-label">
+                                <i class="fas fa-sticky-note text-secondary me-2"></i>Ghi chú
+                            </label>
+                            <textarea asp-for="GhiChu" class="form-control" rows="2" placeholder="Ghi chú thêm (nếu có)..."></textarea>
+                            <span asp-validation-for="GhiChu" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="@Url.Action("ChonBenhNhan", "KetQuaLamSang")" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Hủy
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-2"></i>Lưu thăm khám
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger mt-3">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

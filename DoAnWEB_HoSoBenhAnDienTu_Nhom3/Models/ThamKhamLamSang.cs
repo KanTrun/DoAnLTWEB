@@ -28,14 +28,13 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
-        // Navigation properties
+        // Navigation properties (nullable, không [Required])
         [ForeignKey("MaHoSo")]
-        public virtual HoSoBenhAn HoSo { get; set; }
+        public virtual HoSoBenhAn? HoSo { get; set; }
 
         [ForeignKey("MaBacSi")]
-        public virtual BacSi BacSi { get; set; }
+        public virtual BacSi? BacSi { get; set; }
 
-        // SỬA TÊN Navigation property
         public virtual ICollection<KetQuaLamSang> KetQuas { get; set; } = new List<KetQuaLamSang>();
     }
 }

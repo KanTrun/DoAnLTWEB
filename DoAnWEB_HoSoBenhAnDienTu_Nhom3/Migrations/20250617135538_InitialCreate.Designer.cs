@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250616104832_InitialCreate")]
+    [Migration("20250617135538_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,6 +34,15 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaBacSi"));
 
                     b.Property<string>("ChuyenKhoa")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("HoTen")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -43,10 +52,9 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                     b.Property<int>("MaTaiKhoan")
                         .HasColumnType("int");
 
-                    b.Property<string>("SoGiayPhep")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("SoDienThoai")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("MaBacSi");
 
@@ -60,17 +68,29 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
             modelBuilder.Entity("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.Benh", b =>
                 {
-                    b.Property<string>("MaBenh")
+                    b.Property<int>("MaBenh")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaBenh"));
+
+                    b.Property<string>("MaICD")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("MoTa")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("NhomBenh")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("TenBenh")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("MaBenh");
 
@@ -136,18 +156,28 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaChanDoan"));
 
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("LoaiChanDoan")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<int>("MaBacSi")
                         .HasColumnType("int");
 
-                    b.Property<string>("MaBenh")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                    b.Property<int>("MaBenh")
+                        .HasColumnType("int");
 
                     b.Property<int>("MaHoSo")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayChanDoan")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
                     b.HasKey("MaChanDoan");
@@ -169,19 +199,31 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaChiDinh"));
 
-                    b.Property<string>("LoaiXetNghiem")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<int>("MaBacSi")
                         .HasColumnType("int");
 
                     b.Property<int>("MaHoSo")
                         .HasColumnType("int");
 
+                    b.Property<string>("MoTa")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<DateTime>("NgayChiDinh")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TenXetNghiem")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("TrangThai")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("MaChiDinh");
 
@@ -262,6 +304,10 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaHinhThuc"));
 
+                    b.Property<string>("MoTa")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("TenHinhThuc")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -297,17 +343,28 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaHoSo"));
 
+                    b.Property<string>("LyDoNhapVien")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<int>("MaBenhNhan")
                         .HasColumnType("int");
 
                     b.Property<int>("MaHinhThuc")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("NgayRaVien")
+                    b.Property<DateTime>("NgayNhapVien")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgayVaoVien")
+                    b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayXuatVien")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TomTatBenhAn")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
@@ -333,16 +390,35 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaKetQua"));
 
-                    b.Property<string>("DanhGiaTongThe")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<string>("BacSiKham")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ChanDoan")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("HuyetAp")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("MaThamKham")
+                    b.Property<string>("KetQua")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("MaBenhNhan")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("NgayKham")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal?>("NhietDo")
                         .HasColumnType("decimal(5,2)");
@@ -353,9 +429,16 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                     b.Property<int?>("NhipTim")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ThamKhamLamSangMaThamKham")
+                        .HasColumnType("int");
+
                     b.HasKey("MaKetQua");
 
-                    b.HasIndex("MaThamKham");
+                    b.HasIndex("NgayKham");
+
+                    b.HasIndex("ThamKhamLamSangMaThamKham");
+
+                    b.HasIndex("MaBenhNhan", "NgayKham");
 
                     b.ToTable("KetQuaLamSang", (string)null);
                 });
@@ -397,8 +480,8 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaKhoa"));
 
                     b.Property<string>("MoTa")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("TenKhoa")
                         .IsRequired()
@@ -489,8 +572,13 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaThamKham"));
 
-                    b.Property<string>("DauHieuThucThe")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("KetQuaThamKham")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("MaBacSi")
                         .HasColumnType("int");
@@ -498,11 +586,15 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                     b.Property<int>("MaHoSo")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("NgayThamKham")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TrieuChung")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("MaThamKham");
 
@@ -521,18 +613,35 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaThuoc"));
 
-                    b.Property<string>("DangBaoChe")
+                    b.Property<string>("CachDung")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("CongDung")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("DonVi")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal?>("Gia")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<DateTime?>("HanSuDung")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("HoatChat")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("HoatChat")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<int?>("SoLuongTon")
+                        .HasColumnType("int");
 
                     b.Property<string>("TenThuoc")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("MaThuoc");
 
@@ -547,6 +656,10 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaToaThuoc"));
 
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<int>("MaBacSi")
                         .HasColumnType("int");
 
@@ -555,6 +668,14 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
                     b.Property<DateTime>("NgayKeDon")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TrangThai")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("MaToaThuoc");
 
@@ -590,6 +711,20 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -680,6 +815,24 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin-user-id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "STATIC-CONCURRENCY-STAMP-12345",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMkBIxLqkGtHI/AalAiwbHKEJ7SvoFbdTIqw9WoBTtYUxmDsf7iZECbaJD7G+WD8oA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "STATIC-SECURITY-STAMP-12345",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -744,6 +897,13 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "admin-user-id",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -884,7 +1044,7 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
             modelBuilder.Entity("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.HoSoBenhAn", b =>
                 {
                     b.HasOne("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan", "BenhNhan")
-                        .WithMany("HoSoBenhAns")
+                        .WithMany("HoSoBenhAn")
                         .HasForeignKey("MaBenhNhan")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -902,13 +1062,17 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
             modelBuilder.Entity("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaLamSang", b =>
                 {
-                    b.HasOne("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ThamKhamLamSang", "ThamKham")
-                        .WithMany("KetQuas")
-                        .HasForeignKey("MaThamKham")
+                    b.HasOne("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan", "BenhNhan")
+                        .WithMany("KetQuaLamSang")
+                        .HasForeignKey("MaBenhNhan")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThamKham");
+                    b.HasOne("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ThamKhamLamSang", null)
+                        .WithMany("KetQuas")
+                        .HasForeignKey("ThamKhamLamSangMaThamKham");
+
+                    b.Navigation("BenhNhan");
                 });
 
             modelBuilder.Entity("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaXetNghiem", b =>
@@ -1018,7 +1182,9 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
 
             modelBuilder.Entity("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.BenhNhan", b =>
                 {
-                    b.Navigation("HoSoBenhAns");
+                    b.Navigation("HoSoBenhAn");
+
+                    b.Navigation("KetQuaLamSang");
                 });
 
             modelBuilder.Entity("DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.ChiDinhXetNghiem", b =>

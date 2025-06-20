@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,16 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public PhanQuyenController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public PhanQuyenController(
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index(string roleFilter = "")
@@ -27,6 +33,11 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
                 var roles = await _userManager.GetRolesAsync(user);
                 var userRole = roles.FirstOrDefault() ?? "User";
 
+                // Lấy vai trò thực tế từ TaiKhoanNguoiDung (nếu có)
+                var taiKhoan = await _context.TaiKhoanNguoiDung.FirstOrDefaultAsync(t => t.TenDangNhap == user.UserName);
+                string vaiTroDb = taiKhoan?.VaiTro ?? "";
+
+                // Nếu muốn lọc theo vai trò thực tế trong DB, dùng vaiTroDb thay vì userRole
                 if (string.IsNullOrEmpty(roleFilter) || userRole == roleFilter)
                 {
                     userViewModels.Add(new
@@ -35,6 +46,7 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
                         UserName = user.UserName,
                         Email = user.Email,
                         Role = userRole,
+                        VaiTroDb = vaiTroDb,
                         LockoutEnd = user.LockoutEnd
                     });
                 }
@@ -55,9 +67,20 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Đổi role trong Identity
             var currentRoles = await _userManager.GetRolesAsync(user);
             await _userManager.RemoveFromRolesAsync(user, currentRoles);
             await _userManager.AddToRoleAsync(user, newRole);
+
+            // Đổi VaiTro trong TaiKhoanNguoiDung
+            var taiKhoan = await _context.TaiKhoanNguoiDung.FirstOrDefaultAsync(t => t.TenDangNhap == user.UserName);
+            if (taiKhoan != null)
+            {
+                // Quy ước: newRole == "Admin" => "BacSi", newRole == "User" => "Bệnh nhân"
+                taiKhoan.VaiTro = newRole == "Admin" ? "BacSi" : "Bệnh nhân";
+                _context.TaiKhoanNguoiDung.Update(taiKhoan);
+                await _context.SaveChangesAsync();
+            }
 
             TempData["SuccessMessage"] = $"Đã cập nhật quyền cho {user.Email} thành {newRole}.";
             return RedirectToAction("Index");

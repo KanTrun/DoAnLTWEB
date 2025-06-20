@@ -61,7 +61,9 @@
                                 <label asp-for="BacSiKham" class="form-label">
                                     <i class="fas fa-user-md text-primary me-2"></i>Bác sĩ khám
                                 </label>
-                                <input asp-for="BacSiKham" class="form-control" />
+                                <select asp-for="BacSiKham" class="form-select" asp-items="ViewBag.BacSiList">
+                                    <option value="">-- Chọn bác sĩ --</option>
+                                </select>
                                 <span asp-validation-for="BacSiKham" class="text-danger"></span>
                             </div>
                         </div>
@@ -138,6 +140,16 @@
         </div>
     </div>
 </div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+}
 
 @section Scripts {
     @{

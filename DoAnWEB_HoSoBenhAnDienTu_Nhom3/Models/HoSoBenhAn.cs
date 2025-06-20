@@ -30,14 +30,13 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
-        // Navigation properties
+        // Navigation properties (nullable, không [Required])
         [ForeignKey("MaBenhNhan")]
-        public virtual BenhNhan BenhNhan { get; set; }
+        public virtual BenhNhan? BenhNhan { get; set; }
 
         [ForeignKey("MaHinhThuc")]
-        public virtual HinhThucDieuTri HinhThucDieuTri { get; set; }
+        public virtual HinhThucDieuTri? HinhThucDieuTri { get; set; }
 
-        // SỬA TÊN Navigation properties
         public virtual ICollection<ThamKhamLamSang> ThamKhams { get; set; } = new List<ThamKhamLamSang>();
         public virtual ICollection<ChiDinhXetNghiem> ChiDinhs { get; set; } = new List<ChiDinhXetNghiem>();
         public virtual ICollection<DonDieuTri> DonDieuTris { get; set; } = new List<DonDieuTri>();

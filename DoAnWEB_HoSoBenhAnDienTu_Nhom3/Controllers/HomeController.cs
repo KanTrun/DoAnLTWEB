@@ -1,60 +1,87 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models;
-using System.Diagnostics;
 using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Areas.Identity.Data;
+using System.Linq;
 
-namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public HomeController(ApplicationDbContext context)
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        _context = context;
+    }
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
+    public IActionResult Index()
+    {
+        if (User.Identity.IsAuthenticated)
         {
-            _logger = logger;
-            _context = context;
-            _userManager = userManager;
-        }
+            var username = User.Identity.Name;
+            var account = _context.TaiKhoanNguoiDung
+                .Include(t => t.BacSi)
+                    .ThenInclude(b => b.Khoa)
+                .FirstOrDefault(t => t.TenDangNhap == username);
 
-        public async Task<IActionResult> Index()
-        {
-            if (User.Identity.IsAuthenticated)
+            ViewBag.VaiTro = account?.VaiTro;
+
+            if (account?.VaiTro == "BacSi" || account?.VaiTro == "Admin")
             {
-                var user = await _userManager.GetUserAsync(User);
-                if (user != null)
-                {
-                    // Tìm tài khoản người dùng
-                    var taiKhoan = await _context.TaiKhoanNguoiDung
-                        .FirstOrDefaultAsync(t => t.TenDangNhap == user.UserName);
+                ViewBag.BacSi = account.BacSi;
 
-                    if (taiKhoan != null)
-                    {
-                        // Tìm thông tin bệnh nhân
-                        var benhNhan = await _context.BenhNhan
-                            .Include(b => b.TaiKhoan)
-                            .FirstOrDefaultAsync(b => b.MaTaiKhoan == taiKhoan.MaTaiKhoan);
+                // Thống kê số lượng bệnh nhân và bác sĩ
+                var soLuongBenhNhan = _context.BenhNhan.Count();
+                var soLuongBacSi = _context.BacSi.Count();
+                ViewBag.SoLuongBenhNhan = soLuongBenhNhan;
+                ViewBag.SoLuongBacSi = soLuongBacSi;
 
-                        ViewBag.BenhNhan = benhNhan;
-                    }
-                }
+                // --- Biểu đồ cột: kiểm tra lâm sàng & xét nghiệm ---
+                // Số bệnh nhân đã kiểm tra lâm sàng (có bác sĩ khám)
+                var maBenhNhanKiemTraLamSang = _context.KetQuaLamSang
+                    .Where(k => !string.IsNullOrEmpty(k.BacSiKham))
+                    .Select(k => k.MaBenhNhan)
+                    .Distinct()
+                    .ToList();
+
+                // Số bệnh nhân đã ĐÁNH GIÁ KẾT QUẢ XÉT NGHIỆM (đã có KetQuaXetNghiem)
+                var maBenhNhanKiemTraXetNghiem = _context.KetQuaXetNghiem
+                    .Include(kq => kq.ChiDinh)
+                        .ThenInclude(cd => cd.HoSo)
+                    .Where(kq => kq.ChiDinh != null && kq.ChiDinh.HoSo != null)
+                    .Select(kq => kq.ChiDinh.HoSo.MaBenhNhan)
+                    .Distinct()
+                    .ToList();
+
+                var soUserKiemTraLamSang = _context.BenhNhan
+                    .Count(b => maBenhNhanKiemTraLamSang.Contains(b.MaBenhNhan));
+                var soUserKiemTraXetNghiem = _context.BenhNhan
+                    .Count(b => maBenhNhanKiemTraXetNghiem.Contains(b.MaBenhNhan));
+
+                ViewBag.SoUserKiemTraLamSang = soUserKiemTraLamSang;
+                ViewBag.SoUserKiemTraXetNghiem = soUserKiemTraXetNghiem;
             }
+            else if (account?.VaiTro == "BenhNhan" || account?.VaiTro == "User" || account?.VaiTro == "Bệnh nhân")
+            {
+                // Lấy thông tin bệnh nhân
+                var benhNhan = _context.BenhNhan.FirstOrDefault(b => b.MaTaiKhoan == account.MaTaiKhoan);
+                ViewBag.BenhNhan = benhNhan;
 
-            return View();
-        }
+                // Lấy danh sách hồ sơ bệnh án của bệnh nhân này
+                var hoSoList = _context.HoSoBenhAn
+                    .Where(h => h.MaBenhNhan == benhNhan.MaBenhNhan)
+                    .OrderByDescending(h => h.NgayNhapVien)
+                    .ToList();
+                ViewBag.HoSoBenhAnList = hoSoList;
 
-        public IActionResult Privacy()
-        {
-            return View();
+                // Lấy danh sách thăm khám lâm sàng của bệnh nhân này (bao gồm tên bác sĩ)
+                var hoSoIds = hoSoList.Select(hs => hs.MaHoSo).ToList();
+                var danhSachThamKham = _context.ThamKhamLamSang
+                    .Where(tk => hoSoIds.Contains(tk.MaHoSo))
+                    .Include(tk => tk.BacSi)
+                    .OrderByDescending(tk => tk.NgayThamKham)
+                    .ToList();
+                ViewBag.DanhSachThamKham = danhSachThamKham;
+            }
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        return View();
     }
 }
