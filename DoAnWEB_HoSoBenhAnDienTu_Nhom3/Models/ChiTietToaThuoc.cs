@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 {
     public class ChiTietToaThuoc
     {
+        // THÊM: Primary Key bắt buộc cho EF Core
+        [Key]
+        public int MaChiTiet { get; set; }
+
         [Required]
         public int MaToaThuoc { get; set; }
 
@@ -21,11 +26,13 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 
         public int? SoLuong { get; set; }
 
-        // Navigation properties
+        // SỬA: Bỏ [Required] cho Navigation properties
         [ForeignKey("MaToaThuoc")]
-        public virtual ToaThuoc ToaThuoc { get; set; }
+        [ValidateNever]
+        public virtual ToaThuoc? ToaThuoc { get; set; }
 
         [ForeignKey("MaThuoc")]
-        public virtual Thuoc Thuoc { get; set; }
+        [ValidateNever]
+        public virtual Thuoc? Thuoc { get; set; }
     }
 }

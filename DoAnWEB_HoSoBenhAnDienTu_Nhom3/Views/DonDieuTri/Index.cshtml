@@ -1,59 +1,379 @@
-﻿@{
-    ViewData["Title"] = "Đơn điều trị";
+﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.BenhNhanDonDieuTriViewModel>
+@{
+    ViewData["Title"] = "Danh sách bệnh nhân cấp đơn điều trị";
+    var stt = 1;
+
+    // Lấy dữ liệu cho bảng 2 từ ViewBag
+    var danhSachToaThuoc = ViewBag.DanhSachToaThuoc as List<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.BenhNhanToaThuocViewModel>;
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2><i class="fas fa-prescription-bottle text-primary"></i> Đơn điều trị</h2>
+<div class="p-4 space-y-5">
+    <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold flex items-center text-gray-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Danh sách bệnh nhân cấp đơn điều trị
+        </h2>
+        <span class="px-3 py-1 bg-blue-600 text-white rounded-full font-semibold text-sm">
+            Tổng: @Model.Count()
+        </span>
+    </div>
 
-                @* Chỉ Admin (Bác sĩ) mới thấy nút Thêm đơn mới *@
-                @if (User.IsInRole("Admin"))
-                {
-                    <a href="@Url.Action("Create")" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Thêm đơn mới
-                    </a>
-                }
+    @if (TempData["Success"] != null)
+    {
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded flex items-center justify-between mb-4 alert-fade-out">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                @TempData["Success"]
             </div>
+            <button type="button" class="text-green-700 hover:text-green-900 focus:outline-none" onclick="this.parentElement.remove()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    }
 
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Danh sách đơn điều trị</h5>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle"></i>
-                        Chức năng đang được phát triển. Sẽ hiển thị danh sách các đơn thuốc và phương pháp điều trị.
-                    </div>
+    @if (TempData["Error"] != null)
+    {
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded flex items-center justify-between mb-4 alert-fade-out">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                @TempData["Error"]
+            </div>
+            <button type="button" class="text-red-700 hover:text-red-900 focus:outline-none" onclick="this.parentElement.remove()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    }
 
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Ngày kê đơn</th>
-                                    <th>Bác sĩ</th>
-                                    <th>Chẩn đoán</th>
-                                    <th>Số loại thuốc</th>
-                                    <th>Trạng thái</th>
-                                    @* Chỉ Admin mới thấy cột Thao tác *@
-                                    @if (User.IsInRole("Admin"))
+    <!-- Bảng 1: Danh sách bệnh nhân cấp đơn điều trị -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4 bg-white border-b flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            <span class="font-bold text-blue-500">Danh sách bệnh nhân</span>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-12">#</th>
+                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">Họ tên</th>
+                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Ngày sinh</th>
+                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Giới tính</th>
+                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-44">Ngày đánh giá gần nhất</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Thông tin bệnh</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Chẩn đoán</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-36">Đơn điều trị</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="px-6 py-10 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                                <h5 class="mt-2 text-gray-500 font-medium">Không có bệnh nhân nào trong danh sách</h5>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var bn in Model)
+                        {
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 text-center font-medium">@(stt++)</td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-9 w-9 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-medium">
+                                            @(bn.HoTen?.Substring(0, 1).ToUpper() ?? "")
+                                        </div>
+                                        <div class="ml-3">
+                                            <span class="font-medium text-gray-900">@bn.HoTen</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">@bn.NgaySinh.ToString("dd/MM/yyyy")</td>
+                                <td class="px-4 py-3">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                                   @(bn.GioiTinh == "Nam" ? "bg-blue-100 text-blue-800" : "bg-yellow-100 text-yellow-800")">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="@(bn.GioiTinh == "Nam"
+                                                                                                         ? "M12 8a2 2 0 100-4 2 2 0 000 4z M12 8v8m-5 0h10"
+                                                                                                         : "M12 8a2 2 0 100-4 2 2 0 000 4z M9 16v-5a2 2 0 012-2h2a2 2 0 012 2v5a2 2 0 01-2 2h-2a2 2 0 01-2-2z")" />
+                                </svg>
+                                @bn.GioiTinh
+                            </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            @if (bn.NgayKhamGanNhat.HasValue)
                                     {
-                                        <th>Thao tác</th>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            @bn.NgayKhamGanNhat.Value.ToString("dd/MM/yyyy HH:mm:ss")
+                                        </span>
                                     }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="@(User.IsInRole("Admin") ? "6" : "5")" class="text-center text-muted">
-                                        Chưa có dữ liệu
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                                    else
+                                    {
+                                        <span class="text-gray-500 flex items-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                            </svg>
+                                            Chưa có
+                                        </span>
+                                    }
+                                </td>
+
+                                <!-- Cột Thông tin bệnh -->
+                                <td class="px-4 py-3 text-center">
+                                    @if (bn.MaHoSoGanNhat.HasValue)
+                                    {
+                                        <a class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-800 transition duration-150 ease-in-out mb-1"
+                                           href="@Url.Action("ChonBenh", new { maBenhNhan = bn.MaBenhNhan, maHoSo = bn.MaHoSoGanNhat })"
+                                           title="Nhập/Cập nhật thông tin bệnh cho bệnh nhân">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                            Chọn
+                                        </a>
+                                        @if (!string.IsNullOrEmpty(bn.TenBenh))
+                                        {
+                                            <div class="text-xs text-gray-500 truncate max-w-[120px] mx-auto" title="@bn.TenBenh">
+                                                @bn.TenBenh
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-gray-500 flex items-center justify-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            Chưa có hồ sơ
+                                        </span>
+                                    }
+                                </td>
+
+                                <!-- Cột Chẩn đoán -->
+                                <td class="px-4 py-3 text-center">
+                                    @if (bn.DaCoBenh && bn.MaHoSoGanNhat.HasValue && bn.MaBenhGanNhat.HasValue)
+                                    {
+                                        <a class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:border-indigo-800 focus:shadow-outline-indigo active:bg-indigo-900 transition duration-150 ease-in-out mb-1"
+                                           href="@Url.Action("ChonChanDoan", new { maBenhNhan = bn.MaBenhNhan, maHoSo = bn.MaHoSoGanNhat, maBenh = bn.MaBenhGanNhat })"
+                                           title="Nhập/Cập nhật chẩn đoán cho bệnh nhân">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                            </svg>
+                                            Chọn
+                                        </a>
+                                        @if (!string.IsNullOrEmpty(bn.LoaiChanDoan))
+                                        {
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mt-1">
+                                                @bn.LoaiChanDoan
+                                            </span>
+                                        }
+                                    }
+                                    else if (!bn.DaCoBenh)
+                                    {
+                                        <span class="text-gray-500 flex items-center justify-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Chưa nhập bệnh
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-gray-500 flex items-center justify-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            Thiếu thông tin
+                                        </span>
+                                    }
+                                </td>
+
+                                <!-- Cột Đơn điều trị -->
+                                <td class="px-4 py-3 text-center">
+                                    @if (bn.DaCoBenh && bn.MaHoSoGanNhat.HasValue)
+                                    {
+                                        <a class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:border-green-800 focus:shadow-outline-green active:bg-green-900 transition duration-150 ease-in-out"
+                                           href="@Url.Action("ChonDonDieuTri", new { maBenhNhan = bn.MaBenhNhan, maHoSo = bn.MaHoSoGanNhat })"
+                                           title="Tạo/Cập nhật đơn điều trị cho bệnh nhân">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                            </svg>
+                                            Chọn
+                                        </a>
+                                    }
+                                    else if (!bn.DaCoBenh)
+                                    {
+                                        <span class="text-gray-500 flex items-center justify-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Chưa nhập bệnh
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-gray-500 flex items-center justify-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                            Thiếu thông tin
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bảng 2: Đơn cấp thuốc bệnh nhân -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mt-6">
+        <div class="px-6 py-4 bg-white border-b flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+            <span class="font-bold text-green-600">ĐƠN CẤP THUỐC BỆNH NHÂN</span>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-12">#</th>
+                        <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[150px]">Họ tên</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Đơn điều trị</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Đánh giá gần đây</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kê thuốc</th>
+                        <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Toa thuốc chỉ định</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @if (danhSachToaThuoc == null || !danhSachToaThuoc.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="px-6 py-10 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                                <h5 class="mt-2 text-gray-500 font-medium">Không có dữ liệu đơn cấp thuốc</h5>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        var stt2 = 1;
+                        foreach (var item in danhSachToaThuoc)
+                        {
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 text-center font-medium">@(stt2++)</td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-9 w-9 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
+                                            @(item.HoTen?.Substring(0, 1).ToUpper() ?? "")
+                                        </div>
+                                        <div class="ml-3">
+                                            <span class="font-medium text-gray-900">@item.HoTen</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    @if (item.DaCoDonDieuTri)
+                                    {
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Đã đánh giá
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Chưa đánh giá
+                                        </span>
+                                    }
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    @if (item.NgayKeDonGanNhat.HasValue)
+                                    {
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            @item.NgayKeDonGanNhat.Value.ToString("dd/MM/yyyy HH:mm")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-gray-500 flex items-center justify-center text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                            </svg>
+                                            Chưa có
+                                        </span>
+                                    }
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <a class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:border-indigo-800 focus:shadow-outline-indigo active:bg-indigo-900 transition duration-150 ease-in-out"
+                                       href="@Url.Action("KeThuoc", new { maBenhNhan = item.MaBenhNhan })"
+                                       title="Kê thuốc cho bệnh nhân">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                        </svg>
+                                        Chọn
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <a class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:border-green-800 focus:shadow-outline-green active:bg-green-900 transition duration-150 ease-in-out"
+                                       href="@Url.Action("ToaThuocChiDinh", new { maBenhNhan = item.MaBenhNhan })"
+                                       title="Tạo toa thuốc chỉ định">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        Chọn
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-dismiss alerts after 5 seconds
+        const alerts = document.querySelectorAll('.alert-fade-out');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => alert.remove(), 500);
+            }, 5000);
+        });
+    });
+</script>

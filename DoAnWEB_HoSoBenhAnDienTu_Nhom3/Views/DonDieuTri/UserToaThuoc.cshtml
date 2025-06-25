@@ -1,0 +1,400 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.UserToaThuocViewModel
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Đơn cấp thuốc của tôi";
+}
+
+<style>
+    .medicine-container {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .content-wrapper {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(25, 118, 210, 0.15);
+        overflow: hidden;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .header-section {
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .header-title {
+        font-size: 2.2rem;
+        font-weight: 600;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        display: block;
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .section {
+        padding: 30px;
+    }
+
+        .section:nth-child(even) {
+            background: #f8fbff;
+        }
+
+    .section-title {
+        color: #1976d2;
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        padding-bottom: 12px;
+        border-bottom: 3px solid #2196f3;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .patient-table, .medicine-table {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(25, 118, 210, 0.1);
+        border: none;
+    }
+
+        .patient-table th, .medicine-table thead th {
+            background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+            color: white;
+            font-weight: 500;
+            padding: 15px 20px;
+            border: none;
+        }
+
+        .patient-table th {
+            width: 25%;
+        }
+
+        .patient-table td, .medicine-table tbody td {
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 1px solid #e3f2fd;
+            color: #2c3e50;
+        }
+
+        .medicine-table tbody tr:hover {
+            background: linear-gradient(135deg, #f3f9ff 0%, #e3f2fd 100%);
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+
+        .medicine-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+    .stats-info {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 3px 10px rgba(25, 118, 210, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .stats-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #1976d2;
+        font-weight: 500;
+    }
+
+    .stats-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .status-active {
+        background: #bbdefb;
+        color: #1976d2;
+    }
+
+    .status-completed {
+        background: #c8e6c9;
+        color: #1976d2;
+    }
+
+    .pagination-container {
+        margin-top: 25px;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(25, 118, 210, 0.1);
+    }
+
+    .pagination .page-item .page-link {
+        border: none;
+        color: #1976d2;
+        font-weight: 500;
+        padding: 10px 15px;
+        margin: 0 3px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .pagination .page-item.active .page-link {
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        color: white;
+        box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
+    }
+
+    .pagination .page-item .page-link:hover {
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #7f8c8d;
+    }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+            color: #2196f3;
+        }
+
+    .alert-custom {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border: 1px solid #2196f3;
+        border-radius: 10px;
+        padding: 20px;
+        color: #0d47a1;
+    }
+
+    @@media (max-width: 768px) {
+        .header-title {
+            font-size: 1.8rem;
+        }
+
+        .section {
+            padding: 20px;
+        }
+
+        .stats-info {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .medicine-table {
+            font-size: 0.85rem;
+        }
+
+            .medicine-table th, .medicine-table td {
+                padding: 10px 8px;
+            }
+    }
+
+    .fade-in {
+        animation: fadeIn 0.8s ease-in;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+
+</style>
+
+<div class="medicine-container">
+    <div class="content-wrapper fade-in">
+        <!-- Header -->
+        <div class="header-section">
+            <i class="fas fa-pills header-icon"></i>
+            <h1 class="header-title">ĐƠN CẤP THUỐC CỦA BẠN</h1>
+        </div>
+
+        @if (Model?.BenhNhan != null)
+        {
+            <!-- Patient Information -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-user-circle"></i> Thông tin bệnh nhân
+                </h2>
+                <table class="table patient-table">
+                    <tr><th><i class="fas fa-signature"></i> Họ tên</th><td>@Model.BenhNhan.HoTen</td></tr>
+                    <tr><th><i class="fas fa-birthday-cake"></i> Ngày sinh</th><td>@Model.BenhNhan.NgaySinh.ToString("dd/MM/yyyy")</td></tr>
+                    <tr><th><i class="fas fa-venus-mars"></i> Giới tính</th><td>@Model.BenhNhan.GioiTinh</td></tr>
+                    <tr><th><i class="fas fa-map-marker-alt"></i> Địa chỉ</th><td>@Model.BenhNhan.DiaChi</td></tr>
+                    <tr><th><i class="fas fa-phone"></i> Số điện thoại</th><td>@Model.BenhNhan.SoDienThoai</td></tr>
+                </table>
+            </div>
+
+            <!-- Prescription List -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-file-prescription"></i> Danh sách toa thuốc
+                </h2>
+
+                <div class="stats-info">
+                    <div class="stats-item">
+                        <div class="stats-icon"><i class="fas fa-file-medical"></i></div>
+                        <div><strong>Trang @(Model.ToaThuocs.PageCount < Model.ToaThuocs.PageNumber ? 0 : Model.ToaThuocs.PageNumber) / @Model.ToaThuocs.PageCount</strong></div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div><strong>Tổng: @Model.ToaThuocs.TotalItemCount toa thuốc</strong></div>
+                    </div>
+                </div>
+
+                @if (Model.ToaThuocs?.Any() == true)
+                {
+                    <table class="table medicine-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-calendar"></i> Ngày kê đơn</th>
+                                <th><i class="fas fa-user-md"></i> Bác sĩ</th>
+                                <th><i class="fas fa-info-circle"></i> Trạng thái</th>
+                                <th><i class="fas fa-sticky-note"></i> Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var t in Model.ToaThuocs)
+                            {
+                                <tr>
+                                    <td>@t.NgayKeDon.ToString("dd/MM/yyyy")</td>
+                                    <td>@(t.BacSi?.HoTen ?? "Chưa xác định")</td>
+                                    <td>
+                                        <span class="status-badge @(t.TrangThai == "Hoàn thành" ? "status-completed" : "status-active")">
+                                            @t.TrangThai
+                                        </span>
+                                    </td>
+                                    <td>@(t.GhiChu ?? "-")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @if (Model.ToaThuocs.PageCount > 1)
+                    {
+                        <div class="pagination-container">
+                            @Html.PagedListPager(Model.ToaThuocs,
+                                     page => Url.Action("UserToaThuoc", new { page }),
+                                     new PagedListRenderOptions
+                {
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    ContainerDivClasses = new[] { "pagination justify-content-center" }
+                })
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-prescription-bottle"></i>
+                        <h4>Chưa có toa thuốc nào</h4>
+                        <p>Chưa có toa thuốc nào được kê.</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Medicine Details -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-capsules"></i> Chi tiết các thuốc đã kê
+                </h2>
+
+                @if (Model.ChiTietToaThuocs?.Any() == true)
+                {
+                    <table class="table medicine-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-pills"></i> Tên thuốc</th>
+                                <th><i class="fas fa-weight"></i> Liều lượng</th>
+                                <th><i class="fas fa-clock"></i> Số lần uống</th>
+                                <th><i class="fas fa-sort-numeric-up"></i> Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in Model.ChiTietToaThuocs)
+                            {
+                                <tr>
+                                    <td><strong>@(ct.Thuoc?.TenThuoc ?? "Chưa xác định")</strong></td>
+                                    <td>@ct.LieuLuong</td>
+                                    <td>@ct.SoLanUong lần/ngày</td>
+                                    <td><span class="status-badge status-active">@ct.SoLuong</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <i class="fas fa-capsules"></i>
+                        <h4>Chưa có chi tiết thuốc</h4>
+                        <p>Chưa có chi tiết thuốc nào.</p>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="section">
+                <div class="alert-custom">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Không tìm thấy thông tin bệnh nhân</h4>
+                    <p>Vui lòng liên hệ quản trị viên để được hỗ trợ.</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

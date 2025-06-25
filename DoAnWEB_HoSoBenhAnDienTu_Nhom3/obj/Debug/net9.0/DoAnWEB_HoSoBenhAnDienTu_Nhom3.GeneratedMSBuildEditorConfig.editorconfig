@@ -56,8 +56,40 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/ChonBenh.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxDaG9uQmVuaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/ChonChanDoan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxDaG9uQ2hhbkRvYW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/ChonDonDieuTri.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxDaG9uRG9uRGlldVRyaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/KeThuoc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxLZVRodW9jLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/ToaThuocChiDinh.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxUb2FUaHVvY0NoaURpbmguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/UserDonDieuTri.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxVc2VyRG9uRGlldVRyaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/UserToaThuoc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxVc2VyVG9hVGh1b2MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/DonDieuTri/XemDonDieuTri.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uRGlldVRyaVxYZW1Eb25EaWV1VHJpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/Home/Index.cshtml]
@@ -86,10 +118,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/KetQuaLamSang/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhTGFtU2FuZ1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/KetQuaLamSang/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2V0UXVhTGFtU2FuZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ĐỒ ÁN HỒ SƠ BỆNH ÁN/DoAnWEB_HoSoBenhAnDienTu_Nhom3/DoAnWEB_HoSoBenhAnDienTu_Nhom3/Views/KetQuaLamSang/IndexUser.cshtml]

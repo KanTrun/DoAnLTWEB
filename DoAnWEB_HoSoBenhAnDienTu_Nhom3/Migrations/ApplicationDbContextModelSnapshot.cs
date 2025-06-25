@@ -244,6 +244,9 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("MaChiTiet")
+                        .HasColumnType("int");
+
                     b.Property<string>("SoLanUong")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -824,7 +827,7 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAvp53dOj2uqtlT55AiK3tCgYao2V5k9JV9v1hpZXoTwZVdkqwWlV8+CeanlF3pR5g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFn3KKyr22NmRH6beeOqz1rPC2f6m5es0/gSO2mstF637krSXqUjLfrbAS+lp8NI2Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "STATIC-SECURITY-STAMP-12345",
                             TwoFactorEnabled = false,

@@ -1,46 +1,390 @@
-﻿html {
+﻿/* ===== CÀI ĐẶT CƠ BẢN (BASE SETTINGS) ===== */
+/* Thiết lập kích thước font chữ mặc định cho toàn trang */
+html {
     font-size: 14px;
 }
 
+/* Tăng kích thước font chữ khi màn hình lớn hơn 768px */
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
 }
 
+/* Hiệu ứng focus cho các nút và input */
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+/* ===== THANH BÊN (SIDEBAR MENU) ===== */
 
-/* Custom Toastr Styles - Override mạnh hơn */
-/* ===== TOAST NOTIFICATION STYLES ===== */
-
-/* Toast Container */
-.toast-container {
-    z-index: 1055;
+/* Thanh bên nền xanh nhạt */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #e6f3ff 0%, #f7fbff 100%) !important;
+    padding: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    border-right: 2px solid #ccebff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Success Toast */
+/* Header gradient đậm hơn */
+.sidebar-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    background-size: 200% 200%;
+    animation: gradientFlow 6s ease infinite;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #cce5ff;
+}
+
+    .sidebar-header h4 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+/* Menu chính */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .sidebar-menu li {
+        border-bottom: 1px solid #cce5ff;
+    }
+
+    .sidebar-menu a {
+        display: block;
+        color: #1e3a8a;
+        text-decoration: none;
+        padding: 15px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .sidebar-menu a:hover {
+            background: linear-gradient(90deg, #dbeafe 0%, #e0f2fe 100%);
+            color: #1e3a8a;
+            padding-left: 25px;
+            border-left: 3px solid #60a5fa;
+            box-shadow: 0 6px 12px rgba(147, 197, 253, 0.3);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .sidebar-menu a.active {
+            background: linear-gradient(90deg, #bfdbfe 0%, #dbeafe 100%);
+            color: #1e40af;
+            font-weight: 700;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* Icon */
+        .sidebar-menu a i {
+            margin-right: 10px;
+            width: 20px;
+            color: #3b82f6;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar-menu a:hover i,
+        .sidebar-menu a.active i {
+            color: #1e40af;
+        }
+
+        /* Hiệu ứng ánh sáng khi hover */
+        .sidebar-menu a::before,
+        .sidebar-menu .submenu a::before,
+        .sidebar-menu .logout a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .sidebar-menu a:hover::before,
+        .sidebar-menu .submenu a:hover::before,
+        .sidebar-menu .logout a:hover::before {
+            left: 100%;
+        }
+
+    /* Menu con */
+    .sidebar-menu .has-submenu > a::after {
+        content: '\f107';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        float: right;
+        color: #60a5fa;
+        transition: transform 0.3s, color 0.3s;
+    }
+
+    .sidebar-menu .has-submenu.open > a::after {
+        transform: rotate(180deg);
+        color: #3b82f6;
+    }
+
+    .sidebar-menu .submenu {
+        background: #f0f7ff;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+        .sidebar-menu .submenu.open {
+            max-height: 300px;
+        }
+
+        .sidebar-menu .submenu li {
+            border-bottom: 1px solid #cce5ff;
+        }
+
+        .sidebar-menu .submenu a {
+            padding: 12px 20px 12px 50px;
+            font-size: 0.9rem;
+            color: #1d4ed8;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .sidebar-menu .submenu a:hover {
+                background: linear-gradient(90deg, #e0f2ff 0%, #f0faff 100%);
+                color: #1d4ed8;
+                padding-left: 55px;
+                border-left: 3px solid #1d4ed8;
+                box-shadow: 0 5px 10px rgba(59, 130, 246, 0.1);
+                border-radius: 0 10px 10px 0;
+            }
+
+            .sidebar-menu .submenu a.active {
+                background: linear-gradient(90deg, #bfdbfe 0%, #dbeafe 100%) !important;
+                color: #1e40af !important;
+                font-weight: 700;
+                padding-left: 55px;
+                border-left: 4px solid #1d4ed8;
+                border-radius: 0 12px 12px 0;
+                box-shadow: 0 5px 15px rgba(37, 99, 235, 0.15);
+            }
+
+S
+/* Nút đăng xuất */
+.sidebar-menu .logout {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid #cce5ff;
+    background: #fff5f5;
+}
+
+.sidebar-menu .logout a {
+    color: #b91c1c;
+    font-weight: 600;
+    padding: 15px 20px;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .sidebar-menu .logout a:hover {
+        background: linear-gradient(90deg, #f87171 0%, #ef4444 100%);
+        color: #ffffff;
+        padding-left: 25px;
+        border-left: 3px solid #991b1b;
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.25);
+        border-radius: 0 12px 12px 0;
+    }
+
+/* ===== NỘI DUNG CHÍNH (MAIN CONTENT) ===== */
+/* Vùng nội dung chính - Nền xanh nhạt đồng bộ */
+.main-content {
+    margin-left: 250px; /* Dịch phải để nhường chỗ cho sidebar */
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f7fbff 0%, #e6f3ff 100%); /* Gradient xanh dương nhạt */
+    transition: margin-left 0.3s ease; /* Hiệu ứng chuyển khi sidebar ẩn/hiện */
+}
+
+/* Khu vực nội dung - Bo viền và bóng nhẹ */
+.content-area {
+    padding: 25px;
+    background: #ffffff; /* Nền trắng sạch */
+    border-radius: 12px; /* Bo góc khung */
+    border: 2px solid #ccebff; /* Viền xanh dương nhạt */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Bóng nhẹ */
+    margin: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .content-area:hover {
+        transform: translateY(-3px); /* Nâng nhẹ khi hover */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Bóng đậm hơn */
+        border-color: #80bfff; /* Viền xanh dương đậm hơn */
+    }
+
+/* Tiêu đề nội dung - Gradient xanh dương, nhấn nhá chữ */
+.content-header {
+    background: linear-gradient(135deg, #80bfff 0%, #a3ccff 100%); /* Gradient xanh dương nhạt */
+    background-size: 200% 200%;
+    animation: gradientFlow 6s ease infinite; /* Hiệu ứng gradient động */
+    color: #ffffff; /* Chữ trắng */
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px; /* Bo góc */
+    border: 2px solid #ccebff; /* Viền xanh dương nhạt */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Bóng nhẹ */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+    .content-header h2, .content-header h3 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.5rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Bóng chữ nhấn nhá */
+        transition: color 0.3s ease;
+    }
+
+        .content-header h2:hover, .content-header h3:hover {
+            color: #2563eb; /* Xanh dương đậm khi hover */
+        }
+
+/* Hiệu ứng gradient động */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Thông tin người dùng - Giao diện hiện đại, tinh tế */
+
+/* ===== Nút toggle trên mobile - Gradient đồng bộ ===== */
+.mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1100;
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    color: #ffffff;
+    border: 1.5px solid #bfdbfe;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+}
+
+    .mobile-toggle:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+        border-color: #60a5fa;
+        box-shadow: 0 6px 15px rgba(59, 130, 246, 0.25);
+        transform: translateY(-1px);
+    }
+
+/* ===== Responsive Sidebar ===== */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.4s ease;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.05);
+    }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    .content-area {
+        margin: 15px;
+        padding: 18px;
+    }
+
+    .content-header {
+        padding: 12px 15px;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-area {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .content-header {
+        padding: 10px 12px;
+        font-size: 1.2rem;
+    }
+
+    .user-info {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+}
+
+
+/* ===== KIỂU DÁNG THÔNG BÁO (TOAST NOTIFICATIONS) ===== */
+/* Vùng chứa thông báo */
+.toast-container {
+    z-index: 1055; /* Đặt độ ưu tiên cao để hiển thị trên các phần tử khác */
+}
+
+/* Thông báo thành công */
 .toast.show {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%); /* Gradient xanh lá */
     border: none;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-    animation: slideInRight 0.5s ease-out;
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3); /* Đổ bóng nhẹ */
+    animation: slideInRight 0.5s ease-out; /* Hiệu ứng trượt từ phải sang */
 }
 
-/* Toast Header */
+/* Tiêu đề thông báo */
 .toast-header {
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 12px 12px 0 0;
     padding: 12px 15px;
-    color: #155724;
+    color: #155724; /* Màu chữ xanh đậm */
     font-weight: 600;
 }
 
     .toast-header .fas.fa-check-circle {
-        color: #28a745 !important;
+        color: #28a745 !important; /* Icon màu xanh lá */
         font-size: 1.1rem;
     }
 
@@ -49,7 +393,7 @@
         font-size: 0.95rem;
     }
 
-/* Toast Body */
+/* Nội dung thông báo */
 .toast-body {
     background: white;
     color: #155724;
@@ -59,7 +403,7 @@
     font-weight: 500;
 }
 
-/* Close Button */
+/* Nút đóng thông báo */
 .toast .btn-close {
     background: none;
     border: none;
@@ -71,7 +415,7 @@
         opacity: 1;
     }
 
-/* Animation */
+/* Hiệu ứng trượt vào */
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -84,61 +428,61 @@
     }
 }
 
-/* Error Toast (nếu cần) */
+/* Thông báo lỗi */
 .toast.error {
-    background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+    background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%); /* Gradient đỏ */
     box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
 }
 
     .toast.error .toast-header {
-        color: #721c24;
+        color: #721c24; /* Màu chữ đỏ đậm */
     }
 
         .toast.error .toast-header .fas {
-            color: #dc3545 !important;
+            color: #dc3545 !important; /* Icon đỏ */
         }
 
     .toast.error .toast-body {
         color: #721c24;
     }
 
-/* Warning Toast (nếu cần) */
+/* Thông báo cảnh báo */
 .toast.warning {
-    background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+    background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%); /* Gradient vàng */
     box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
 }
 
     .toast.warning .toast-header {
-        color: #856404;
+        color: #856404; /* Màu chữ vàng đậm */
     }
 
         .toast.warning .toast-header .fas {
-            color: #ffc107 !important;
+            color: #ffc107 !important; /* Icon vàng */
         }
 
     .toast.warning .toast-body {
         color: #856404;
     }
 
-/* Info Toast (nếu cần) */
+/* Thông báo thông tin */
 .toast.info {
-    background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+    background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%); /* Gradient xanh lam */
     box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
 }
 
     .toast.info .toast-header {
-        color: #0c5460;
+        color: #0c5460; /* Màu chữ xanh lam đậm */
     }
 
         .toast.info .toast-header .fas {
-            color: #17a2b8 !important;
+            color: #17a2b8 !important; /* Icon xanh lam */
         }
 
     .toast.info .toast-body {
         color: #0c5460;
     }
 
-/* Responsive */
+/* Responsive cho thông báo trên màn hình nhỏ */
 @media (max-width: 768px) {
     .toast-container {
         position: fixed !important;
@@ -154,204 +498,904 @@
     }
 }
 
-
-/* Progress bar */
+/* Thanh tiến trình thông báo */
 #toast-container .toast-progress {
-    background-color: rgba(40, 167, 69, 0.6) !important;
+    background-color: rgba(40, 167, 69, 0.6) !important; /* Màu xanh lá mờ */
 }
 
-/* Sidebar Menu Styles */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #343a40;
-    padding: 0;
-    z-index: 1000;
-    overflow-y: auto;
+/* ===== KHUNG THÔNG BÁO (ANNOUNCEMENT TABLE) ===== */
+.announcement-table {
+    border-radius: var(--spacing-sm);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    min-height: 100%;
+    background: linear-gradient(120deg, #f7fbff 80%, #e6f3ff 100%); /* Gradient xanh nhạt */
+    border-left: 6px solid var(--color-announcement-yellow-border);
+    box-shadow: 0 4px 12px var(--color-shadow-light), 0 8px 24px var(--color-announcement-yellow-shadow);
+    transition: box-shadow 0.3s ease-out, transform 0.2s ease-out;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.sidebar-header {
-    background-color: #495057;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    border-bottom: 1px solid #6c757d;
+    .announcement-table:hover,
+    .announcement-table:focus-within {
+        box-shadow: 0 6px 16px var(--color-shadow-medium), 0 12px 36px var(--color-announcement-yellow-shadow-hover);
+        transform: translateY(-4px) scale(1.005);
+    }
+
+.announcement-yellow {
+    /* Đã được set trong .announcement-table */
 }
 
-    .sidebar-header h4 {
-        margin: 0;
-        font-size: 1.2rem;
-    }
-
-.sidebar-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.announcement-green {
+    background: linear-gradient(120deg, #f7fbff 80%, #e6f3ff 100%); /* Gradient xanh nhạt */
+    border-left: 6px solid var(--color-announcement-green-border);
+    box-shadow: 0 4px 12px var(--color-shadow-light), 0 8px 24px var(--color-announcement-green-shadow);
 }
 
-    .sidebar-menu li {
-        border-bottom: 1px solid #495057;
+    .announcement-green:hover,
+    .announcement-green:focus-within {
+        box-shadow: 0 6px 16px var(--color-shadow-medium), 0 12px 36px var(--color-announcement-green-shadow-hover);
     }
 
-    .sidebar-menu a {
-        display: block;
-        color: #adb5bd;
-        text-decoration: none;
-        padding: 15px 20px;
-        transition: all 0.3s;
-    }
-
-        .sidebar-menu a:hover {
-            background-color: #495057;
-            color: white;
-            padding-left: 30px;
-        }
-
-        .sidebar-menu a.active {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .sidebar-menu a i {
-            margin-right: 10px;
-            width: 20px;
-        }
-
-    /* Submenu styles */
-    .sidebar-menu .has-submenu > a::after {
-        content: '\f107';
-        font-family: 'Font Awesome 6 Free';
-        font-weight: 900;
-        float: right;
-        transition: transform 0.3s;
-    }
-
-    .sidebar-menu .has-submenu.open > a::after {
-        transform: rotate(180deg);
-    }
-
-    .sidebar-menu .submenu {
-        background-color: #495057;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
-
-        .sidebar-menu .submenu.open {
-            max-height: 300px;
-        }
-
-        .sidebar-menu .submenu li {
-            border-bottom: 1px solid #6c757d;
-        }
-
-        .sidebar-menu .submenu a {
-            padding: 12px 20px 12px 50px;
-            font-size: 0.9rem;
-            color: #ced4da;
-        }
-
-            .sidebar-menu .submenu a:hover {
-                background-color: #6c757d;
-                padding-left: 60px;
-            }
-
-            .sidebar-menu .submenu a.active {
-                background-color: #0056b3;
-            }
-
-    /* Logout button */
-    .sidebar-menu .logout {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        border-top: 1px solid #6c757d;
-        background-color: #495057;
-    }
-
-        .sidebar-menu .logout a {
-            color: #dc3545;
-            border: none;
-        }
-
-            .sidebar-menu .logout a:hover {
-                background-color: #dc3545;
-                color: white;
-            }
-
-/* Main content */
-.main-content {
-    margin-left: 250px;
-    min-height: 100vh;
-    background-color: #f8f9fa;
-}
-
-.content-area {
-    padding: 20px;
-}
-
-/* Content Header */
-.content-header {
-    background-color: white;
-    border-bottom: 1px solid #dee2e6;
-    padding: 15px 0;
-    margin-bottom: 20px;
-}
-
-.user-info {
+.announcement-table h5 {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: var(--color-announcement-yellow-header);
+    margin-bottom: var(--spacing-lg);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: var(--spacing-md);
+    line-height: 1.2;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+.announcement-green h5 {
+    color: var(--color-announcement-green-header);
+}
+
+.announcement-table .table {
+    background: transparent;
+    width: 100%;
+    border-collapse: collapse;
+    flex-grow: 1;
+}
+
+    .announcement-table .table td {
+        vertical-align: top;
+        font-size: 1rem;
+        padding: var(--spacing-sm) 0 var(--spacing-sm) 0;
+        color: var(--color-text-secondary);
+        border: none;
+        background: transparent;
+        line-height: 1.5;
     }
 
-        .sidebar.show {
-            transform: translateX(0);
+    .announcement-table .table tr:not(:last-child) td {
+        border-bottom: 1px solid var(--color-border-light);
+    }
+
+.announcement-table .fw-semibold {
+    font-weight: 600;
+    color: var(--color-announcement-yellow-semibold);
+    white-space: nowrap;
+    padding-right: var(--spacing-md);
+    min-width: 8rem;
+}
+
+.announcement-green .fw-semibold {
+    color: var(--color-announcement-green-semibold);
+}
+
+@media (max-width: 767.98px) {
+    .announcement-table {
+        margin-bottom: var(--spacing-lg);
+        padding: var(--spacing-lg) var(--spacing-md);
+        border-radius: var(--spacing-sm);
+    }
+
+        .announcement-table h5 {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+            gap: var(--spacing-sm);
         }
 
-    .main-content {
-        margin-left: 0;
+        .announcement-table .table td {
+            font-size: 0.9rem;
+            padding: var(--spacing-xs) 0 var(--spacing-xs) 0;
+            line-height: 1.4;
+        }
+
+        .announcement-table .fw-semibold {
+            min-width: 6rem;
+            padding-right: var(--spacing-xs);
+        }
+}
+/* ===== VÙNG CHỨA CHÍNH ===== */
+.ketquaXN-main-content {
+    width: 100%;
+    max-width: 720px;
+    margin: 32px auto 0;
+    padding: 0 16px;
+    background: linear-gradient(180deg, #f0f8ff 0%, #e3f2fd 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1e3a8a;
+    box-sizing: border-box;
+}
+
+/* ===== CARD ===== */
+.ketquaXN-card {
+    width: 100%;
+    border-radius: 12px;
+    border: 1.5px solid #90caf9;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.06);
+    background: #ffffff;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* ===== HEADER ===== */
+.ketquaXN-card-header {
+    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+    padding: 18px 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+    .ketquaXN-card-header h2 {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    .mobile-toggle {
+/* ===== BODY ===== */
+.ketquaXN-card-body {
+    padding: 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* ===== BẢNG ===== */
+.ketquaXN-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    table-layout: fixed;
+}
+
+    .ketquaXN-table thead th {
+        background: #e8f4ff;
+        color: #1e40af;
+        font-weight: 600;
+        padding: 12px 10px;
+        font-size: 0.97rem;
+        border-bottom: 2px solid #90caf9;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ketquaXN-table td {
+        padding: 10px 10px;
+        font-size: 0.95rem;
+        border-bottom: 1px solid #e3e3e3;
+        color: #333;
+        background: #ffffff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* ===== DÒNG BẢNG ===== */
+    .ketquaXN-table tbody tr {
+        transition: background 0.3s ease;
+    }
+
+        .ketquaXN-table tbody tr:nth-child(even) {
+            background: #f6faff;
+        }
+
+        .ketquaXN-table tbody tr:hover {
+            background: #e3f2fd;
+        }
+/* THÔNG TIN BỆNH NHÂN */
+.ketquaXN-patient-info h6 {
+    color: #1976d2;
+    margin-bottom: 2px;
+    font-size: 1.01rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ketquaXN-patient-info span {
+    color: #6c757d;
+    font-size: 0.93rem;
+    white-space: nowrap;
+}
+
+/* BADGE */
+.ketquaXN-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 0.93rem;
+    display: inline-block;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.ketquaXN-badge-success {
+    background: #43a047;
+    color: #fff;
+}
+
+.ketquaXN-badge-info {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.ketquaXN-badge-warning {
+    background: #ffc107;
+    color: #856404;
+}
+
+.ketquaXN-badge-secondary {
+    background: #bdbdbd;
+    color: #fff;
+}
+
+/* BUTTON */
+.ketquaXN-btn {
+    background: #1976d2;
+    color: #fff !important;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+    font-size: 0.95em;
+    font-weight: 500;
+    text-decoration: none !important;
+    margin-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ketquaXN-btn-primary {
+    background: #1976d2;
+}
+
+    .ketquaXN-btn-primary:hover {
+        background: #1565c0;
+    }
+
+.ketquaXN-btn-success {
+    background: #43a047;
+}
+
+    .ketquaXN-btn-success:hover {
+        background: #388e3c;
+    }
+
+.ketquaXN-btn-warning {
+    background: #ffa000;
+    color: #fff !important;
+}
+
+    .ketquaXN-btn-warning:hover {
+        background: #ff8f00;
+    }
+
+.ketquaXN-action-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ketquaXN-test-item {
+    background: #f8fbff; /* Xanh nhạt */
+    padding: 6px 8px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    border-left: 3px solid #1976d2;
+    transition: all 0.3s;
+    font-size: 0.93rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    .ketquaXN-test-item:hover {
+        transform: translateX(3px);
+        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
+    }
+
+.ketquaXN-test-name {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 1px;
+    font-size: 0.96rem;
+    white-space: nowrap;
+}
+
+.ketquaXN-test-code {
+    font-size: 0.9rem;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+/* EMPTY STATE */
+.ketquaXN-empty-state {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    padding: 8px;
+    background: #f8fbff; /* Xanh nhạt */
+    border-radius: 5px;
+    font-size: 0.93rem;
+    line-height: 1.4;
+}
+
+.ketquaXN-no-data {
+    text-align: center;
+    padding: 28px;
+    color: #6c757d;
+    font-size: 0.96rem;
+    line-height: 1.4;
+}
+
+    .ketquaXN-no-data h5 {
+        color: #1976d2;
+        margin-bottom: 7px;
+        font-size: 1.01rem;
+        font-weight: 600;
+    }
+
+/* ĐẢM BẢO KHÔNG CÓ CUỘN NGANG */
+body, html, .ketquaXN-main-content, .ketquaXN-card, .ketquaXN-card-body {
+    overflow-x: hidden !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .ketquaXN-main-content {
+        max-width: 100%;
+        padding: 0 4px;
+    }
+
+    .ketquaXN-card-header {
+        padding: 12px 6px;
+    }
+
+    .ketquaXN-table th, .ketquaXN-table td {
+        padding: 6px 4px;
+    }
+
+    .ketquaXN-card-header h2 {
+        font-size: 1rem;
+    }
+}
+
+/* ===== BIẾN CSS CHO BỆNH ÁN (MEDICAL RECORD VARIABLES) ===== */
+:root {
+    --primary-blue: #007bff;
+    --light-blue: #e6f2ff;
+    --dark-blue: #0056b3;
+    --text-color: #333;
+    --light-text-color: #666;
+    --border-color: #ccc;
+    --error-red: #dc3545;
+    --success-green: #28a745;
+    --info-blue: #17a2b8;
+    --box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* --- General Container Styles --- */
+.benhAnPro-container,
+.benhAnPro-evalContainer {
+    background: linear-gradient(180deg, #f7fbff 0%, #e6f3ff 100%); /* Gradient xanh nhạt */
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 123, 255, 0.08);
+    padding: 30px;
+    margin: 40px auto 0 auto;
+    max-width: 1000px;
+    box-sizing: border-box;
+}
+
+/* --- Titles --- */
+.benhAnPro-title,
+.benhAnPro-evalTitle {
+    color: var(--primary-blue);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+    .benhAnPro-title::after,
+    .benhAnPro-evalTitle::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--dark-blue);
+        border-radius: 2px;
+    }
+
+/* --- Table Styles --- */
+.benhAnPro-tableWrap {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.benhAnPro-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #ffffff; /* Nền trắng */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+    .benhAnPro-table thead th {
+        background: #e3f2fd;
+        color: #1976d2;
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+        border-bottom: 2px solid #90caf9;
+    }
+
+    .benhAnPro-table tbody tr {
+        border-bottom: 1px solid #e3e3e3;
+        transition: background-color 0.3s ease;
+    }
+
+        .benhAnPro-table tbody tr:nth-child(even) {
+            background: #f8fbff; /* Xanh nhạt cho dòng chẵn */
+        }
+
+        .benhAnPro-table tbody tr:hover {
+            background: #f0f8ff; /* Xanh nhạt khi hover */
+        }
+
+    .benhAnPro-table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+        color: var(--text-color);
+    }
+
+/* --- Table Action Button --- */
+.benhAnPro-btnDanhGia {
+    background: var(--primary-blue);
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+    .benhAnPro-btnDanhGia:hover {
+        background: var(--dark-blue);
+        transform: translateY(-2px);
+    }
+
+    .benhAnPro-btnDanhGia i {
+        margin-right: 5px;
+    }
+
+/* --- Form Styles (Evaluation Page) --- */
+.benhAnPro-form {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+    .benhAnPro-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .benhAnPro-formGroup:nth-child(6),
+    .benhAnPro-formGroup:nth-child(7),
+    .benhAnPro-btnGroup {
+        grid-column: span 2;
+    }
+}
+
+.benhAnPro-formGroup {
+    margin-bottom: 10px;
+}
+
+    .benhAnPro-formGroup label {
         display: block;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1001;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-blue);
+        font-size: 1.05em;
+    }
+
+.benhAnPro-inputSelect,
+.benhAnPro-inputDate,
+.benhAnPro-inputTextarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benhAnPro-inputTextarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+    .benhAnPro-inputSelect:focus,
+    .benhAnPro-inputDate:focus,
+    .benhAnPro-inputTextarea:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        outline: none;
+    }
+
+/* --- Form Buttons --- */
+.benhAnPro-btnGroup {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.benhAnPro-btnLuu,
+.benhAnPro-btnBack {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.benhAnPro-btnLuu {
+    background: var(--success-green);
+    color: #fff;
+}
+
+    .benhAnPro-btnLuu:hover {
+        background: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    }
+
+.benhAnPro-btnBack {
+    background: #6c757d;
+    color: #fff;
+    text-decoration: none;
+}
+
+    .benhAnPro-btnBack:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+    }
+
+/* --- Alert/Error Messages --- */
+.benhAnPro-alert {
+    background: #ffe6e6;
+    color: var(--error-red);
+    border: 1px solid var(--error-red);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+    .benhAnPro-alert div {
+        margin-bottom: 5px;
+    }
+
+        .benhAnPro-alert div:last-child {
+            margin-bottom: 0;
+        }
+
+/* --- JavaScript Driven Animations --- */
+.row-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-.mobile-toggle {
-    display: none;
+/* Input Shake on Invalid Submit */
+.input-shake {
+    animation: shake 0.6s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    border-color: var(--error-red) !important;
 }
 
-/* Thêm vào cuối file site.css */
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
 
-/* Auth Container - Full Screen Center */
-/* ===== AUTH PAGES STYLES ===== */
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
 
-/* Auth Container - Full Screen */
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
 
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
 
-/* Login Container - Specific for Login Page */
+/* Input Focus Highlight */
+.input-focus {
+    border-color: var(--primary-blue) !important;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* --- Container for benhanBlue --- */
+.benhanBlue-container {
+    background: linear-gradient(180deg, #f7fbff 0%, #e6f3ff 100%); /* Gradient xanh nhạt */
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 123, 255, 0.08);
+    max-width: 950px;
+    margin: 40px auto 0 auto;
+    padding: 32px 24px 24px 24px;
+    animation: fadeInDown 0.7s;
+}
+
+/* --- Title for benhanBlue --- */
+.benhanBlue-title {
+    color: #1976d2;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+}
+
+/* --- Table Wrap for benhanBlue --- */
+.benhanBlue-tableWrap {
+    overflow-x: auto;
+}
+
+/* --- Table for benhanBlue --- */
+.benhanBlue-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff; /* Nền trắng */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+    .benhanBlue-table th, .benhanBlue-table td {
+        padding: 14px 16px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .benhanBlue-table thead th {
+        background: #e3f2fd;
+        color: #1976d2;
+        font-weight: 600;
+        border-bottom: 2px solid #90caf9;
+    }
+
+    .benhanBlue-table tbody tr {
+        border-bottom: 1px solid #e3e3e3;
+        transition: background 0.2s;
+    }
+
+        .benhanBlue-table tbody tr:hover {
+            background: #f1f8ff; /* Xanh nhạt khi hover */
+        }
+
+/* --- Badge for benhanBlue --- */
+.benhanBlue-badge {
+    border-radius: 8px;
+    padding: 5px 16px;
+    font-size: 0.97em;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.benhanBlue-badge-success {
+    background: #43a047;
+    color: #fff;
+}
+
+.benhanBlue-badge-secondary {
+    background: #bdbdbd;
+    color: #fff;
+}
+
+/* --- Buttons for benhanBlue --- */
+.benhanBlue-btn {
+    border-radius: 6px;
+    font-size: 0.97em;
+    padding: 7px 18px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    text-decoration: none !important;
+    display: inline-block;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
+    cursor: pointer;
+}
+
+.benhanBlue-btn-edit {
+    background: #1976d2;
+    color: #fff !important;
+}
+
+    .benhanBlue-btn-edit:hover {
+        background: #1565c0;
+        transform: translateY(-2px) scale(1.04);
+    }
+
+.benhanBlue-btn-eval {
+    background: #43a047;
+    color: #fff !important;
+}
+
+    .benhanBlue-btn-eval:hover {
+        background: #388e3c;
+        transform: translateY(-2px) scale(1.04);
+    }
+
+.benhanBlue-btn-back {
+    background: #bdbdbd;
+    color: #fff !important;
+    margin-top: 18px;
+}
+
+    .benhanBlue-btn-back:hover {
+        background: #757575;
+    }
+
+/* --- Container for benhanDetail --- */
+.benhanDetail-container {
+    background: linear-gradient(180deg, #f7fbff 0%, #e6f3ff 100%); /* Gradient xanh nhạt */
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+    max-width: 1000px;
+    margin: 48px auto 0 auto;
+    padding: 36px 28px 28px 28px;
+    animation: fadeInDown 0.7s;
+}
+
+/* --- Title for benhanDetail --- */
+.benhanDetail-title {
+    color: #1976d2;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+}
+
+/* --- Table Wrap for benhanDetail --- */
+.benhanDetail-tableWrap {
+    overflow-x: auto;
+}
+
+/* --- Table for benhanDetail --- */
+.benhanDetail-table {
+    width: 100%;
+    background: #ffffff; /* Nền trắng */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 28px;
+}
+
+    .benhanDetail-table th,
+    .benhanDetail-table td {
+        padding: 16px 20px;
+        font-size: 1.07em;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .benhanDetail-table th {
+        background: #e3f2fd;
+        color: #1976d2;
+        font-weight: 600;
+        width: 220px;
+        border-bottom: 1px solid #90caf9;
+        border-right: 1px solid #e3e3e3;
+    }
+
+    .benhanDetail-table td {
+        background: #ffffff; /* Nền trắng */
+        color: #333;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    .benhanDetail-table tr:last-child th,
+    .benhanDetail-table tr:last-child td {
+        border-bottom: none;
+    }
+
+/* --- Back Button for benhanDetail --- */
+.benhanDetail-btnBack {
+    background: #1976d2;
+    color: #fff !important;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 32px;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
+}
+
+    .benhanDetail-btnBack:hover {
+        background: #1565c0;
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
+        transform: translateY(-2px) scale(1.04);
+    }
+
+/* ===== TRANG ĐĂNG NHẬP/ĐĂNG KÝ (AUTH PAGES) ===== */
+/* Vùng chứa trang đăng nhập - Giữ nguyên gradient xanh dương đậm */
 .login-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #ccebff 0%, #e6f3ff 100%); /* Gradient xanh dương đậm */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -367,24 +1411,45 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 30% 70%, rgba(79, 172, 254, 0.3) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-        animation: backgroundMove 15s ease-in-out infinite;
+        background: radial-gradient(circle at 30% 70%, rgba(128, 191, 255, 0.3) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(230, 243, 255, 0.25) 0%, transparent 50%);
+        animation: backgroundMove 12s ease-in-out infinite;
     }
 
-/* Auth Card */
-.auth-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2);
+/* Hiệu ứng di chuyển nền */
+@keyframes backgroundMove {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+
+    25% {
+        transform: translateX(-15px) translateY(-10px);
+    }
+
+    50% {
+        transform: translateX(15px) translateY(10px);
+    }
+
+    75% {
+        transform: translateX(-10px) translateY(15px);
+    }
+}
+
+/* Thẻ đăng nhập - Viền đậm hơn, bóng nổi bật */
+.auth-card, .login-card {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 2.5px solid #80bfff;
     width: 100%;
-    max-width: 450px;
+    max-width: 420px;
     position: relative;
     z-index: 2;
     overflow: hidden;
     animation: cardSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Hiệu ứng trượt vào thẻ */
 @keyframes cardSlideIn {
     from {
         opacity: 0;
@@ -397,191 +1462,149 @@
     }
 }
 
-.auth-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3);
+.auth-card:hover, .login-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    border-color: #66aaff;
 }
 
-/* Login Card - Specific styling */
-.login-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2);
-    width: 100%;
-    max-width: 420px;
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-    animation: cardSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-    .login-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3);
-    }
-
-/* Auth Header */
-.auth-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* Tiêu đề trang đăng nhập - Gradient động xanh dương */
+.auth-header, .login-header {
+    background: linear-gradient(135deg, #80bfff 0%, #a3ccff 100%);
+    background-size: 200% 200%;
+    animation: gradientFlow 6s ease infinite;
     color: white;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
 }
 
-    .auth-header::before {
+    /* Hiệu ứng nhấp nháy tiêu đề */
+    .auth-header::before, .login-header::before {
         content: '';
         position: absolute;
         top: -50%;
         left: -50%;
         width: 200%;
         height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: headerPulse 8s ease-in-out infinite;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        animation: headerPulse 6s ease-in-out infinite;
     }
 
 @keyframes headerPulse {
     0%, 100% {
-        opacity: 0.3;
+        opacity: 0.25;
         transform: scale(1);
     }
 
     50% {
-        opacity: 0.6;
-        transform: scale(1.1);
+        opacity: 0.5;
+        transform: scale(1.05);
     }
 }
 
-/* Login Header - Specific styling */
-.login-header {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    color: white;
-    padding: 30px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-    .login-header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-        animation: headerPulse 8s ease-in-out infinite;
-    }
-
-/* Medical Icon */
+/* Icon y tế - Nhấn nhá viền và hiệu ứng */
 .medical-icon {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
+    margin: 0 auto 12px;
     position: relative;
     z-index: 1;
     transition: all 0.4s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
     .medical-icon:hover {
-        transform: rotate(360deg) scale(1.1);
+        transform: rotate(180deg) scale(1.1);
         background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 10px rgba(128, 191, 255, 0.5);
     }
 
     .medical-icon i {
-        font-size: 2rem;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-size: 1.8rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        color: #ffffff;
     }
 
-.auth-header h3,
-.login-header h3 {
-    margin-bottom: 8px;
-    font-weight: 700;
-    font-size: 1.4rem;
+.auth-header h3, .login-header h3 {
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 1.3rem;
     position: relative;
     z-index: 1;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-.auth-header p,
-.login-header p {
-    font-size: 0.9rem;
+.auth-header p, .login-header p {
+    font-size: 0.85rem;
     opacity: 0.9;
     position: relative;
     z-index: 1;
     margin: 0;
 }
 
-/* Auth Body */
-.auth-body,
-.login-body {
-    padding: 35px 30px;
+/* Nội dung chính */
+.auth-body, .login-body {
+    padding: 30px 25px;
     background: white;
+    border-radius: 0 0 24px 24px;
 }
 
-/* Form Groups */
+/* Nhóm form */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     position: relative;
 }
 
 .form-label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 8px;
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
     .form-label i {
-        color: #667eea;
-        margin-right: 8px;
-        width: 16px;
+        color: #80bfff;
+        margin-right: 6px;
+        width: 14px;
     }
 
-.login-body .form-label i {
-    color: #4facfe;
-}
-
-/* Form Controls */
+/* Ô nhập liệu - Viền đậm hơn */
 .form-control {
-    border: 2px solid #e9ecef;
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 15px;
+    border: 2px solid #ccebff;
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
-    background: #f8f9fa;
-    height: 50px;
+    background: #f7fbff;
+    height: 48px;
+    color: #34495e;
 }
 
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: #66aaff;
+        box-shadow: 0 0 8px rgba(102, 170, 255, 0.4);
         background: white;
         outline: none;
         transform: translateY(-1px);
     }
 
-.login-body .form-control:focus {
-    border-color: #4facfe;
-    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
-}
+    .form-control::placeholder {
+        color: #99ccff;
+        font-style: normal;
+    }
 
-.form-control::placeholder {
-    color: #6c757d;
-    font-style: italic;
-}
-
-/* Input Groups */
+/* Nhóm input */
 .input-group {
     position: relative;
     display: flex;
@@ -594,147 +1617,132 @@
     }
 
 .toggle-password {
-    border: 2px solid #e9ecef;
+    border: 2px solid #ccebff;
     border-left: none;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    background: #f8f9fa;
-    color: #6c757d;
-    padding: 0 15px;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+    background: #f7fbff;
+    color: #99ccff;
+    padding: 0 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+    width: 48px;
 }
 
     .toggle-password:hover {
-        background: #667eea;
+        background: #66aaff;
         color: white;
-        border-color: #667eea;
+        border-color: #66aaff;
+        box-shadow: 0 0 5px rgba(102, 170, 255, 0.5);
     }
 
-.login-body .toggle-password:hover {
-    background: #4facfe;
-    border-color: #4facfe;
-}
-
 .input-group:focus-within .toggle-password {
-    border-color: #667eea;
+    border-color: #66aaff;
 }
 
-.login-body .input-group:focus-within .toggle-password {
-    border-color: #4facfe;
-}
-
-/* Buttons */
+/* Nút - Gradient động, viền đậm */
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    border-radius: 12px;
-    padding: 14px 25px;
-    font-weight: 600;
-    font-size: 1rem;
-    color: white;
+    background: linear-gradient(45deg, #80bfff 0%, #a3ccff 100%);
+    background-size: 200% 200%;
+    animation: gradientFlow 6s ease infinite;
+    border: 2px solid #80bfff;
+    border-radius: 14px;
+    padding: 12px 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #ffffff;
     width: 100%;
-    height: 50px;
+    height: 48px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-.login-body .btn-primary {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
 
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
+    .btn-primary:hover::before {
+        left: 100%;
+    }
 
-.btn-primary:hover::before {
-    left: 100%;
-}
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 170, 255, 0.4);
+        background-position: 100% 50%;
+        border-color: #66aaff;
+    }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-.login-body .btn-primary:hover {
-    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-}
-
-/* Form Check */
+/* Checkbox - Xanh dương đậm */
 .form-check {
-    margin: 15px 0;
+    margin: 12px 0;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .form-check-input {
-    width: 18px;
-    height: 18px;
-    border: 2px solid #dee2e6;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccebff;
     border-radius: 4px;
-    background: #fff;
+    background: #f7fbff;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
     .form-check-input:checked {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        border-color: #4facfe;
+        background: linear-gradient(135deg, #80bfff 0%, #a3ccff 100%);
+        border-color: #66aaff;
     }
 
 .form-check-label {
-    font-size: 0.9rem;
-    color: #495057;
+    font-size: 0.85rem;
+    color: #566573;
     cursor: pointer;
     user-select: none;
 }
 
-/* Links */
+/* Liên kết - Xanh dương đậm */
 .text-primary {
-    color: #667eea !important;
+    color: #80bfff !important;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.3s ease;
 }
 
-.login-body .text-primary {
-    color: #4facfe !important;
-}
+    .text-primary:hover {
+        text-decoration: underline;
+        color: #66aaff !important;
+        transform: translateX(2px);
+    }
 
-.text-primary:hover {
-    text-decoration: underline;
-    transform: translateX(2px);
-}
-
-/* Login Footer */
+/* Chân trang đăng nhập */
 .login-footer {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ccebff;
 }
 
     .login-footer p {
-        font-size: 0.9rem;
-        color: #6c757d;
+        font-size: 0.85rem;
+        color: #99ccff;
         margin: 0;
     }
 
-/* Alert Messages */
+/* Cảnh báo lỗi */
 .alert-danger {
     background: linear-gradient(135deg, #ff6b6b, #ee5a52);
     color: white;
@@ -746,14 +1754,14 @@
     box-shadow: 0 4px 15px rgba(238, 90, 82, 0.3);
 }
 
-/* Text Danger */
+/* Văn bản lỗi */
 .text-danger {
     font-size: 0.8rem;
     margin-top: 5px;
     font-weight: 500;
 }
 
-/* Loading State */
+/* Trạng thái nút khi bị vô hiệu hóa */
 .btn-primary:disabled {
     background: #6c757d !important;
     cursor: not-allowed;
@@ -761,25 +1769,21 @@
     box-shadow: none !important;
 }
 
-/* Responsive Design */
+/* Responsive cho trang đăng nhập */
 @media (max-width: 768px) {
-    .auth-container,
-    .login-container {
+    .auth-container, .login-container {
         padding: 15px;
     }
 
-    .auth-card,
-    .login-card {
+    .auth-card, .login-card {
         max-width: 95%;
     }
 
-    .auth-header,
-    .login-header {
+    .auth-header, .login-header {
         padding: 25px 20px;
     }
 
-    .auth-body,
-    .login-body {
+    .auth-body, .login-body {
         padding: 25px 20px;
     }
 
@@ -787,13 +1791,11 @@
         font-size: 1.8rem;
     }
 
-    .auth-header h3,
-    .login-header h3 {
+    .auth-header h3, .login-header h3 {
         font-size: 1.2rem;
     }
 
-    .auth-header p,
-    .login-header p {
+    .auth-header p, .login-header p {
         font-size: 0.85rem;
     }
 
@@ -810,13 +1812,11 @@
 }
 
 @media (max-width: 480px) {
-    .auth-header,
-    .login-header {
+    .auth-header, .login-header {
         padding: 20px 15px;
     }
 
-    .auth-body,
-    .login-body {
+    .auth-body, .login-body {
         padding: 20px 15px;
     }
 
@@ -830,7 +1830,7 @@
         }
 }
 
-/* Animation for form validation */
+/* Hiệu ứng khi form không hợp lệ */
 .form-control.is-invalid {
     animation: shake 0.5s ease-in-out;
     border-color: #dc3545;
@@ -850,7 +1850,7 @@
     }
 }
 
-/* Success animation */
+/* Hiệu ứng khi form hợp lệ */
 .form-control.is-valid {
     border-color: #28a745;
     animation: success-pulse 0.6s ease-in-out;
@@ -870,9 +1870,8 @@
     }
 }
 
-/* Floating particles effect */
-.auth-container::after,
-.login-container::after {
+/* Hiệu ứng hạt nổi */
+.auth-container::after, .login-container::after {
     content: '';
     position: absolute;
     top: 0;
@@ -896,12 +1895,11 @@
     }
 }
 
-/* ===== REGISTER SPECIFIC STYLES ===== */
-
-/* Register Container */
+/* ===== TRANG ĐĂNG KÝ (REGISTER PAGE) ===== */
+/* Vùng chứa trang đăng ký - Giữ nguyên gradient xanh dương đậm */
 .register-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ccebff 0%, #e6f3ff 100%); /* Gradient xanh dương đậm */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -917,34 +1915,17 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 30% 70%, rgba(102, 126, 234, 0.3) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-        animation: backgroundMove 15s ease-in-out infinite;
+        background: radial-gradient(circle at 30% 70%, rgba(128, 191, 255, 0.3) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(230, 243, 255, 0.25) 0%, transparent 50%);
+        animation: backgroundMove 12s ease-in-out infinite;
     }
 
-@keyframes backgroundMove {
-    0%, 100% {
-        transform: translateX(0) translateY(0);
-    }
-
-    25% {
-        transform: translateX(-20px) translateY(-10px);
-    }
-
-    50% {
-        transform: translateX(20px) translateY(10px);
-    }
-
-    75% {
-        transform: translateX(-10px) translateY(20px);
-    }
-}
-
-/* Register Card */
+/* Thẻ đăng ký - Viền đậm, bóng nổi bật */
 .register-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 2.5px solid #80bfff;
     width: 100%;
     max-width: 480px;
     position: relative;
@@ -954,86 +1935,241 @@
 }
 
     .register-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3);
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        border-color: #66aaff;
     }
 
-/* Register Header */
+/* Tiêu đề trang đăng ký - Gradient động xanh dương */
 .register-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #80bfff 0%, #a3ccff 100%);
+    background-size: 200% 200%;
+    animation: gradientFlow 6s ease infinite;
     color: white;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
 }
 
-    .register-header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-        animation: headerPulse 8s ease-in-out infinite;
+    /* Icon y tế - Nhấn nhá viền */
+    .register-header .medical-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        position: relative;
+        z-index: 1;
+        transition: all 0.4s ease;
+        border: 2px solid rgba(255, 255, 255, 0.5);
     }
 
-/* Register Body */
-.register-body {
-    padding: 35px 30px;
-    background: white;
-}
-
-    /* Register specific form controls */
-    .register-body .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .register-body .toggle-password:hover {
-        background: #667eea;
-        border-color: #667eea;
-    }
-
-    .register-body .input-group:focus-within .toggle-password {
-        border-color: #667eea;
-    }
-
-    /* Register Button */
-    .register-body .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-        .register-body .btn-primary:hover {
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        .register-header .medical-icon:hover {
+            transform: rotate(180deg) scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(128, 191, 255, 0.5);
         }
 
-    /* Register Links */
-    .register-body .text-primary {
-        color: #667eea !important;
+        .register-header .medical-icon i {
+            font-size: 1.8rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+        }
+
+    .register-header h3 {
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 1.3rem;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     }
 
-    /* Register Form Check */
-    .register-body .form-check-input:checked {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-color: #667eea;
-    }
-
-/* Register Footer */
-.register-footer {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-    .register-footer p {
-        font-size: 0.9rem;
-        color: #6c757d;
+    .register-header p {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
         margin: 0;
     }
 
-/* Register floating particles effect */
+
+/* Nội dung trang đăng ký */
+.register-body {
+    padding: 30px 25px;
+    background: white;
+    border-radius: 0 0 24px 24px;
+}
+    /* Ô nhập liệu - Đồng bộ viền xanh dương */
+    .register-body .form-control {
+        border: 2px solid #ccebff; /* Viền xanh dương nhạt */
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background: #f7fbff; /* Nền nhạt */
+        height: 48px;
+        color: #34495e;
+    }
+
+        .register-body .form-control:focus {
+            border-color: #66aaff; /* Viền xanh dương đậm khi focus */
+            box-shadow: 0 0 8px rgba(102, 170, 255, 0.4); /* Bóng xanh nổi bật */
+            background: white;
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .register-body .form-control::placeholder {
+            color: #99ccff; /* Placeholder xanh dương */
+            font-style: normal;
+        }
+
+    /* Nhóm input */
+    .register-body .input-group {
+        position: relative;
+        display: flex;
+    }
+
+        .register-body .input-group .form-control {
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+    .register-body .toggle-password {
+        border: 2px solid #ccebff; /* Viền xanh dương nhạt */
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 14px;
+        border-bottom-right-radius: 14px;
+        background: #f7fbff;
+        color: #99ccff;
+        padding: 0 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+    }
+
+        .register-body .toggle-password:hover {
+            background: #66aaff; /* Xanh dương đậm */
+            color: white;
+            border-color: #66aaff;
+            box-shadow: 0 0 5px rgba(102, 170, 255, 0.5); /* Ánh sáng xanh */
+        }
+
+    .register-body .input-group:focus-within .toggle-password {
+        border-color: #66aaff;
+    }
+
+    /* Nút - Gradient động xanh dương */
+    .register-body .btn-primary {
+        background: linear-gradient(45deg, #80bfff 0%, #a3ccff 100%); /* Gradient xanh dương đậm */
+        background-size: 200% 200%;
+        animation: gradientFlow 6s ease infinite; /* Hiệu ứng gradient động */
+        border: 2px solid #80bfff; /* Viền xanh dương */
+        border-radius: 14px;
+        padding: 12px 20px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: #ffffff; /* Chữ trắng */
+        width: 100%;
+        height: 48px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .register-body .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .register-body .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .register-body .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 170, 255, 0.4); /* Bóng xanh đậm */
+            background-position: 100% 50%;
+            border-color: #66aaff;
+        }
+
+    /* Checkbox - Xanh dương đậm */
+    .register-body .form-check {
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .register-body .form-check-input {
+        width: 16px;
+        height: 16px;
+        border: 2px solid #ccebff; /* Viền xanh dương nhạt */
+        border-radius: 4px;
+        background: #f7fbff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .register-body .form-check-input:checked {
+            background: linear-gradient(135deg, #80bfff 0%, #a3ccff 100%); /* Gradient xanh dương */
+            border-color: #66aaff;
+        }
+
+    .register-body .form-check-label {
+        font-size: 0.85rem;
+        color: #566573;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* Liên kết - Xanh dương đậm */
+    .register-body .text-primary {
+        color: #80bfff !important; /* Xanh dương đậm */
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .register-body .text-primary:hover {
+            text-decoration: underline;
+            color: #66aaff !important; /* Đậm hơn khi hover */
+            transform: translateX(2px);
+        }
+
+/* Chân trang đăng ký */
+.register-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ccebff; /* Viền xanh dương nhạt */
+}
+
+    .register-footer p {
+        font-size: 0.85rem;
+        color: #99ccff;
+        margin: 0;
+    }
+
+/* Hiệu ứng hạt nổi */
 .register-container::after {
     content: '';
     position: absolute;
@@ -1048,7 +2184,17 @@
     pointer-events: none;
 }
 
-/* Register Responsive Design */
+@keyframes sparkle {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100px);
+    }
+}
+
+/* Responsive cho màn hình nhỏ */
 @media (max-width: 768px) {
     .register-container {
         padding: 15px;
@@ -1076,11 +2222,7 @@
         padding: 20px 15px;
     }
 }
-
-/* ===== LANDING PAGE STYLES ===== */
-/* Chỉ áp dụng cho phần Landing Page khi chưa đăng nhập */
-
-/* Color Variables for Landing Page */
+/* ===== TRANG CHỦ (LANDING PAGE) ===== */
 :root {
     --landing-primary: #2563eb;
     --landing-primary-light: #3b82f6;
@@ -1102,7 +2244,6 @@
     --landing-gray-900: #0f172a;
 }
 
-/* Landing Hero Section */
 .landing-hero {
     background: linear-gradient(135deg, var(--landing-primary) 0%, var(--landing-secondary) 50%, var(--landing-primary-dark) 100%);
     background-size: 400% 400%;
@@ -1115,7 +2256,6 @@
     display: flex;
     align-items: center;
 }
-
 
 @keyframes landingGradientFlow {
     0% {
@@ -1147,7 +2287,6 @@
     z-index: 2;
 }
 
-/* Landing Content */
 .landing-content {
     color: var(--landing-white);
     animation: landingSlideInLeft 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1227,7 +2366,6 @@
     max-width: 500px;
 }
 
-/* Landing Buttons */
 .landing-buttons {
     display: flex;
     gap: 1rem;
@@ -1290,7 +2428,6 @@
             transform: translateY(-2px);
         }
 
-/* Landing Visual */
 .landing-visual {
     display: flex;
     justify-content: center;
@@ -1398,7 +2535,6 @@
         color: var(--landing-gray-700);
     }
 
-/* Features Section */
 .features-section {
     background: var(--landing-white);
     padding: 5rem 0;
@@ -1406,7 +2542,6 @@
     width: 100vw;
     margin-left: calc(-50vw + 50%);
 }
-
 
     .features-section::before {
         content: '';
@@ -1511,7 +2646,6 @@
     margin: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 991.98px) {
     .landing-title {
         font-size: 2.5rem;
@@ -1604,7 +2738,6 @@
     }
 }
 
-/* Animation delays for staggered effects */
 .feature-card:nth-child(1) {
     animation: featureSlideUp 0.8s ease 0.2s both;
 }
@@ -1629,12 +2762,10 @@
     }
 }
 
-/* Smooth scrolling for better UX */
 html {
     scroll-behavior: smooth;
 }
 
-/* Loading animation for medical card stats */
 .stat-item {
     animation: statItemSlide 0.6s ease forwards;
     opacity: 0;
@@ -1660,7 +2791,6 @@ html {
     }
 }
 
-/* Hover effects for better interactivity */
 .landing-badge:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
@@ -1671,7 +2801,6 @@ html {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
 }
 
-/* Focus states for accessibility */
 .btn-custom:focus {
     outline: 2px solid rgba(255, 255, 255, 0.5);
     outline-offset: 2px;
@@ -1681,7 +2810,6 @@ html {
     outline-color: var(--landing-primary);
 }
 
-/* Print styles */
 @media print {
     .landing-hero,
     .features-section {
@@ -1696,7 +2824,6 @@ html {
     }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
     .landing-hero {
         background: #000080;
@@ -1712,7 +2839,6 @@ html {
     }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -1727,7 +2853,6 @@ html {
     }
 }
 
-/* Dark mode support (if needed in future) */
 @media (prefers-color-scheme: dark) {
     .features-section {
         background: var(--landing-gray-900);
@@ -1755,23 +2880,44 @@ html {
         }
 }
 
-/* Footer Styles - Conditional Full Width */
+/* ===== BIẾN CSS CHO BỆNH ÁN (MEDICAL RECORD VARIABLES) ===== */
+:root {
+    --primary-blue: #007bff;
+    --light-blue: #e6f2ff;
+    --dark-blue: #0056b3;
+    --text-color: #333;
+    --light-text-color: #666;
+    --border-color: #ccc;
+    --error-red: #dc3545;
+    --success-green: #28a745;
+    --info-blue: #17a2b8;
+    --box-shadow: rgba(0, 0, 0, 0.1);
+    /* Thêm các biến bổ sung */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+}
+
+/* ===== CHÂN TRANG (FOOTER) ===== */
 .landing-footer {
     background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
     color: #f8fafc;
-    padding: 4rem 0 2rem;
-    border-top: 3px solid #3b82f6;
+    padding: var(--spacing-xl) 0 var(--spacing-md);
+    border-top: 3px solid var(--primary-blue);
     position: relative;
-    margin-top: 4rem;
+    margin-top: var(--spacing-xl);
 }
 
-/* Full width background for landing page (when not logged in) */
 body:not(.logged-in) .landing-footer {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
 }
 
-/* Normal width when logged in (with sidebar) */
 body.logged-in .landing-footer {
     width: auto;
     margin-left: 0;
@@ -1784,27 +2930,26 @@ body.logged-in .landing-footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+    background: linear-gradient(45deg, rgba(0, 123, 255, 0.05) 0%, rgba(40, 167, 69, 0.05) 100%);
     pointer-events: none;
 }
 
-/* Footer Brand Section */
 .footer-brand {
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-md);
 }
 
     .footer-brand h5 {
         color: #ffffff;
         font-weight: 700;
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--spacing-sm);
         font-size: 1.4rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: var(--spacing-xs);
     }
 
         .footer-brand h5 i {
-            color: #ef4444;
+            color: var(--error-red);
             font-size: 1.6rem;
             animation: pulse 2s infinite;
         }
@@ -1820,21 +2965,20 @@ body.logged-in .landing-footer {
 }
 
 .footer-description {
-    color: #cbd5e1;
+    color: var(--light-text-color);
     line-height: 1.8;
     margin-bottom: 0;
     font-size: 1rem;
     max-width: 400px;
 }
 
-/* Footer Titles */
 .footer-title {
     color: #ffffff;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-sm);
     font-size: 1.2rem;
     position: relative;
-    padding-bottom: 0.8rem;
+    padding-bottom: var(--spacing-xs);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -1846,11 +2990,10 @@ body.logged-in .landing-footer {
         left: 0;
         width: 40px;
         height: 3px;
-        background: linear-gradient(90deg, #3b82f6, #10b981);
+        background: linear-gradient(90deg, var(--primary-blue), var(--success-green));
         border-radius: 2px;
     }
 
-/* Footer Links */
 .footer-links {
     list-style: none;
     padding: 0;
@@ -1858,11 +3001,11 @@ body.logged-in .landing-footer {
 }
 
     .footer-links li {
-        margin-bottom: 1rem;
+        margin-bottom: var(--spacing-xs);
     }
 
     .footer-links a {
-        color: #cbd5e1;
+        color: var(--light-text-color);
         text-decoration: none;
         transition: all 0.3s ease;
         font-size: 0.95rem;
@@ -1875,7 +3018,7 @@ body.logged-in .landing-footer {
 
         .footer-links a i {
             color: #64748b;
-            margin-right: 0.5rem;
+            margin-right: var(--spacing-xs);
             transition: all 0.3s ease;
             font-size: 0.8rem;
         }
@@ -1888,7 +3031,7 @@ body.logged-in .landing-footer {
             transform: translateY(-50%);
             width: 0;
             height: 2px;
-            background: #3b82f6;
+            background: var(--primary-blue);
             transition: width 0.3s ease;
         }
 
@@ -1899,7 +3042,7 @@ body.logged-in .landing-footer {
         }
 
             .footer-links a:hover i {
-                color: #3b82f6;
+                color: var(--primary-blue);
                 transform: scale(1.2);
             }
 
@@ -1907,18 +3050,17 @@ body.logged-in .landing-footer {
                 width: 15px;
             }
 
-/* Footer Contact */
 .footer-contact {
-    margin-top: 1rem;
+    margin-top: var(--spacing-sm);
 }
 
     .footer-contact p {
-        color: #cbd5e1;
-        margin-bottom: 1rem;
+        color: var(--light-text-color);
+        margin-bottom: var(--spacing-sm);
         font-size: 0.95rem;
         display: flex;
         align-items: center;
-        gap: 0.8rem;
+        gap: var(--spacing-xs);
         font-weight: 500;
         transition: color 0.3s ease;
     }
@@ -1928,36 +3070,34 @@ body.logged-in .landing-footer {
         }
 
     .footer-contact i {
-        color: #3b82f6;
+        color: var(--primary-blue);
         width: 20px;
         height: 20px;
         font-size: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(59, 130, 246, 0.1);
+        background: rgba(0, 123, 255, 0.1);
         border-radius: 50%;
         flex-shrink: 0;
         transition: all 0.3s ease;
     }
 
     .footer-contact p:hover i {
-        background: rgba(59, 130, 246, 0.2);
+        background: rgba(0, 123, 255, 0.2);
         transform: scale(1.1);
     }
 
-/* Footer Divider */
 .footer-divider {
     border: none;
     height: 2px;
     background: linear-gradient(90deg, transparent, #475569, transparent);
-    margin: 3rem 0 2rem;
+    margin: var(--spacing-lg) 0 var(--spacing-md);
     opacity: 0.8;
 }
 
-/* Footer Bottom Section */
 .footer-bottom {
-    padding-top: 1rem;
+    padding-top: var(--spacing-sm);
 }
 
 .footer-copyright {
@@ -1967,20 +3107,19 @@ body.logged-in .landing-footer {
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--spacing-xs);
 }
 
     .footer-copyright::before {
         content: '©';
-        color: #3b82f6;
+        color: var(--primary-blue);
         font-weight: 700;
         font-size: 1.1rem;
     }
 
-/* Footer Social */
 .footer-social {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-sm);
     justify-content: flex-end;
     align-items: center;
 }
@@ -1991,12 +3130,12 @@ body.logged-in .landing-footer {
         justify-content: center;
         width: 45px;
         height: 45px;
-        background: rgba(59, 130, 246, 0.1);
-        color: #cbd5e1;
+        background: rgba(0, 123, 255, 0.1);
+        color: var(--light-text-color);
         border-radius: 50%;
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 2px solid rgba(59, 130, 246, 0.2);
+        border: 2px solid rgba(0, 123, 255, 0.2);
         position: relative;
         overflow: hidden;
         font-size: 1.1rem;
@@ -2009,7 +3148,7 @@ body.logged-in .landing-footer {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #3b82f6, #10b981);
+            background: linear-gradient(135deg, var(--primary-blue), var(--success-green));
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: -1;
@@ -2018,15 +3157,14 @@ body.logged-in .landing-footer {
         .footer-social a:hover {
             color: #ffffff;
             transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-            border-color: #3b82f6;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            border-color: var(--primary-blue);
         }
 
             .footer-social a:hover::before {
                 opacity: 1;
             }
 
-        /* Platform specific colors */
         .footer-social a:nth-child(1):hover::before {
             background: linear-gradient(135deg, #1877f2, #42a5f5);
         }
@@ -2043,20 +3181,19 @@ body.logged-in .landing-footer {
             background: linear-gradient(135deg, #0077b5, #42a5f5);
         }
 
-/* Responsive Design */
 @media (max-width: 991.98px) {
     .landing-footer {
-        padding: 3rem 0 1.5rem;
+        padding: var(--spacing-lg) 0 var(--spacing-sm);
     }
 
     .footer-brand {
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: var(--spacing-lg);
     }
 
     .footer-title {
         text-align: center;
-        margin-top: 2rem;
+        margin-top: var(--spacing-md);
     }
 
         .footer-title::after {
@@ -2068,13 +3205,13 @@ body.logged-in .landing-footer {
 @media (max-width: 767.98px) {
     .footer-social {
         justify-content: center;
-        margin-top: 2rem;
+        margin-top: var(--spacing-md);
     }
 
     .footer-copyright {
         text-align: center;
         justify-content: center;
-        margin-bottom: 1rem;
+        margin-bottom: var(--spacing-sm);
     }
 
     .footer-brand h5 {
@@ -2088,29 +3225,28 @@ body.logged-in .landing-footer {
     }
 }
 
-/* Hover effects for better interactivity */
 .footer-brand:hover h5 {
-    color: #3b82f6;
+    color: var(--primary-blue);
     transition: color 0.3s ease;
 }
 
     .footer-brand:hover h5 i {
-        color: #10b981;
+        color: var(--success-green);
         animation-duration: 1s;
     }
 
-/* Focus states for accessibility */
 .footer-links a:focus,
 .footer-social a:focus {
-    outline: 3px solid #3b82f6;
+    outline: 3px solid var(--primary-blue);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
 }
 
+/* ===== THẺ KẾT QUẢ (CUSTOM RESULT CARD) ===== */
 .custom-result-card {
-    border-radius: 1rem;
-    border: 1px solid #e3e6f0;
-    background: #f8f9fc;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    background: var(--light-blue);
 }
 
 .custom-result-table tr:nth-child(even) td {
@@ -2119,24 +3255,24 @@ body.logged-in .landing-footer {
 
 .custom-result-table td {
     vertical-align: middle;
-    padding: 0.75rem 0.5rem;
+    padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) 0;
     font-size: 1.05rem;
 }
 
 .card-header.rounded-top {
-    border-top-left-radius: 1rem !important;
-    border-top-right-radius: 1rem !important;
+    border-top-left-radius: var(--radius-lg) !important;
+    border-top-right-radius: var(--radius-lg) !important;
 }
 
 .card-footer.rounded-bottom {
-    border-bottom-left-radius: 1rem !important;
-    border-bottom-right-radius: 1rem !important;
+    border-bottom-left-radius: var(--radius-lg) !important;
+    border-bottom-right-radius: var(--radius-lg) !important;
 }
 
-/* Phân quyền: Thao tác */
+/* ===== NHÓM HÀNH ĐỘNG (ACTION GROUP) ===== */
 .action-group {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--spacing-xs);
     align-items: center;
 }
 
@@ -2146,22 +3282,22 @@ body.logged-in .landing-footer {
 
     .action-group select.form-select-sm {
         min-width: 140px;
-        border-radius: 0.375rem;
-        border: 1px solid #ced4da;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
         background: #f8f9fa;
         font-size: 0.95rem;
         transition: border-color 0.2s;
     }
 
         .action-group select.form-select-sm:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 0.15rem rgba(13,110,253,.15);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.15);
         }
 
     .action-group button.btn {
         min-width: 80px;
         font-size: 0.95rem;
-        border-radius: 0.375rem;
+        border-radius: var(--radius-sm);
         transition: box-shadow 0.2s;
     }
 
@@ -2177,152 +3313,107 @@ body.logged-in .landing-footer {
         }
 
     .action-group button.btn-outline-success {
-        border-color: #198754;
-        color: #198754;
+        border-color: var(--success-green);
+        color: var(--success-green);
     }
 
         .action-group button.btn-outline-success:hover,
         .action-group button.btn-outline-success:focus {
-            background: #198754;
+            background: var(--success-green);
             color: #fff;
         }
 
-/* -- Tùy chỉnh nâng cao: Sử dụng biến CSS để linh hoạt và chuyên nghiệp hơn -- */
-:root {
-    /* Màu sắc chung */
-    --color-text-primary: #333; /* Màu văn bản chính */
-    --color-text-secondary: #555; /* Màu văn bản phụ */
-    --color-border-light: #e0e0e0; /* Đường viền nhẹ */
-    --color-shadow-light: rgba(0, 0, 0, 0.04);
-    --color-shadow-medium: rgba(0, 0, 0, 0.08);
-    /* Màu vàng - Đổi sang tông màu đất/nâu cam ấm áp, ít chói hơn */
-    --color-announcement-yellow-light: #fff8e1; /* Nền nhạt */
-    --color-announcement-yellow-dark: #ffecb3; /* Nền đậm cho gradient */
-    --color-announcement-yellow-border: #ff8f00; /* Viền chính */
-    --color-announcement-yellow-header: #e65100; /* Tiêu đề */
-    --color-announcement-yellow-semibold: #f57c00; /* Text semibold */
-    --color-announcement-yellow-shadow: rgba(255, 143, 0, 0.08);
-    --color-announcement-yellow-shadow-hover: rgba(255, 143, 0, 0.16);
-    /* Màu xanh lá - Đổi sang tông xanh ngọc/xanh lá cây đất, dịu hơn */
-    --color-announcement-green-light: #e0f7fa; /* Nền nhạt */
-    --color-announcement-green-dark: #b2ebf2; /* Nền đậm cho gradient */
-    --color-announcement-green-border: #00bcd4; /* Viền chính */
-    --color-announcement-green-header: #00838f; /* Tiêu đề */
-    --color-announcement-green-semibold: #00acc1; /* Text semibold */
-    --color-announcement-green-shadow: rgba(0, 188, 212, 0.08);
-    --color-announcement-green-shadow-hover: rgba(0, 188, 212, 0.16);
-    /* Kích thước padding/margin cơ bản (sử dụng base 0.5rem = 8px) */
-    --spacing-xs: 0.5rem; /* 8px */
-    --spacing-sm: 0.75rem; /* 12px */
-    --spacing-md: 1rem; /* 16px */
-    --spacing-lg: 1.5rem; /* 24px */
-    --spacing-xl: 2rem; /* 32px */
-}
-
-/* Base Styles cho khung thông báo */
+/* ===== KHUNG THÔNG BÁO (ANNOUNCEMENT TABLE) ===== */
 .announcement-table {
-    border-radius: var(--spacing-sm); /* Bo góc 12px, trông hiện đại và mềm mại */
-    padding: var(--spacing-xl) var(--spacing-lg); /* Padding trong lớn hơn */
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xl) var(--spacing-lg);
     min-height: 100%;
-    /* Nền và viền mặc định cho khung vàng (sẽ được ghi đè cho green) */
-    background: linear-gradient(120deg, var(--color-announcement-yellow-light) 80%, var(--color-announcement-yellow-dark) 100%);
-    border-left: 6px solid var(--color-announcement-yellow-border);
-    /* Đổ bóng nhiều lớp để tạo chiều sâu tinh tế */
-    box-shadow: 0 4px 12px var(--color-shadow-light), 0 8px 24px var(--color-announcement-yellow-shadow);
-    transition: box-shadow 0.3s ease-out, transform 0.2s ease-out; /* Chuyển động mượt mà hơn */
+    background: linear-gradient(120deg, #fff8e1 80%, #ffecb3 100%);
+    border-left: 6px solid #ff8f00;
+    box-shadow: 0 4px 12px var(--box-shadow), 0 8px 24px rgba(255, 143, 0, 0.08);
+    transition: box-shadow 0.3s ease-out, transform 0.2s ease-out;
     position: relative;
-    overflow: hidden; /* Đảm bảo mọi thứ bên trong không tràn ra ngoài */
-    display: flex; /* Dùng flexbox để căn chỉnh nội dung nếu cần */
+    overflow: hidden;
+    display: flex;
     flex-direction: column;
 }
 
     .announcement-table:hover,
     .announcement-table:focus-within {
-        box-shadow: 0 6px 16px var(--color-shadow-medium), 0 12px 36px var(--color-announcement-yellow-shadow-hover); /* Đổ bóng sâu hơn khi hover */
-        transform: translateY(-4px) scale(1.005); /* Hiệu ứng nhấc và scale nhẹ nhàng hơn */
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05), 0 12px 36px rgba(255, 143, 0, 0.16);
+        transform: translateY(-4px) scale(1.005);
     }
 
-/* Các kiểu cụ thể cho khung vàng */
 .announcement-yellow {
-    /* Đã được set làm mặc định trong .announcement-table */
-    /* background: linear-gradient(120deg, var(--color-announcement-yellow-light) 80%, var(--color-announcement-yellow-dark) 100%); */
-    /* border-left: 6px solid var(--color-announcement-yellow-border); */
-    /* box-shadow: 0 4px 12px var(--color-shadow-light), 0 8px 24px var(--color-announcement-yellow-shadow); */
+    /* Đã được set trong .announcement-table */
 }
 
-/* Các kiểu cụ thể cho khung xanh lá */
 .announcement-green {
-    background: linear-gradient(120deg, var(--color-announcement-green-light) 80%, var(--color-announcement-green-dark) 100%);
-    border-left: 6px solid var(--color-announcement-green-border);
-    /* Đổ bóng riêng cho màu xanh lá */
-    box-shadow: 0 4px 12px var(--color-shadow-light), 0 8px 24px var(--color-announcement-green-shadow);
+    background: linear-gradient(120deg, var(--light-blue) 80%, #b2ebf2 100%);
+    border-left: 6px solid var(--info-blue);
+    box-shadow: 0 4px 12px var(--box-shadow), 0 8px 24px rgba(0, 188, 212, 0.08);
 }
 
     .announcement-green:hover,
     .announcement-green:focus-within {
-        box-shadow: 0 6px 16px var(--color-shadow-medium), 0 12px 36px var(--color-announcement-green-shadow-hover);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05), 0 12px 36px rgba(0, 188, 212, 0.16);
     }
 
-/* Tiêu đề H5 */
 .announcement-table h5 {
-    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* Thêm Roboto làm font fallback */
-    font-size: 1.4rem; /* Kích thước tiêu đề lớn hơn, dễ nhìn */
-    letter-spacing: -0.02em; /* Giảm khoảng cách giữa các chữ cái cho tiêu đề lớn */
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
     font-weight: 700;
-    color: var(--color-announcement-yellow-header);
-    margin-bottom: var(--spacing-lg); /* Khoảng cách dưới tiêu đề */
+    color: #e65100;
+    margin-bottom: var(--spacing-lg);
     display: flex;
     align-items: center;
-    gap: var(--spacing-md); /* Khoảng cách giữa icon và chữ */
-    line-height: 1.2; /* Tối ưu chiều cao dòng cho tiêu đề */
+    gap: var(--spacing-md);
+    line-height: 1.2;
 }
 
-/* Màu chữ tiêu đề xanh lá */
 .announcement-green h5 {
-    color: var(--color-announcement-green-header);
+    color: var(--dark-blue);
 }
 
-/* Bảng nội dung */
 .announcement-table .table {
     background: transparent;
     width: 100%;
-    border-collapse: collapse; /* Đảm bảo không có khoảng trống giữa các ô */
-    flex-grow: 1; /* Cho phép bảng chiếm hết không gian còn lại */
+    border-collapse: collapse;
+    flex-grow: 1;
 }
 
     .announcement-table .table td {
         vertical-align: top;
         font-size: 1rem;
-        padding: var(--spacing-sm) 0 var(--spacing-sm) 0; /* Padding thoải mái hơn cho hàng */
-        color: var(--color-text-secondary); /* Màu chữ nội dung nhẹ nhàng hơn */
+        padding: var(--spacing-sm) 0 var(--spacing-sm) 0;
+        color: var(--text-color);
         border: none;
-        background: transparent; /* Đảm bảo nền trong suốt */
-        line-height: 1.5; /* Cải thiện khả năng đọc cho văn bản dài */
+        background: transparent;
+        line-height: 1.5;
     }
 
     .announcement-table .table tr:not(:last-child) td {
-        border-bottom: 1px solid var(--color-border-light); /* Đường kẻ phân cách nhạt và tinh tế hơn */
+        border-bottom: 1px solid var(--border-color);
     }
 
-/* Phần tử fw-semibold (ví dụ: ngày tháng, tiêu đề con) */
 .announcement-table .fw-semibold {
     font-weight: 600;
-    color: var(--color-announcement-yellow-semibold);
-    white-space: nowrap; /* Ngăn ngắt dòng */
-    padding-right: var(--spacing-md); /* Khoảng cách phải */
-    min-width: 8rem; /* Đảm bảo có đủ không gian cho phần ngày tháng/tiêu đề phụ */
+    color: #f57c00;
+    white-space: nowrap;
+    padding-right: var(--spacing-md);
+    min-width: 8rem;
 }
 
 .announcement-green .fw-semibold {
-    color: var(--color-announcement-green-semibold);
+    color: var(--primary-blue);
 }
 
-/* Responsive adjustments */
 @media (max-width: 767.98px) {
     .announcement-table {
         margin-bottom: var(--spacing-lg);
         padding: var(--spacing-lg) var(--spacing-md);
-        border-radius: var(--spacing-sm); /* Giữ bo góc cho mobile */
+        border-radius: var(--radius-sm);
     }
 
         .announcement-table h5 {
@@ -2332,501 +3423,84 @@ body.logged-in .landing-footer {
         }
 
         .announcement-table .table td {
-            font-size: 0.9rem; /* Giảm font size cho mobile */
+            font-size: 0.9rem;
             padding: var(--spacing-xs) 0 var(--spacing-xs) 0;
             line-height: 1.4;
         }
 
         .announcement-table .fw-semibold {
-            min-width: 6rem; /* Điều chỉnh lại min-width cho mobile */
+            min-width: 6rem;
             padding-right: var(--spacing-xs);
         }
 }
 
-/* -- Professional CSS Variables -- */
-:root {
-    /* Base Colors */
-    --color-primary: #1a4a75; /* Deep Blue - Main accent color */
-    --color-primary-light: #2c6eab; /* Lighter primary for hover */
-    --color-primary-dark: #0f2e4b; /* Darker primary for text/header */
-
-    --color-text-dark: #333d47; /* Dark charcoal text for main content */
-    --color-text-medium: #5a646e; /* Medium gray for secondary text */
-    --color-text-light: #8a96a0; /* Light gray for subtle details */
-
-    --color-background-light: #f7f9fc; /* Very light blue-gray background */
-    --color-background-card: #ffffff; /* Pure white for cards/containers */
-
-    --color-border: #e6ecf2; /* Light blue-gray border */
-    --color-divider: #eff2f6; /* Even lighter for table dividers */
-    /* Shadows */
-    --shadow-sm: rgba(0, 0, 0, 0.03) 0px 1px 2px, rgba(0, 0, 0, 0.02) 0px 2px 4px; /* Subtle, layered shadow */
-    --shadow-md: rgba(0, 0, 0, 0.05) 0px 4px 12px, rgba(0, 0, 0, 0.03) 0px 8px 24px; /* More prominent shadow */
-    --shadow-lg: rgba(0, 0, 0, 0.08) 0px 8px 24px, rgba(0, 0, 0, 0.05) 0px 16px 48px; /* Deeper shadow on hover */
-    /* Spacing System (using a base of 0.25rem = 4px) */
-    --spacing-xs: 0.5rem; /* 8px */
-    --spacing-sm: 0.75rem; /* 12px */
-    --spacing-md: 1rem; /* 16px */
-    --spacing-lg: 1.5rem; /* 24px */
-    --spacing-xl: 2rem; /* 32px */
-    --spacing-xxl: 2.5rem; /* 40px */
-    /* Border Radii */
-    --radius-sm: 0.25rem; /* 4px */
-    --radius-md: 0.5rem; /* 8px */
-    --radius-lg: 0.75rem; /* 12px */
-}
-
-/* Base Body Styles */
+/* ===== KIỂU DÁNG BODY (BODY STYLES) ===== */
 body {
-    font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* Prioritize 'Inter' for modern look */
-    color: var(--color-text-dark);
-    line-height: 1.65; /* Slightly increased line-height for better readability */
-    background-color: var(--color-background-light);
-    -webkit-font-smoothing: antialiased; /* Better font rendering on macOS/iOS */
+    font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-color);
+    line-height: 1.65;
+    background-color: var(--light-blue);
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
-/* Main Container */
-/* Variables for consistent color scheme (ensure these are aligned with your main style.css) */
+/* ===== BIẾN CSS CHO BỆNH ÁN (MEDICAL RECORD VARIABLES) ===== */
 :root {
-    --primary-blue: #007bff; /* A standard, vibrant blue for main actions/buttons */
-    --light-blue: #e6f2ff; /* Light blue for backgrounds or subtle highlights */
-    --dark-blue: #0056b3; /* Darker blue for hover states or stronger emphasis */
-    --text-color: #333; /* Dark grey for general text */
-    --light-text-color: #666; /* Lighter grey for secondary text */
-    --border-color: #ccc; /* Light grey for borders */
-    --error-red: #dc3545; /* Red for error messages */
-    --success-green: #28a745; /* Green for success messages */
-    --info-blue: #17a2b8; /* A different blue for info/secondary actions */
+    --primary-blue: #007bff;
+    --light-blue: #e6f2ff;
+    --dark-blue: #0056b3;
+    --text-color: #333;
+    --light-text-color: #666;
+    --border-color: #ccc;
+    --error-red: #dc3545;
+    --success-green: #28a745;
+    --info-blue: #17a2b8;
     --box-shadow: rgba(0, 0, 0, 0.1);
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: var(--light-blue); /* Consistent light blue background */
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* --- Main Container --- */
-.patient-selection-container {
-    background-color: #fff;
-    border-radius: 10px; /* Slightly more rounded corners */
-    box-shadow: 0 6px 20px var(--box-shadow); /* More prominent shadow */
-    padding: 35px;
-    margin: 30px auto; /* More margin for breathing room */
-    max-width: 1100px; /* Wider container for better table display */
-    box-sizing: border-box;
-}
-
-/* --- Section Title --- */
-.section-title {
-    color: var(--dark-blue); /* Darker blue for a stronger title */
-    text-align: center;
-    margin-bottom: 40px; /* More space below title */
-    font-size: 2.5em; /* Larger font size for prominence */
-    font-weight: 700; /* Bolder title */
-    position: relative;
-    padding-bottom: 15px;
-}
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        width: 120px; /* Longer underline */
-        height: 5px; /* Thicker underline */
-        background-color: var(--primary-blue); /* Primary blue for underline */
-        border-radius: 3px;
-    }
-
-/* --- Table Styles --- */
-.table-responsive {
-    overflow-x: auto; /* Ensures horizontal scrolling on small screens */
-    margin-top: 25px;
-    border: 1px solid var(--border-color); /* Light border around the table */
-    border-radius: 8px; /* Rounded corners for the table wrapper */
-}
-
-.patient-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 700px; /* Ensure table has a minimum width for readability */
-}
-
-    .patient-table thead th {
-        background-color: var(--primary-blue);
-        color: #fff;
-        padding: 18px 20px; /* More padding in headers */
-        text-align: left;
-        font-weight: 600; /* Slightly bolder headers */
-        font-size: 1.05em;
-        border-bottom: 3px solid var(--dark-blue); /* Thicker border below headers */
-        white-space: nowrap; /* Prevent header text from wrapping */
-    }
-
-    .patient-table tbody tr {
-        border-bottom: 1px solid #eee;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-        .patient-table tbody tr:nth-child(even) {
-            background-color: var(--light-blue); /* Zebra striping with light blue */
-        }
-
-        .patient-table tbody tr:hover {
-            background-color: #f0f8ff; /* Lighter blue on hover */
-            transform: scale(1.005); /* Subtle scale effect on hover */
-        }
-
-    .patient-table tbody td {
-        padding: 16px 20px; /* More padding in table cells */
-        vertical-align: middle;
-        color: var(--text-color);
-        font-size: 0.95em;
-        line-height: 1.4;
-    }
-
-/* Responsive Table Cells (for smaller screens) */
-@media (max-width: 768px) {
-    .patient-table thead {
-        display: none; /* Hide table headers on small screens */
-    }
-
-    .patient-table,
-    .patient-table tbody,
-    .patient-table tr,
-    .patient-table td {
-        display: block; /* Make table elements stack */
-        width: 100%;
-    }
-
-        .patient-table tr {
-            margin-bottom: 15px; /* Space between stacked rows */
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            padding: 15px;
-            background-color: #fff;
-        }
-
-        .patient-table td {
-            text-align: right;
-            padding-left: 50%; /* Make space for the data-label */
-            position: relative;
-        }
-
-            .patient-table td::before {
-                content: attr(data-label); /* Display the data-label as a pseudo-element */
-                position: absolute;
-                left: 10px;
-                width: calc(50% - 20px);
-                padding-right: 10px;
-                white-space: nowrap;
-                text-align: left;
-                font-weight: 600;
-                color: var(--dark-blue);
-            }
-
-        .patient-table .action-cell {
-            text-align: center; /* Center action buttons on small screens */
-            padding-left: 10px; /* Reset padding for action cell */
-        }
-}
-
-
-/* --- Action Button Container --- */
-/* New style to make buttons display side-by-side */
-.action-buttons-group {
-    display: flex; /* Use flexbox */
-    gap: 10px; /* Space between buttons */
-    justify-content: center; /* Center buttons horizontally */
-    flex-wrap: wrap; /* Allow buttons to wrap to next line if space is limited */
-}
-
-/* --- Action Buttons --- */
-.action-button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 6px; /* Slightly more rounded buttons */
-    text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 500;
-    display: inline-flex; /* Align icon and text */
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    white-space: nowrap; /* Prevent button text from wrapping */
-}
-
-    /* Primary "Đánh giá" button */
-    .action-button.btn-primary {
-        background-color: var(--primary-blue);
-        color: #fff;
-    }
-
-        .action-button.btn-primary:hover {
-            background-color: var(--dark-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
-        }
-
-    /* Success "Thăm khám" button */
-    .action-button.btn-success {
-        background-color: var(--success-green); /* Use the defined success green */
-        color: #fff;
-    }
-
-        .action-button.btn-success:hover {
-            background-color: #218838; /* Darker green on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.25);
-        }
-
-/* Text muted for "Chưa đánh giá" */
-.text-muted {
-    color: var(--light-text-color); /* Light grey for muted text */
-    font-style: italic;
-}
-
-/* No data message */
-.no-data-message {
-    text-align: center;
-    padding: 30px;
-    font-size: 1.1em;
-    color: var(--light-text-color);
-    background-color: #f9f9f9;
-    border-radius: 8px;
-}
-
-/* Action Button */
-.action-button {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    background-color: var(--color-primary);
-    color: var(--color-background-card);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: none;
-    border-radius: var(--radius-sm); /* Small radius for crisp look */
-    text-decoration: none;
-    font-size: 0.875rem; /* Slightly smaller button text */
-    font-weight: 500;
-    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out, box-shadow 0.2s ease-in-out;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* More refined button shadow */
-}
-
-    .action-button:hover {
-        background-color: var(--color-primary-light);
-        transform: translateY(-2px); /* More noticeable lift */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); /* Deeper shadow on hover */
-    }
-
-    .action-button i {
-        font-size: 0.9rem; /* Icon size slightly smaller to match text */
-    }
-
-/* No data message */
-.no-data-message {
-    text-align: center;
-    padding: var(--spacing-xl);
-    font-style: italic;
-    color: var(--color-text-light);
-    background-color: var(--color-background-light);
-    border-radius: var(--radius-md);
-    margin-top: var(--spacing-lg);
-}
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .patient-selection-container {
-        margin: var(--spacing-lg) var(--spacing-md);
-        padding: var(--spacing-lg);
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-        margin-bottom: var(--spacing-xl);
-    }
-
-        .section-title::after {
-            margin-top: var(--spacing-sm);
-        }
-
-    /* Make table responsive by stacking columns or allowing horizontal scroll */
-    .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .patient-table, .patient-table thead, .patient-table tbody, .patient-table th, .patient-table td, .patient-table tr {
-        display: block; /* Stack table elements */
-    }
-
-        .patient-table thead {
-            border-bottom: none; /* Remove border from stacked header */
-        }
-
-            .patient-table thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-
-        .patient-table tr {
-            border: 1px solid var(--color-border);
-            margin-bottom: var(--spacing-md);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background-color: var(--color-background-card);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .patient-table td {
-            border: none;
-            position: relative;
-            padding-left: 50%;
-            text-align: right;
-            padding-right: var(--spacing-md);
-            min-height: var(--spacing-xl); /* Ensure minimum height for rows */
-            display: flex; /* Use flex to align label and content */
-            align-items: center;
-            justify-content: flex-end;
-        }
-
-            .patient-table td:before {
-                content: attr(data-label);
-                position: absolute;
-                left: 0;
-                width: 45%;
-                padding-left: var(--spacing-md);
-                white-space: nowrap;
-                font-weight: 600;
-                color: var(--color-text-light); /* Label text color */
-                text-align: left;
-            }
-
-    .action-cell {
-        justify-content: center; /* Center button on mobile */
-        text-align: center;
-        padding-top: var(--spacing-md);
-        padding-bottom: var(--spacing-md);
-    }
-}
-
-.chart-container {
-    width: 320px;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-#pieChart, #barChart {
-    width: 100% !important;
-    height: 220px !important;
-    max-height: 220px;
-}
-
-@media (max-width: 767.98px) {
-    .chart-container {
-        width: 100% !important;
-    }
-
-    #pieChart, #barChart {
-        height: 180px !important;
-        max-height: 180px;
-    }
-}
-
-.thamkham-form-card {
-    border: 1.5px solid #43b581;
-    box-shadow: 0 2px 8px rgba(67, 181, 129, 0.08);
-}
-
-    .thamkham-form-card .card-header {
-        background: linear-gradient(90deg, #43b581 0%, #36a2eb 100%);
-        color: #fff;
-    }
-
-    .thamkham-form-card .form-label i {
-        min-width: 18px;
-    }
-
-    .thamkham-form-card textarea.form-control {
-        resize: vertical;
-    }
-
-    .thamkham-form-card .btn-success {
-        background-color: #43b581;
-        border-color: #43b581;
-    }
-
-        .thamkham-form-card .btn-success:hover {
-            background-color: #36a2eb;
-            border-color: #36a2eb;
-        }
-/* Variables for consistent color scheme */
-:root {
-    --primary-blue: #007bff; /* A standard, vibrant blue for main actions/buttons */
-    --light-blue: #e6f2ff; /* Light blue for backgrounds or subtle highlights */
-    --dark-blue: #0056b3; /* Darker blue for hover states or stronger emphasis */
-    --text-color: #333; /* Dark grey for general text */
-    --light-text-color: #666; /* Lighter grey for secondary text */
-    --border-color: #ccc; /* Light grey for borders */
-    --error-red: #dc3545; /* Red for error messages */
-    --success-green: #28a745; /* Green for success messages (if needed) */
-    --box-shadow: rgba(0, 0, 0, 0.1);
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0px;
-    background-color: var(--light-blue); /* Light blue background for the page */
-    color: var(--text-color);
-    line-height: 1.6;
 }
 
 /* --- General Container Styles --- */
 .benhAnPro-container,
-.benhAnPro-evalContainer {
+.benhAnPro-evalContainer,
+.benhanBlue-container,
+.benhanDetail-container {
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px var(--box-shadow);
-    padding: 30px;
-    margin: 20px auto;
-    max-width: 90%;
-    /* Use max-width for responsiveness */
+    border-radius: 16px;
+    box-shadow: 0 4px 24px var(--box-shadow);
+    padding: 32px 24px 24px 24px;
+    margin: 40px auto 0 auto;
+    max-width: 1000px;
     box-sizing: border-box;
+    animation: fadeInDown 0.7s;
 }
 
-@media (min-width: 768px) {
-
+@media (max-width: 768px) {
     .benhAnPro-container,
-    .benhAnPro-evalContainer {
-        max-width: 1000px;
+    .benhAnPro-evalContainer,
+    .benhanBlue-container,
+    .benhanDetail-container {
+        max-width: 90%;
+        padding: 20px;
     }
 }
 
 /* --- Titles --- */
 .benhAnPro-title,
-.benhAnPro-evalTitle {
+.benhAnPro-evalTitle,
+.benhanBlue-title,
+.benhanDetail-title {
     color: var(--primary-blue);
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.2em;
-    font-weight: 600;
+    margin-bottom: 28px;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
     position: relative;
     padding-bottom: 10px;
 }
 
     .benhAnPro-title::after,
-    .benhAnPro-evalTitle::after {
+    .benhAnPro-evalTitle::after,
+    .benhanBlue-title::after,
+    .benhanDetail-title::after {
         content: '';
         position: absolute;
         left: 50%;
@@ -2839,106 +3513,200 @@ body {
     }
 
 /* --- Table Styles --- */
-.benhAnPro-tableWrap {
+.benhAnPro-tableWrap,
+.benhanBlue-tableWrap,
+.benhanDetail-tableWrap {
     overflow-x: auto;
-    margin-top: 20px;
 }
 
-.benhAnPro-table {
+.benhAnPro-table,
+.benhanBlue-table,
+.benhanDetail-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
 }
 
-    .benhAnPro-table thead th {
+    .benhAnPro-table th,
+    .benhAnPro-table td,
+    .benhanBlue-table th,
+    .benhanBlue-table td,
+    .benhanDetail-table th,
+    .benhanDetail-table td {
+        padding: 14px 16px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .benhAnPro-table thead th,
+    .benhanBlue-table thead th,
+    .benhanDetail-table th {
         background-color: var(--primary-blue);
         color: #fff;
-        padding: 15px;
-        text-align: left;
-        font-weight: 500;
+        font-weight: 600;
         border-bottom: 2px solid var(--dark-blue);
     }
 
-    .benhAnPro-table tbody tr {
-        border-bottom: 1px solid #eee;
-        transition: background-color 0.3s ease;
+    .benhAnPro-table tbody tr,
+    .benhanBlue-table tbody tr,
+    .benhanDetail-table tbody tr {
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.2s;
     }
 
-        .benhAnPro-table tbody tr:nth-child(even) {
-            background-color: var(--light-blue); /* Zebra striping */
+        .benhAnPro-table tbody tr:nth-child(even),
+        .benhanBlue-table tbody tr:nth-child(even) {
+            background-color: var(--light-blue);
         }
 
-        .benhAnPro-table tbody tr:hover {
-            background-color: #f0f8ff; /* Lighter blue on hover */
+        .benhAnPro-table tbody tr:hover,
+        .benhanBlue-table tbody tr:hover,
+        .benhanDetail-table tbody tr:hover {
+            background-color: #f0f8ff;
         }
 
-    .benhAnPro-table tbody td {
-        padding: 15px;
-        vertical-align: middle;
+    .benhAnPro-table tbody td,
+    .benhanBlue-table tbody td,
+    .benhanDetail-table tbody td {
         color: var(--text-color);
     }
 
-/* --- Table Action Button --- */
-.benhAnPro-btnDanhGia {
-    background-color: var(--primary-blue);
+    .benhanDetail-table th {
+        width: 220px;
+        border-right: 1px solid var(--border-color);
+    }
+
+    .benhanDetail-table tr:last-child th,
+    .benhanDetail-table tr:last-child td {
+        border-bottom: none;
+    }
+
+/* --- Badges --- */
+.benhAnPro-badge,
+.benhanBlue-badge {
+    border-radius: 8px;
+    padding: 5px 16px;
+    font-size: 0.97em;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.benhAnPro-badge-success,
+.benhanBlue-badge-success {
+    background: var(--success-green);
     color: #fff;
+}
+
+.benhAnPro-badge-secondary,
+.benhanBlue-badge-secondary {
+    background: #bdbdbd;
+    color: #fff;
+}
+
+/* --- Buttons --- */
+.benhAnPro-btnDanhGia,
+.benhanBlue-btn,
+.benhanDetail-btnBack {
+    background-color: var(--primary-blue);
+    color: #fff !important;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.9em;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 6px;
+    padding: 7px 18px;
+    font-size: 0.97em;
+    font-weight: 500;
+    text-decoration: none !important;
+    margin-bottom: 4px;
+    display: inline-block;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.07);
     cursor: pointer;
 }
 
-    .benhAnPro-btnDanhGia:hover {
+    .benhAnPro-btnDanhGia:hover,
+    .benhanBlue-btn-edit:hover,
+    .benhanDetail-btnBack:hover {
         background-color: var(--dark-blue);
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    }
+
+.benhAnPro-btnChinhSua,
+.benhanBlue-btn-edit {
+    background-color: #ffa000;
+}
+
+    .benhAnPro-btnChinhSua:hover,
+    .benhanBlue-btn-edit:hover {
+        background-color: #ff8f00;
+    }
+
+.benhanBlue-btn-eval {
+    background-color: var(--success-green);
+}
+
+    .benhanBlue-btn-eval:hover {
+        background-color: #218838;
+    }
+
+.benhanBlue-btn-back {
+    background-color: #6c757d;
+}
+
+    .benhanBlue-btn-back:hover {
+        background-color: #5a6268;
+    }
+
+.benhAnPro-btnLuu {
+    background-color: var(--success-green);
+    padding: 12px 25px;
+}
+
+    .benhAnPro-btnLuu:hover {
+        background-color: #218838;
         transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
     }
 
-    .benhAnPro-btnDanhGia i {
-        margin-right: 5px;
+.benhAnPro-btnBack {
+    background-color: #6c757d;
+    padding: 12px 25px;
+}
+
+    .benhAnPro-btnBack:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
     }
 
-
-/* --- Form Styles (Evaluation Page) --- */
+/* --- Form Styles --- */
 .benhAnPro-form {
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr;
-    /* Default to single column */
 }
 
 @media (min-width: 600px) {
     .benhAnPro-form {
         grid-template-columns: repeat(2, 1fr);
-        /* Two columns on larger screens */
     }
 
     .benhAnPro-formGroup:nth-child(6),
-    /* LyDoNhapVien */
     .benhAnPro-formGroup:nth-child(7),
-    /* TomTatBenhAn */
     .benhAnPro-btnGroup {
         grid-column: span 2;
-        /* Span full width for specific fields and button group */
     }
 }
 
-.benhAnPro-formGroup {
-    margin-bottom: 10px;
+.benhAnPro-formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark-blue);
+    font-size: 1.05em;
 }
-
-    .benhAnPro-formGroup label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: var(--dark-blue);
-        font-size: 1.05em;
-    }
 
 .benhAnPro-inputSelect,
 .benhAnPro-inputDate,
@@ -2949,7 +3717,7 @@ body {
     border-radius: 5px;
     font-size: 1em;
     color: var(--text-color);
-    box-sizing: border-box; /* Include padding in width calculation */
+    box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -2966,54 +3734,9 @@ body {
         outline: none;
     }
 
-/* --- Form Buttons --- */
-.benhAnPro-btnGroup {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
-}
-
-.benhAnPro-btnLuu,
-.benhAnPro-btnBack {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.benhAnPro-btnLuu {
-    background-color: var(--success-green);
-    color: #fff;
-}
-
-    .benhAnPro-btnLuu:hover {
-        background-color: #218838;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-    }
-
-.benhAnPro-btnBack {
-    background-color: #6c757d; /* Grey for back button */
-    color: #fff;
-    text-decoration: none; /* For the <a> tag */
-}
-
-    .benhAnPro-btnBack:hover {
-        background-color: #5a6268;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
-    }
-
 /* --- Alert/Error Messages --- */
 .benhAnPro-alert {
-    background-color: #ffe6e6; /* Light red background */
+    background-color: #ffe6e6;
     color: var(--error-red);
     border: 1px solid var(--error-red);
     border-radius: 5px;
@@ -3023,19 +3746,22 @@ body {
     font-weight: 500;
 }
 
-    .benhAnPro-alert div {
-        margin-bottom: 5px;
-    }
-
-        .benhAnPro-alert div:last-child {
-            margin-bottom: 0;
-        }
-
-
-/* --- JavaScript Driven Animations --- */
-/* Row Fade-in */
+/* --- Animations --- */
 .row-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
+}
+
+.input-shake {
+    animation: shake 0.6s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    border-color: var(--error-red) !important;
+}
+
+.input-focus {
+    border-color: var(--primary-blue) !important;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 @keyframes fadeIn {
@@ -3050,17 +3776,7 @@ body {
     }
 }
 
-/* Input Shake on Invalid Submit */
-.input-shake {
-    animation: shake 0.6s cubic-bezier(.36, .07, .19, .97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    border-color: var(--error-red) !important;
-}
-
 @keyframes shake {
-
     10%, 90% {
         transform: translate3d(-1px, 0, 0);
     }
@@ -3078,132 +3794,6 @@ body {
     }
 }
 
-/* Input Focus Highlight */
-.input-focus {
-    border-color: var(--primary-blue) !important;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.benhAnPro-container {
-    background: #f4faff;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 123, 255, 0.08);
-    max-width: 1200px;
-    margin: 40px auto 0 auto;
-    padding: 32px 24px 24px 24px;
-    animation: fadeInDown 0.7s;
-}
-
-.benhAnPro-title {
-    color: #1976d2;
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 28px;
-    letter-spacing: 1px;
-    position: relative;
-}
-
-.benhAnPro-tableWrap {
-    overflow-x: auto;
-}
-
-.benhAnPro-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-}
-
-    .benhAnPro-table th, .benhAnPro-table td {
-        padding: 14px 16px;
-        text-align: left;
-        vertical-align: middle;
-    }
-
-    .benhAnPro-table thead th {
-        background: #e3f2fd;
-        color: #1976d2;
-        font-weight: 600;
-        border-bottom: 2px solid #90caf9;
-    }
-
-    .benhAnPro-table tbody tr {
-        border-bottom: 1px solid #e3e3e3;
-        transition: background 0.2s;
-    }
-
-        .benhAnPro-table tbody tr:hover {
-            background: #f1f8ff;
-        }
-
-.benhAnPro-badge {
-    border-radius: 8px;
-    padding: 5px 16px;
-    font-size: 0.97em;
-    font-weight: 500;
-    display: inline-block;
-}
-
-.benhAnPro-badge-success {
-    background: #43a047;
-    color: #fff;
-}
-
-.benhAnPro-badge-secondary {
-    background: #bdbdbd;
-    color: #fff;
-}
-
-.benhAnPro-btnDanhGia {
-    background: #1976d2;
-    color: #fff !important;
-    border: none;
-    border-radius: 6px;
-    padding: 7px 18px;
-    font-size: 0.97em;
-    font-weight: 500;
-    text-decoration: none !important;
-    margin-bottom: 4px;
-    display: inline-block;
-    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
-    cursor: pointer;
-}
-
-    .benhAnPro-btnDanhGia:hover {
-        background: #1565c0;
-        transform: translateY(-2px) scale(1.04);
-        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
-    }
-
-.benhAnPro-btnChinhSua {
-    background: #ffa000;
-    color: #fff !important;
-}
-
-    .benhAnPro-btnChinhSua:hover {
-        background: #ff8f00;
-    }
-
-.benhAnPro-fw-bold {
-    font-weight: 600;
-}
-
-.benhAnPro-mb-1 {
-    margin-bottom: 8px;
-}
-
-.benhAnPro-text-muted {
-    color: #757575 !important;
-}
-
-.benhAnPro-table a, .benhAnPro-table a:visited {
-    text-decoration: none !important;
-}
-
 @keyframes fadeInDown {
     from {
         opacity: 0;
@@ -3215,241 +3805,16 @@ body {
         transform: translateY(0);
     }
 }
-
-.benhanBlue-container {
-    background: #f4faff;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 123, 255, 0.08);
-    max-width: 950px;
-    margin: 40px auto 0 auto;
-    padding: 32px 24px 24px 24px;
-    animation: fadeInDown 0.7s;
-}
-
-.benhanBlue-title {
-    color: #1976d2;
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 28px;
-    letter-spacing: 1px;
-}
-
-.benhanBlue-tableWrap {
-    overflow-x: auto;
-}
-
-.benhanBlue-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-}
-
-    .benhanBlue-table th, .benhanBlue-table td {
-        padding: 14px 16px;
-        text-align: left;
-        vertical-align: middle;
-    }
-
-    .benhanBlue-table thead th {
-        background: #e3f2fd;
-        color: #1976d2;
-        font-weight: 600;
-        border-bottom: 2px solid #90caf9;
-    }
-
-    .benhanBlue-table tbody tr {
-        border-bottom: 1px solid #e3e3e3;
-        transition: background 0.2s;
-    }
-
-        .benhanBlue-table tbody tr:hover {
-            background: #f1f8ff;
-        }
-
-.benhanBlue-badge {
-    border-radius: 8px;
-    padding: 5px 16px;
-    font-size: 0.97em;
-    font-weight: 500;
-    display: inline-block;
-}
-
-.benhanBlue-badge-success {
-    background: #43a047;
-    color: #fff;
-}
-
-.benhanBlue-badge-secondary {
-    background: #bdbdbd;
-    color: #fff;
-}
-
-.benhanBlue-btn {
-    border-radius: 6px;
-    font-size: 0.97em;
-    padding: 7px 18px;
-    margin-right: 6px;
-    margin-bottom: 4px;
-    text-decoration: none !important;
-    display: inline-block;
-    font-weight: 500;
-    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-    border: none;
-    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
-    cursor: pointer;
-}
-
-.benhanBlue-btn-edit {
-    background: #1976d2;
-    color: #fff !important;
-}
-
-    .benhanBlue-btn-edit:hover {
-        background: #1565c0;
-        transform: translateY(-2px) scale(1.04);
-    }
-
-.benhanBlue-btn-eval {
-    background: #43a047;
-    color: #fff !important;
-}
-
-    .benhanBlue-btn-eval:hover {
-        background: #388e3c;
-        transform: translateY(-2px) scale(1.04);
-    }
-
-.benhanBlue-btn-back {
-    background: #bdbdbd;
-    color: #fff !important;
-    margin-top: 18px;
-}
-
-    .benhanBlue-btn-back:hover {
-        background: #757575;
-    }
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.benhanDetail-container {
-    background: #f4faff;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
-    max-width: 1000px;
-    margin: 48px auto 0 auto;
-    padding: 36px 28px 28px 28px;
-    animation: fadeInDown 0.7s;
-}
-
-.benhanDetail-title {
-    color: #1976d2;
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 32px;
-    letter-spacing: 1px;
-}
-
-.benhanDetail-tableWrap {
-    overflow-x: auto;
-}
-
-.benhanDetail-table {
-    width: 100%;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 28px;
-}
-
-    .benhanDetail-table th,
-    .benhanDetail-table td {
-        padding: 16px 20px;
-        font-size: 1.07em;
-        text-align: left;
-        vertical-align: middle;
-    }
-
-    .benhanDetail-table th {
-        background: #e3f2fd;
-        color: #1976d2;
-        font-weight: 600;
-        width: 220px;
-        border-bottom: 1px solid #90caf9;
-        border-right: 1px solid #e3e3e3;
-    }
-
-    .benhanDetail-table td {
-        background: #fff;
-        color: #333;
-        border-bottom: 1px solid #e3e3e3;
-    }
-
-    .benhanDetail-table tr:last-child th,
-    .benhanDetail-table tr:last-child td {
-        border-bottom: none;
-    }
-
-.benhanDetail-btnBack {
-    background: #1976d2;
-    color: #fff !important;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 32px;
-    font-size: 1em;
-    font-weight: 600;
-    text-decoration: none !important;
-    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-    cursor: pointer;
-    display: inline-block;
-    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
-}
-
-    .benhanDetail-btnBack:hover {
-        background: #1565c0;
-        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
-        transform: translateY(-2px) scale(1.04);
-    }
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* VÙNG CHỨA BẢNG NHỎ GỌN */
 .ketquaXN-main-content {
     width: 100%;
-    max-width: 700px; /* Bảng nhỏ hơn, không full màn hình */
+    max-width: 700px;
     margin: 32px auto 0 auto;
     padding: 0 16px;
-    background: #f4faff;
+    background: var(--light-blue);
     min-height: 100vh;
     font-family: 'Segoe UI', Arial, sans-serif;
-    color: #222;
+    color: var(--text-color);
     box-sizing: border-box;
 }
 
@@ -3457,8 +3822,8 @@ body {
 .ketquaXN-card {
     width: 100%;
     border-radius: 10px;
-    border: 1.5px solid #007bff;
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+    border: 1.5px solid var(--primary-blue);
+    box-shadow: 0 2px 8px var(--box-shadow);
     background: #fff;
     margin: 0 auto;
     overflow: hidden;
@@ -3466,7 +3831,7 @@ body {
 
 /* HEADER */
 .ketquaXN-card-header {
-    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+    background: linear-gradient(90deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
     color: #fff;
     padding: 18px 20px;
     border-radius: 10px 10px 0 0;
@@ -3499,12 +3864,12 @@ body {
 }
 
     .ketquaXN-table thead th {
-        background: #e3f2fd;
-        color: #1976d2;
+        background: var(--light-blue);
+        color: var(--primary-blue);
         font-weight: 600;
         padding: 11px 8px;
         font-size: 0.99rem;
-        border-bottom: 2px solid #90caf9;
+        border-bottom: 2px solid var(--dark-blue);
         text-align: left;
         letter-spacing: 0.01em;
         white-space: nowrap;
@@ -3515,8 +3880,8 @@ body {
     .ketquaXN-table td {
         padding: 9px 8px;
         font-size: 0.96rem;
-        border-bottom: 1px solid #e3e3e3;
-        color: #333;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-color);
         vertical-align: middle;
         background: #fff;
         overflow: hidden;
@@ -3534,12 +3899,12 @@ body {
         }
 
         .ketquaXN-table tbody tr:hover {
-            background: #e3f2fd;
+            background: var(--light-blue);
         }
 
 /* THÔNG TIN BỆNH NHÂN */
 .ketquaXN-patient-info h6 {
-    color: #1976d2;
+    color: var(--primary-blue);
     margin-bottom: 2px;
     font-size: 1.01rem;
     font-weight: 600;
@@ -3547,7 +3912,7 @@ body {
 }
 
 .ketquaXN-patient-info span {
-    color: #6c757d;
+    color: var(--light-text-color);
     font-size: 0.93rem;
     white-space: nowrap;
 }
@@ -3564,12 +3929,12 @@ body {
 }
 
 .ketquaXN-badge-success {
-    background: #43a047;
+    background: var(--success-green);
     color: #fff;
 }
 
 .ketquaXN-badge-info {
-    background: #17a2b8;
+    background: var(--info-blue);
     color: #fff;
 }
 
@@ -3585,7 +3950,7 @@ body {
 
 /* BUTTON */
 .ketquaXN-btn {
-    background: #1976d2;
+    background: var(--primary-blue);
     color: #fff !important;
     border: none;
     border-radius: 5px;
@@ -3598,25 +3963,25 @@ body {
     align-items: center;
     gap: 5px;
     transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.07);
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.07);
     cursor: pointer;
     white-space: nowrap;
 }
 
 .ketquaXN-btn-primary {
-    background: #1976d2;
+    background: var(--primary-blue);
 }
 
     .ketquaXN-btn-primary:hover {
-        background: #1565c0;
+        background: var(--dark-blue);
     }
 
 .ketquaXN-btn-success {
-    background: #43a047;
+    background: var(--success-green);
 }
 
     .ketquaXN-btn-success:hover {
-        background: #388e3c;
+        background: #218838;
     }
 
 .ketquaXN-btn-warning {
@@ -3639,7 +4004,7 @@ body {
     padding: 6px 8px;
     margin-bottom: 2px;
     border-radius: 4px;
-    border-left: 3px solid #1976d2;
+    border-left: 3px solid var(--primary-blue);
     transition: all 0.3s;
     font-size: 0.93rem;
     overflow: hidden;
@@ -3649,12 +4014,12 @@ body {
 
     .ketquaXN-test-item:hover {
         transform: translateX(3px);
-        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.12);
     }
 
 .ketquaXN-test-name {
     font-weight: 600;
-    color: #495057;
+    color: var(--text-color);
     margin-bottom: 1px;
     font-size: 0.96rem;
     white-space: nowrap;
@@ -3662,13 +4027,13 @@ body {
 
 .ketquaXN-test-code {
     font-size: 0.9rem;
-    color: #6c757d;
+    color: var(--light-text-color);
     white-space: nowrap;
 }
 
 /* EMPTY STATE */
 .ketquaXN-empty-state {
-    color: #6c757d;
+    color: var(--light-text-color);
     font-style: italic;
     text-align: center;
     padding: 8px;
@@ -3681,13 +4046,13 @@ body {
 .ketquaXN-no-data {
     text-align: center;
     padding: 28px;
-    color: #6c757d;
+    color: var(--light-text-color);
     font-size: 0.96rem;
     line-height: 1.4;
 }
 
     .ketquaXN-no-data h5 {
-        color: #1976d2;
+        color: var(--primary-blue);
         margin-bottom: 7px;
         font-size: 1.01rem;
         font-weight: 600;
@@ -3715,5 +4080,114 @@ body, html, .ketquaXN-main-content, .ketquaXN-card, .ketquaXN-card-body {
 
     .ketquaXN-card-header h2 {
         font-size: 1rem;
+    }
+}
+/* Container */
+.ketQuaXetNghiem-container {
+    background: linear-gradient(180deg, #f7fbff 0%, var(--light-blue) 100%);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 24px rgba(0, 123, 255, 0.08);
+    max-width: 1000px;
+    margin: var(--spacing-xl) auto 0 auto;
+    padding: var(--spacing-xl);
+    animation: fadeInDown 0.7s;
+}
+
+.ketQuaXetNghiem-title {
+    color: var(--primary-blue);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    font-size: 2.2em;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+
+    .ketQuaXetNghiem-title::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--dark-blue);
+        border-radius: 2px;
+    }
+
+/* Table */
+.ketQuaXetNghiem-tableWrap {
+    overflow-x: auto;
+    margin-top: var(--spacing-md);
+}
+
+.ketQuaXetNghiem-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-sm);
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+    .ketQuaXetNghiem-table thead th {
+        background: var(--light-blue);
+        color: var(--primary-blue);
+        padding: var(--spacing-sm);
+        text-align: left;
+        font-weight: 500;
+        border-bottom: 2px solid #90caf9;
+    }
+
+    .ketQuaXetNghiem-table tbody tr {
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.3s ease;
+    }
+
+        .ketQuaXetNghiem-table tbody tr:nth-child(even) {
+            background: #f8fbff;
+        }
+
+        .ketQuaXetNghiem-table tbody tr:hover {
+            background: #f0f8ff;
+        }
+
+    .ketQuaXetNghiem-table tbody td {
+        padding: var(--spacing-sm);
+        vertical-align: middle;
+        color: var(--text-color);
+    }
+
+/* Button */
+.ketQuaXetNghiem-btnXem {
+    background: var(--primary-blue);
+    color: #fff;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+    .ketQuaXetNghiem-btnXem:hover {
+        background: var(--dark-blue);
+        transform: translateY(-2px);
+    }
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

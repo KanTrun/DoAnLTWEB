@@ -1,127 +1,154 @@
 ﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.KetQuaXetNghiemChonBenhNhanViewModel>
-<link rel="stylesheet" href="~/css/ketqua-xetnghiem.css" />
 
-<div class="ketquaXN-full-container">
-    <div class="ketquaXN-card">
-        <div class="ketquaXN-card-header">
-            <h2><i class="fas fa-user-check me-2"></i>Chọn Bệnh Nhân Đã Đánh Giá Lâm Sàng</h2>
+<div class="w-full p-4">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+            <h2 class="text-xl font-bold text-white flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Chọn Bệnh Nhân Đã Đánh Giá Lâm Sàng
+            </h2>
         </div>
-        <div class="ketquaXN-card-body">
-            <div class="ketquaXN-table-wrap">
-                <table class="ketquaXN-table">
-                    <thead>
+        <div class="p-4">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <th>Họ tên</th>
-                            <th>Ngày sinh</th>
-                            <th>Giới tính</th>
-                            <th>Đánh giá gần đây</th>
-                            <th>Đánh giá lâm sàng</th>
-                            <th>Chỉ định</th>
-                            <th>Xét nghiệm</th>
-                            <th>Đánh giá xét nghiệm</th>
-                            <th>Chỉnh sửa chỉ định</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Họ tên</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày sinh</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Giới tính</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Đánh giá gần đây</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Đánh giá lâm sàng</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chỉ định</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Xét nghiệm</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Đánh giá xét nghiệm</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chỉnh sửa chỉ định</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg-white divide-y divide-gray-200">
                         @if (Model != null && Model.Any())
                         {
                             @foreach (var item in Model)
                             {
-                                <tr class="ketquaXN-row-fade-in">
-                                    <td>
-                                        <div class="ketquaXN-patient-info">
-                                            <h6>@item.HoTen</h6>
-                                            <span>@item.MaBenhNhan</span>
+                                <tr class="row-fade-in hover:bg-gray-50 transition-all">
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <div class="flex flex-col">
+                                            <span class="text-sm font-medium text-gray-900">@item.HoTen</span>
+                                            <span class="text-xs text-gray-500">@item.MaBenhNhan</span>
                                         </div>
                                     </td>
-                                    <td>
-                                        <span class="ketquaXN-badge ketquaXN-badge-info">@item.NgaySinh.ToString("dd/MM/yyyy")</span>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                                            @item.NgaySinh.ToString("dd/MM/yyyy")
+                                        </span>
                                     </td>
-                                    <td>
-                                        <span class="ketquaXN-badge @(item.GioiTinh.ToLower() == "nam" ? "ketquaXN-badge-info" : "ketquaXN-badge-warning")">
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full
+                                                    @(item.GioiTinh.ToLower() == "nam" ? "bg-blue-100 text-blue-800" : "bg-pink-100 text-pink-800")">
                                             @item.GioiTinh
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         @if (item.NgayKhamGanNhat.HasValue)
                                         {
-                                            <span class="ketquaXN-badge ketquaXN-badge-info">@item.NgayKhamGanNhat.Value.ToString("dd/MM/yyyy")</span>
+                                            <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
+                                                @item.NgayKhamGanNhat.Value.ToString("dd/MM/yyyy")
+                                            </span>
                                         }
                                         else
                                         {
-                                            <span class="ketquaXN-empty-state">Chưa có</span>
+                                            <span class="text-sm text-gray-500 italic">Chưa có</span>
                                         }
                                     </td>
-                                    <td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         @if (item.DaDanhGiaLamSang)
                                         {
-                                            <span class="ketquaXN-badge ketquaXN-badge-success">
-                                                <i class="fas fa-check me-1"></i>Đã đánh giá
+                                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                Đã đánh giá
                                             </span>
                                         }
                                         else
                                         {
-                                            <span class="ketquaXN-badge ketquaXN-badge-secondary">
-                                                <i class="fas fa-clock me-1"></i>Chưa đánh giá
+                                            <span class="px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-700 flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                Chưa đánh giá
                                             </span>
                                         }
                                     </td>
-                                    <td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         <a href="@Url.Action("ChiDinhMoi", "KetQuaXetNghiem", new { maBenhNhan = item.MaBenhNhan })"
-                                           class="ketquaXN-btn ketquaXN-btn-primary">
-                                            <i class="fas fa-plus"></i>Chỉ định
+                                           class="btn-animate inline-flex items-center px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm shadow-sm transition-all">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                            </svg>
+                                            Chỉ định
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="px-4 py-3">
                                         @if (item.DanhSachChiDinh != null && item.DanhSachChiDinh.Any())
                                         {
-                                            <div class="ketquaXN-action-group">
+                                            <div class="space-y-2 max-w-xs">
                                                 @foreach (var chiDinh in item.DanhSachChiDinh)
                                                 {
-                                                    <div class="ketquaXN-test-item">
-                                                        <div class="ketquaXN-test-name">@chiDinh.TenXetNghiem</div>
-                                                        <div class="ketquaXN-test-code">@chiDinh.MaChiDinh</div>
+                                                    <div class="border border-gray-200 rounded p-2 bg-gray-50">
+                                                        <div class="text-sm font-medium text-gray-900">@chiDinh.TenXetNghiem</div>
+                                                        <div class="text-xs text-gray-500">@chiDinh.MaChiDinh</div>
                                                     </div>
                                                 }
                                             </div>
                                         }
                                         else
                                         {
-                                            <span class="ketquaXN-empty-state">Chưa có chỉ định</span>
+                                            <span class="text-sm text-gray-500 italic">Chưa có chỉ định</span>
                                         }
                                     </td>
-                                    <td>
+                                    <td class="px-4 py-3">
                                         @if (item.DanhSachChiDinh != null && item.DanhSachChiDinh.Any())
                                         {
-                                            <div class="ketquaXN-action-group">
+                                            <div class="space-y-2">
                                                 @foreach (var chiDinh in item.DanhSachChiDinh)
                                                 {
                                                     @if (chiDinh.DaDanhGiaKetQua)
                                                     {
-                                                        <span class="ketquaXN-badge ketquaXN-badge-success">
-                                                            <i class="fas fa-check me-1"></i>Đã đánh giá
+                                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 flex items-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            Đã đánh giá
                                                         </span>
                                                     }
                                                     else
                                                     {
                                                         <a href="@Url.Action("DanhGiaKetQua", "KetQuaXetNghiem", new { maChiDinh = chiDinh.MaChiDinh })"
-                                                           class="ketquaXN-btn ketquaXN-btn-success">
-                                                            <i class="fas fa-edit"></i>Đánh giá
+                                                           class="btn-animate inline-flex items-center px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-white text-sm shadow-sm transition-all">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                            </svg>
+                                                            Đánh giá
                                                         </a>
                                                     }
                                                 }
                                             </div>
                                         }
                                     </td>
-                                    <td>
+                                    <td class="px-4 py-3">
                                         @if (item.DanhSachChiDinh != null && item.DanhSachChiDinh.Any())
                                         {
-                                            <div class="ketquaXN-action-group">
+                                            <div class="space-y-2">
                                                 @foreach (var chiDinh in item.DanhSachChiDinh)
                                                 {
                                                     <a href="@Url.Action("ChiDinhMoi", "KetQuaXetNghiem", new { maBenhNhan = item.MaBenhNhan, maChiDinh = chiDinh.MaChiDinh })"
-                                                       class="ketquaXN-btn ketquaXN-btn-warning">
-                                                        <i class="fas fa-edit"></i>Chỉnh sửa
+                                                       class="btn-animate inline-flex items-center px-3 py-1 bg-yellow-600 hover:bg-yellow-700 rounded text-white text-sm shadow-sm transition-all">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        </svg>
+                                                        Chỉnh sửa
                                                     </a>
                                                 }
                                             </div>
@@ -133,10 +160,14 @@
                         else
                         {
                             <tr>
-                                <td colspan="9" class="ketquaXN-no-data">
-                                    <i class="fas fa-inbox fa-3x mb-3"></i>
-                                    <h5>Không có dữ liệu</h5>
-                                    <p>Chưa có bệnh nhân nào được đánh giá lâm sàng.</p>
+                                <td colspan="9" class="px-4 py-8 text-center">
+                                    <div class="flex flex-col items-center justify-center space-y-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                        </svg>
+                                        <h5 class="text-lg font-medium text-gray-700">Không có dữ liệu</h5>
+                                        <p class="text-gray-500">Chưa có bệnh nhân nào được đánh giá lâm sàng.</p>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -146,10 +177,11 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Fade-in animation
-        const tableRows = document.querySelectorAll('.ketquaXN-row-fade-in');
+        const tableRows = document.querySelectorAll('.row-fade-in');
         tableRows.forEach((row, index) => {
             row.style.opacity = '0';
             row.style.transform = 'translateY(20px)';
@@ -161,7 +193,7 @@
         });
 
         // Button interactions
-        const buttons = document.querySelectorAll('.ketquaXN-btn');
+        const buttons = document.querySelectorAll('.btn-animate');
         buttons.forEach(btn => {
             btn.addEventListener('click', function(e) {
                 this.style.transform = 'scale(0.95)';

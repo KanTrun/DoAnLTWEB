@@ -1,0 +1,271 @@
+﻿@model DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.DonDieuTriUserTongHopViewModel
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Đơn điều trị của tôi";
+}
+
+<style>
+    .medical-container {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .content-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.15);
+        overflow: hidden;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+    }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+    .section {
+        padding: 30px;
+    }
+
+    .section-title {
+        color: #1976d2;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-bottom: 3px solid #2196f3;
+        padding-bottom: 10px;
+    }
+
+    .info-table {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);
+    }
+
+        .info-table th {
+            background: #1976d2;
+            color: white;
+            padding: 12px 20px;
+            font-weight: 500;
+            width: 25%;
+        }
+
+        .info-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid #e3f2fd;
+        }
+
+    .stats-bar {
+        background: #f5f5f5;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .treatment-table {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);
+    }
+
+        .treatment-table thead th {
+            background: #2196f3;
+            color: white;
+            padding: 15px 12px;
+            font-weight: 500;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .treatment-table tbody td {
+            padding: 12px;
+            border-bottom: 1px solid #e3f2fd;
+            font-size: 0.9rem;
+        }
+
+        .treatment-table tbody tr:hover {
+            background: #f3f8ff;
+        }
+
+    .btn-view {
+        background: #1976d2;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+    }
+
+        .btn-view:hover {
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+    .pagination-wrapper {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination .page-link {
+        color: #1976d2;
+        border: 1px solid #e3f2fd;
+        padding: 8px 12px;
+        margin: 0 2px;
+        border-radius: 6px;
+    }
+
+    .pagination .page-item.active .page-link {
+        background: #1976d2;
+        border-color: #1976d2;
+        color: white;
+    }
+
+    .pagination .page-link:hover {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
+
+    @@media (max-width: 768px) {
+        .section
+
+    {
+        padding: 20px;
+    }
+
+    .stats-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .treatment-table {
+        font-size: 0.8rem;
+    }
+
+        .treatment-table th, .treatment-table td {
+            padding: 8px 6px;
+        }
+
+    }
+</style>
+
+<div class="medical-container">
+    <div class="content-card">
+        <!-- Header -->
+        <div class="header">
+            <i class="fas fa-user-md" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
+            <h1>HỒ SƠ BỆNH ÁN ĐIỆN TỬ</h1>
+        </div>
+
+        <!-- Patient Info -->
+        <div class="section" style="background: #f8fbff;">
+            <h2 class="section-title">
+                <i class="fas fa-user"></i> Thông tin bệnh nhân
+            </h2>
+            <table class="table info-table">
+                <tr><th>Họ tên</th><td>@Model.BenhNhan.HoTen</td></tr>
+                <tr><th>Ngày sinh</th><td>@Model.BenhNhan.NgaySinh.ToString("dd/MM/yyyy")</td></tr>
+                <tr><th>Giới tính</th><td>@Model.BenhNhan.GioiTinh</td></tr>
+                <tr><th>Địa chỉ</th><td>@Model.BenhNhan.DiaChi</td></tr>
+                <tr><th>Số điện thoại</th><td>@Model.BenhNhan.SoDienThoai</td></tr>
+                <tr><th>Số bảo hiểm</th><td>@Model.BenhNhan.SoBaoHiem</td></tr>
+                <tr><th>Nhóm máu</th><td>@Model.BenhNhan.NhomMau</td></tr>
+                <tr><th>Dị ứng</th><td>@Model.BenhNhan.DiUng</td></tr>
+            </table>
+        </div>
+
+        <!-- Treatment List -->
+        <div class="section">
+            <h2 class="section-title">
+                <i class="fas fa-prescription"></i> Danh sách đơn điều trị
+            </h2>
+
+            <div class="stats-bar">
+                <span><strong>Trang @(Model.DonDieuTris.PageCount < Model.DonDieuTris.PageNumber ? 0 : Model.DonDieuTris.PageNumber) / @Model.DonDieuTris.PageCount</strong></span>
+                <span><strong>Tổng: @Model.DonDieuTris.TotalItemCount đơn điều trị</strong></span>
+            </div>
+
+            @if (Model.DonDieuTris.Any())
+            {
+                <table class="table treatment-table">
+                    <thead>
+                        <tr>
+                            <th>Tên bệnh</th>
+                            <th>Chẩn đoán</th>
+                            <th>Tên đơn điều trị</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Bác sĩ</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ddt in Model.DonDieuTris)
+                        {
+                            <tr>
+                                <td>@ddt.TenBenh</td>
+                                <td>@ddt.LoaiChanDoan</td>
+                                <td>@ddt.TenDonDieuTri</td>
+                                <td>@ddt.NgayBatDau.ToString("dd/MM/yyyy")</td>
+                                <td>@(ddt.NgayKetThuc?.ToString("dd/MM/yyyy") ?? "-")</td>
+                                <td>@ddt.BacSi</td>
+                                <td>
+                                    <a class="btn-view" href="@Url.Action("XemDonDieuTri", new { maDonDieuTri = ddt.MaDonDieuTri })">
+                                        <i class="fas fa-eye"></i> Xem
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-message">
+                    <i class="fas fa-inbox" style="font-size: 3rem; opacity: 0.5; margin-bottom: 15px;"></i>
+                    <h4>Không có đơn điều trị nào</h4>
+                    <p>Hiện tại bạn chưa có đơn điều trị nào được ghi nhận trong hệ thống.</p>
+                </div>
+            }
+
+            @if (Model.DonDieuTris.PageCount > 1)
+            {
+                <div class="pagination-wrapper">
+                    @Html.PagedListPager(Model.DonDieuTris,
+                             page => Url.Action("UserDonDieuTri", new { page }),
+                             new PagedListRenderOptions
+                {
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    ContainerDivClasses = new[] { "pagination justify-content-center" }
+                })
+                </div>
+            }
+        </div>
+    </div>
+</div>

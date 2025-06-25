@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models;
 using DoAnWEB_HoSoBenhAnDienTu_Nhom3.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
 {
@@ -21,7 +22,7 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
         }
 
         // ĐIỂM VÀO CHUNG CHO CẢ ADMIN VÀ USER
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             if (User.IsInRole("Admin"))
             {
@@ -34,11 +35,25 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers
                 if (taiKhoan == null) return NotFound();
                 var benhNhan = await _context.BenhNhan.FirstOrDefaultAsync(b => b.MaTaiKhoan == taiKhoan.MaTaiKhoan);
                 if (benhNhan == null) return NotFound();
-                var ketQua = await _context.KetQuaLamSang
+
+                // Phân trang thủ công
+                var pageNumber = page ?? 1;
+                var pageSize = 1;
+                var ketQuaQuery = _context.KetQuaLamSang
                     .Where(k => k.MaBenhNhan == benhNhan.MaBenhNhan)
-                    .OrderByDescending(k => k.NgayKham)
+                    .OrderByDescending(k => k.NgayKham);
+
+                var totalItemCount = await ketQuaQuery.CountAsync();
+                var items = await ketQuaQuery
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
-                return View("IndexUser", ketQua);
+
+                var pagedList = new StaticPagedList<KetQuaLamSang>(
+                    items, pageNumber, pageSize, totalItemCount
+                );
+
+                return View("IndexUser", pagedList);
             }
             else
             {

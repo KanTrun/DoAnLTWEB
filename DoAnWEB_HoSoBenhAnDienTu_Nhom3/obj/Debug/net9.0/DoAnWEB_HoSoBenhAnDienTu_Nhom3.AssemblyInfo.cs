@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DoAnWEB_HoSoBenhAnDienTu_Nhom3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47b62130f44dd3dd2de8f073ad79ee4922a9b7b3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+734fb1f4ca48b98e2ae991bfbbf0f207d8ba1f91")]
 [assembly: System.Reflection.AssemblyProductAttribute("DoAnWEB_HoSoBenhAnDienTu_Nhom3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DoAnWEB_HoSoBenhAnDienTu_Nhom3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

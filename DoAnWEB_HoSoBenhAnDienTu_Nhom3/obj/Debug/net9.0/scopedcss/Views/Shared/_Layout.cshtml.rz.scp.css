@@ -46,3 +46,340 @@ button.accept-policy[b-h34qig07u4] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+bmi-calculator-card[b-h34qig07u4] {
+    /* Loại bỏ max-width để nó chiếm hết chiều rộng khả dụng */
+    /* max-width: 400px; */ /* Bỏ hoặc comment dòng này */
+
+    width: 100%; /* Đảm bảo nó chiếm 100% chiều rộng của container cha */
+    /* CHỈNH SỬA DÒNG NÀY: */
+    margin: 20px 0; /* Thay vì 'full', dùng 20px cho margin trên/dưới và 0 cho margin trái/phải */
+    /* Hoặc nếu muốn giãn ra hai bên, bỏ margin-left/right: margin: 20px auto; */
+    /* Tùy thuộc vào padding của div.content, bạn có thể không cần margin ngang */
+
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.08);
+    background-color: #ffffff;
+}
+
+/* Giữ nguyên các phần còn lại của .bmi-calculator-card và các phần tử con */
+.bmi-calculator-card .card-header[b-h34qig07u4] {
+    background-color: #007bff; /* Màu header giống màu chủ đạo */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 15px 20px;
+}
+
+    .bmi-calculator-card .card-header h3[b-h34qig07u4] {
+        margin: 0;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .bmi-calculator-card .card-header i[b-h34qig07u4] {
+        margin-right: 10px;
+    }
+
+.bmi-calculator-card .card-body[b-h34qig07u4] {
+    padding: 25px;
+}
+
+.bmi-calculator-card .form-group label[b-h34qig07u4] {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.bmi-calculator-card .form-control[b-h34qig07u4] {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px 12px;
+}
+
+    .bmi-calculator-card .form-control:focus[b-h34qig07u4] {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+.bmi-calculator-card .btn-primary[b-h34qig07u4] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#bmiResult[b-h34qig07u4] {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+/* Các màu sắc cho kết quả BMI */
+.bmi-underweight[b-h34qig07u4] {
+    color: #ffc107; /* Vàng */
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+.bmi-normal[b-h34qig07u4] {
+    color: #28a745; /* Xanh lá cây */
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.bmi-overweight[b-h34qig07u4] {
+    color: #fd7e14; /* Cam */
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+.bmi-obese[b-h34qig07u4] {
+    color: #dc3545; /* Đỏ */
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.sidebar-search[b-h34qig07u4] {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative; /* Quan trọng cho việc định vị các gợi ý và icon */
+}
+
+    .sidebar-search input[type="text"][b-h34qig07u4] {
+        /* Thay đổi width và thêm padding-right cho icon */
+        width: calc(100% - 30px); /* Giảm độ rộng để chừa chỗ cho icon, hoặc bạn có thể đặt một giá trị cố định như 200px */
+        padding: 10px 35px 10px 10px; /* Thêm padding bên phải để icon không đè lên text */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        box-sizing: border-box;
+        vertical-align: middle; /* Căn chỉnh với icon */
+    }
+
+        .sidebar-search input[type="text"]:focus[b-h34qig07u4] {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+        }
+
+    /* Kiểu cho Icon tìm kiếm */
+    .sidebar-search .search-icon[b-h34qig07u4] {
+        position: absolute;
+        right: 25px; /* Điều chỉnh vị trí của icon */
+        top: 50%;
+        transform: translateY(-50%); /* Căn giữa dọc */
+        color: #888;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+
+.search-results[b-h34qig07u4] {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    width: calc(100% - 40px); /* Giữ nguyên hoặc điều chỉnh nếu bạn muốn rộng hơn/hẹp hơn input */
+    z-index: 1000;
+    display: none;
+    left: 20px;
+    top: auto;
+}
+
+    .search-results ul[b-h34qig07u4] {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .search-results li[b-h34qig07u4] {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+        .search-results li:last-child[b-h34qig07u4] {
+            border-bottom: none;
+        }
+
+        .search-results li:hover[b-h34qig07u4] {
+            background-color: #f0f0f0;
+        }
+
+#chatbot-window[b-h34qig07u4] {
+    /* Đã có style inline, có thể thêm vào đây cho rõ ràng hơn */
+}
+
+#chatbot-messages .message[b-h34qig07u4] {
+    /* Đã có style inline, có thể thêm vào đây */
+}
+
+#chatbot-icon[b-h34qig07u4] {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+    #chatbot-icon img[b-h34qig07u4] {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
+
+#chatbot-window[b-h34qig07u4] {
+    display: none; /* Ban đầu ẩn đi */
+    position: fixed;
+    bottom: 80px; /* Cách icon một khoảng */
+    right: 20px;
+    width: 350px; /* Chiều rộng cố định */
+    max-width: calc(100vw - 40px); /* Đảm bảo không tràn màn hình ngang */
+    height: 400px; /* Chiều cao cố định */
+    max-height: calc(100vh - 100px); /* Đảm bảo không tràn màn hình dọc, chừa chỗ cho icon và top/bottom padding */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: white;
+    z-index: 1001; /* Đảm bảo nó luôn nằm trên icon */
+    flex-direction: column; /* Đảm bảo bố cục cột */
+}
+
+    /* Header của Chatbot */
+    #chatbot-window > div:first-child[b-h34qig07u4] { /* Đây là div chứa "Tư vấn y tế" và nút đóng */
+        flex-shrink: 0; /* Không co lại */
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+/* Khu vực tin nhắn */
+#chatbot-messages[b-h34qig07u4] {
+    flex-grow: 1; /* Cho phép nó mở rộng lấp đầy không gian còn lại */
+    padding: 10px;
+    overflow-y: auto; /* Tạo thanh cuộn khi tin nhắn nhiều */
+    border-bottom: 1px solid #eee;
+}
+
+/* Input và nút gửi */
+#chatbot-window > div:last-child[b-h34qig07u4] { /* Đây là div chứa input và nút gửi */
+    flex-shrink: 0; /* Không co lại */
+    padding: 10px;
+    display: flex;
+}
+
+#chatbot-input[b-h34qig07u4] {
+    flex-grow: 1; /* Input sẽ mở rộng lấp đầy không gian còn lại */
+    margin-right: 10px;
+    /* Các style khác đã có: form-control */
+}
+
+/* Style cho từng tin nhắn */
+#chatbot-messages .message[b-h34qig07u4] {
+    margin-bottom: 8px;
+    word-wrap: break-word; /* Ngắt chữ nếu quá dài */
+}
+
+    #chatbot-messages .message span[b-h34qig07u4] {
+        padding: 8px 12px;
+        border-radius: 15px;
+        display: inline-block; /* Quan trọng để padding và border-radius hoạt động đúng */
+        max-width: 80%; /* Giới hạn chiều rộng tin nhắn để tránh tràn */
+    }
+
+    #chatbot-messages .message:last-child[b-h34qig07u4] {
+        margin-bottom: 0; /* Loại bỏ margin-bottom cho tin nhắn cuối cùng */
+    }
+
+    #chatbot-messages .message[style*="text-align: right"] span[b-h34qig07u4] { /* Tin nhắn người dùng */
+        background-color: #e0e0e0;
+    }
+
+    #chatbot-messages .message[style*="text-align: left"] span[b-h34qig07u4] { /* Tin nhắn bot */
+        background-color: #d1e7dd;
+    }
+
+/* Media query cho màn hình nhỏ hơn */
+@@media (max-width: 400px) {
+    #chatbot-window[b-h34qig07u4] {
+        width: calc(100vw - 20px); /* Gần full width trên màn hình nhỏ */
+        right: 10px;
+        left: 10px; /* Căn giữa */
+        bottom: 10px;
+        top: 10px; /* Gần full height */
+        max-width: unset; /* Bỏ giới hạn max-width */
+        max-height: unset; /* Bỏ giới hạn max-height */
+        height: auto; /* Cho phép chiều cao tự điều chỉnh nếu cần */
+    }
+
+    #chatbot-icon[b-h34qig07u4] {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    a.navbar-brand[b-h34qig07u4] {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+    }
+
+    a[b-h34qig07u4] {
+        color: #0077cc;
+    }
+
+    .btn-primary[b-h34qig07u4] {
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
+
+    .nav-pills .nav-link.active[b-h34qig07u4], .nav-pills .show > .nav-link[b-h34qig07u4] {
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
+
+    .border-top[b-h34qig07u4] {
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .border-bottom[b-h34qig07u4] {
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .box-shadow[b-h34qig07u4] {
+        box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    }
+
+    button.accept-policy[b-h34qig07u4] {
+        font-size: 1rem;
+        line-height: inherit;
+    }
+
+    .footer[b-h34qig07u4] {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 60px;
+    }
+

@@ -2,6 +2,189 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+<style>
+    /* Header styling - màu xanh dương đậm, không bo tròn */
+    .content-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 250px !important;
+        right: 0 !important;
+        z-index: 1030 !important;
+        background: linear-gradient(135deg, #3498db 0%, #5dade2 100%) !important;
+        color: #ffffff !important;
+        padding: 20px 0 !important;
+        margin-bottom: 20px !important;
+        border-bottom: 3px solid #1e3c72 !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        border-radius: 0 !important; /* Bỏ bo tròn */
+    }
+
+    .main-content {
+        padding-top: 100px !important; /* Điều chỉnh theo chiều cao header */
+    }
+
+    .content-header h4 {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 1.5rem !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+        margin-bottom: 0 !important;
+    }
+
+    .user-info {
+        color: #ecf0f1 !important;
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+    }
+
+        .user-info .text-muted {
+            color: #ffffff !important; /* Đổi thành màu trắng */
+            font-weight: 600 !important; /* Tăng độ đậm */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important; /* Thêm shadow */
+            font-size: 1.05rem !important; /* Tăng size một chút */
+        }
+
+        .user-info strong {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            font-size: 1.1rem !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        .user-info .badge {
+            font-size: 0.85rem !important;
+            padding: 6px 12px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+            .user-info .badge.bg-danger {
+                background-color: #e74c3c !important;
+                box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3) !important;
+            }
+
+            .user-info .badge.bg-primary {
+                background-color: #3498db !important;
+                box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3) !important;
+            }
+
+    #chatbot-window {
+        /* Đã có style inline, có thể thêm vào đây cho rõ ràng hơn */
+    }
+
+    #chatbot-messages .message {
+        /* Đã có style inline, có thể thêm vào đây */
+    }
+
+    #chatbot-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+        #chatbot-icon img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+
+    #chatbot-window {
+        display: none; /* Ban đầu ẩn đi */
+        position: fixed;
+        bottom: 80px; /* Cách icon một khoảng */
+        right: 20px;
+        width: 350px; /* Chiều rộng cố định */
+        max-width: calc(100vw - 40px); /* Đảm bảo không tràn màn hình ngang */
+        height: 400px; /* Chiều cao cố định */
+        max-height: calc(100vh - 100px); /* Đảm bảo không tràn màn hình dọc, chừa chỗ cho icon và top/bottom padding */
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        background-color: white;
+        z-index: 1001; /* Đảm bảo nó luôn nằm trên icon */
+        flex-direction: column; /* Đảm bảo bố cục cột */
+    }
+
+        /* Header của Chatbot */
+        #chatbot-window > div:first-child { /* Đây là div chứa "Tư vấn y tế" và nút đóng */
+            flex-shrink: 0; /* Không co lại */
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    /* Khu vực tin nhắn */
+    #chatbot-messages {
+        flex-grow: 1; /* Cho phép nó mở rộng lấp đầy không gian còn lại */
+        padding: 10px;
+        overflow-y: auto; /* Tạo thanh cuộn khi tin nhắn nhiều */
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Input và nút gửi */
+    #chatbot-window > div:last-child { /* Đây là div chứa input và nút gửi */
+        flex-shrink: 0; /* Không co lại */
+        padding: 10px;
+        display: flex;
+    }
+
+    #chatbot-input {
+        flex-grow: 1; /* Input sẽ mở rộng lấp đầy không gian còn lại */
+        margin-right: 10px;
+        /* Các style khác đã có: form-control */
+    }
+
+    /* Style cho từng tin nhắn */
+    #chatbot-messages .message {
+        margin-bottom: 8px;
+        word-wrap: break-word; /* Ngắt chữ nếu quá dài */
+    }
+
+        #chatbot-messages .message span {
+            padding: 8px 12px;
+            border-radius: 15px;
+            display: inline-block; /* Quan trọng để padding và border-radius hoạt động đúng */
+            max-width: 80%; /* Giới hạn chiều rộng tin nhắn để tránh tràn */
+        }
+
+        #chatbot-messages .message:last-child {
+            margin-bottom: 0; /* Loại bỏ margin-bottom cho tin nhắn cuối cùng */
+        }
+
+        #chatbot-messages .message[style*="text-align: right"] span { /* Tin nhắn người dùng */
+            background-color: #e0e0e0;
+        }
+
+        #chatbot-messages .message[style*="text-align: left"] span { /* Tin nhắn bot */
+            background-color: #d1e7dd;
+        }
+
+    /* Media query cho màn hình nhỏ hơn */
+    @@media (max-width: 400px) {
+        #chatbot-window {
+            width: calc(100vw - 20px); /* Gần full width trên màn hình nhỏ */
+            right: 10px;
+            left: 10px; /* Căn giữa */
+            bottom: 10px;
+            top: 10px; /* Gần full height */
+            max-width: unset; /* Bỏ giới hạn max-width */
+            max-height: unset; /* Bỏ giới hạn max-height */
+            height: auto; /* Cho phép chiều cao tự điều chỉnh nếu cần */
+        }
+
+        #chatbot-icon {
+            bottom: 10px;
+            right: 10px;
+        }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +197,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="~/css/landing.css" />
+    <link rel="stylesheet" href="~/css/ketquaXetNghiem.css" asp-append-version="true" />
+    <!-- Thêm vào <head> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        success: {
+                            50: '#f0fdf4',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                        },
+                        warning: {
+                            50: '#fffbeb',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
 </head>
 <body class="@(User.Identity.IsAuthenticated ? "logged-in" : "")">
     @if (SignInManager.IsSignedIn(User))
     {
+        <div id="chatbot-icon">
+            <img src="~/chatbot.png" />
+        </div>
+        <div id="chatbot-window">
+            <div>
+                <span>Tư vấn y tế</span>
+                <span id="close-chatbot">&times;</span>
+            </div>
+            <div id="chatbot-messages">
+            </div>
+            <div>
+                <input type="text" id="chatbot-input" class="form-control" placeholder="Gõ tin nhắn của bạn..." />
+                <button id="chatbot-send-btn" class="btn btn-primary">Gửi</button>
+            </div>
+        </div>
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <!-- Header -->
@@ -25,6 +253,10 @@
                 <h4><i class="fas fa-hospital"></i> Hồ Sơ Bệnh Án</h4>
             </div>
 
+            <div class="sidebar-search">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
+            </div>
             <!-- Menu -->
             <ul class="sidebar-menu">
                 <!-- Trang chủ -->
@@ -63,12 +295,39 @@
                                 </a>
                             }
                         </li>
-                        <li>
-                            <a href="@Url.Action("Index", "DonDieuTri")"
-                               class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "active" : "")">
-                                <i class="fas fa-prescription-bottle"></i> Đơn điều trị
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "DonDieuTri")"
+                                   class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                                    <i class="fas fa-prescription-bottle"></i> Đơn điều trị
+                                </a>
+                            </li>
+                        }
+                        else if (User.IsInRole("User"))
+                        {
+                            <li class="has-submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "open" : "")">
+                                <a href="javascript:void(0)" onclick="toggleSubmenu(this)">
+                                    <i class="fas fa-prescription-bottle"></i> Đơn điều trị
+                                </a>
+                                <ul class="submenu @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" ? "open" : "")">
+                                    <li>
+                                        <a href="@Url.Action("UserDonDieuTri", "DonDieuTri")"
+                                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" && ViewContext.RouteData.Values["Action"]?.ToString() == "UserDonDieuTri" ? "active" : "")">
+                                            <i class="fas fa-notes-medical"></i> Điều trị bệnh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("UserToaThuoc", "DonDieuTri")"
+                                           class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonDieuTri" && ViewContext.RouteData.Values["Action"]?.ToString() == "UserToaThuoc" ? "active" : "")">
+                                            <i class="fas fa-pills"></i> Đơn cấp thuốc
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+
                     </ul>
                 </li>
 
@@ -223,12 +482,10 @@
             function toggleSidebar() {
                 const sidebar = document.getElementById('sidebar');
                 const mainContent = document.getElementById('mainContent');
-                const mobileToggle = document.getElementById('mobileToggle');
 
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
 
-                // Lưu trạng thái sidebar
                 localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
             }
 
@@ -236,48 +493,284 @@
                 const submenu = element.nextElementSibling;
                 const parent = element.parentElement;
 
-                // Đóng tất cả submenu khác
-                document.querySelectorAll('.has-submenu').forEach(item => {
-                    if (item !== parent) {
-                        item.classList.remove('open');
-                        const otherSubmenu = item.querySelector('.submenu');
-                        if (otherSubmenu) {
-                            otherSubmenu.style.maxHeight = '0';
-                        }
-                    }
-                });
-
                 // Toggle submenu hiện tại
                 parent.classList.toggle('open');
+
                 if (parent.classList.contains('open')) {
-                    submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                    submenu.style.maxHeight = submenu.scrollHeight + 50 + 'px';
                 } else {
                     submenu.style.maxHeight = '0';
                 }
+
+                // Cập nhật tất cả submenu cha
+                setTimeout(() => {
+                    updateAllNestedSubmenus();
+                }, 50);
             }
 
-            // Khôi phục trạng thái sidebar khi load trang
+            // Hàm cập nhật tất cả submenu nested
+            function updateAllNestedSubmenus() {
+                const openSubmenus = document.querySelectorAll('.has-submenu.open');
+
+                openSubmenus.forEach(openSubmenu => {
+                    const submenu = openSubmenu.querySelector(':scope > .submenu');
+                    if (submenu) {
+                        submenu.style.maxHeight = submenu.scrollHeight + 100 + 'px';
+                    }
+                });
+            }
+
+            // Hàm mở submenu cho trang hiện tại - SỬA LẠI
+            function openSubmenuForCurrentPage() {
+                const controller = '@ViewContext.RouteData.Values["Controller"]?.ToString()';
+
+                if (controller === 'DonDieuTri') {
+                    // Đợi DOM load xong
+                    setTimeout(() => {
+                        // 1. Mở "Hồ sơ bệnh án" trước
+                        const medicalMenu = document.getElementById('medical-menu');
+                        if (medicalMenu) {
+                            medicalMenu.classList.add('open');
+                            const medicalSubmenu = medicalMenu.querySelector('#medical-submenu');
+                            if (medicalSubmenu) {
+                                medicalSubmenu.style.maxHeight = '500px';
+                            }
+                        }
+
+                        // 2. Mở "Đơn điều trị" submenu cho User
+                        const donDieuTriSubmenu = document.querySelector('#medical-submenu .has-submenu');
+                        if (donDieuTriSubmenu) {
+                            donDieuTriSubmenu.classList.add('open');
+                            const donDieuTriSubmenuElement = donDieuTriSubmenu.querySelector('.submenu');
+                            if (donDieuTriSubmenuElement) {
+                                donDieuTriSubmenuElement.style.maxHeight = '200px';
+                            }
+                        }
+
+                        // 3. Cập nhật lại tất cả
+                        setTimeout(() => {
+                            updateAllNestedSubmenus();
+                        }, 100);
+                    }, 300);
+                }
+            }
+
+            // Load trang
             document.addEventListener('DOMContentLoaded', function() {
+                // Khôi phục sidebar state
                 const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
                 if (sidebarCollapsed) {
                     document.getElementById('sidebar').classList.add('collapsed');
                     document.getElementById('mainContent').classList.add('expanded');
                 }
 
-                // Mở submenu chứa trang hiện tại
-                const activeLink = document.querySelector('.sidebar-menu .active');
-                if (activeLink) {
-                    const parentSubmenu = activeLink.closest('.has-submenu');
-                    if (parentSubmenu) {
-                        parentSubmenu.classList.add('open');
-                        const submenu = parentSubmenu.querySelector('.submenu');
-                        if (submenu) {
-                            submenu.style.maxHeight = submenu.scrollHeight + 'px';
-                        }
+                // Xử lý submenu có class "open" trong HTML
+                document.querySelectorAll('.has-submenu.open').forEach(openSubmenu => {
+                    const submenu = openSubmenu.querySelector(':scope > .submenu');
+                    if (submenu) {
+                        submenu.style.maxHeight = '500px';
                     }
+                });
+
+                // Mở submenu cho trang hiện tại
+                openSubmenuForCurrentPage();
+
+                // Force mở submenu nested nếu đang ở trang DonDieuTri
+                const controller = '@ViewContext.RouteData.Values["Controller"]?.ToString()';
+                if (controller === 'DonDieuTri') {
+                    setTimeout(() => {
+                        // Force set tất cả submenu height
+                        document.querySelectorAll('.submenu').forEach(submenu => {
+                            const parent = submenu.parentElement;
+                            if (parent && parent.classList.contains('open')) {
+                                submenu.style.maxHeight = submenu.scrollHeight + 100 + 'px';
+                            }
+                        });
+                    }, 500);
                 }
             });
+
+                        const searchInput = document.getElementById('searchInput');
+            const searchResultsDiv = document.getElementById('searchResults');
+            let searchResultsList = searchResultsDiv.querySelector('ul');
+            if (!searchResultsList) {
+                searchResultsList = document.createElement('ul');
+                searchResultsDiv.appendChild(searchResultsList);
+            }
+
+            let debounceTimeout;
+
+            searchInput.addEventListener('input', function () {
+                clearTimeout(debounceTimeout);
+                const query = this.value.trim();
+                console.log('Query nhập vào:', query);
+
+                if (query.length > 1) { // Only fetch suggestions if query is at least 2 characters
+                    console.log('Đủ ký tự, chuẩn bị gọi API...');
+                    debounceTimeout = setTimeout(() => {
+                        fetchSuggestions(query);
+                    }, 300); // Debounce for 300ms
+                } else {
+                    console.log('Chưa đủ ký tự hoặc rỗng.');
+                    searchResultsDiv.style.display = 'none';
+                    searchResultsList.innerHTML = ''; // Clear previous results
+                }
+            });
+
+            // Handle Enter key press on search input
+            searchInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent form submission if any
+                    const query = this.value.trim();
+                    if (query.length > 0) {
+                        // Redirect to a main search results page
+                        // You will need a SearchController with an Index action to handle this URL
+                        window.location.href = `/Search/Index?q=${encodeURIComponent(query)}`;
+                    }
+                    searchResultsDiv.style.display = 'none'; // Hide suggestions
+                }
+            });
+
+            // Hide search results when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!searchInput.contains(event.target) && !searchResultsDiv.contains(event.target)) {
+                    searchResultsDiv.style.display = 'none';
+                }
+            });
+
+            async function fetchSuggestions(query) {
+                console.log('Đang gọi API với query:', query);
+                try {
+                    const response = await fetch(`/api/Search/GetSuggestions?query=${encodeURIComponent(query)}`);
+                    console.log('Response từ API:', response);
+                    if (!response.ok) {
+                        throw new Error(`Lỗi HTTP! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    console.log('Dữ liệu JSON nhận được:', data);
+                    displaySuggestions(data);
+                } catch (error) {
+                    console.error('Lỗi khi lấy gợi ý tìm kiếm:', error);
+                    searchResultsDiv.style.display = 'none';
+                }
+            }
+
+            function displaySuggestions(suggestions) {
+                searchResultsList.innerHTML = ''; // Clear previous suggestions
+                if (suggestions && suggestions.length > 0) {
+                    suggestions.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.displayText;
+                        li.dataset.url = item.url; // Store the URL for navigation
+                        li.addEventListener('click', function () {
+                            window.location.href = this.dataset.url; // Navigate on click
+                                        searchResultsDiv.style.display = 'none'; // Hide results after click
+                        });
+                        searchResultsList.appendChild(li);
+                    });
+                    searchResultsDiv.style.display = 'block';
+                } else {
+                    searchResultsDiv.style.display = 'none';
+                }
+            }
+
+                        const chatbotIcon = document.getElementById('chatbot-icon');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const closeChatbotBtn = document.getElementById('close-chatbot');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSendBtn = document.getElementById('chatbot-send-btn');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+
+            // Event Listeners for chatbot
+            chatbotIcon.addEventListener('click', () => {
+                chatbotWindow.style.display = 'flex'; // Use flex for column layout
+            });
+
+            closeChatbotBtn.addEventListener('click', () => {
+                chatbotWindow.style.display = 'none';
+            });
+
+            chatbotSendBtn.addEventListener('click', sendMessage);
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Function to add messages to chatbot UI
+            function addMessage(sender, text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                if (sender === 'user') {
+                    messageDiv.style.textAlign = 'right';
+                    messageDiv.style.marginBottom = '8px';
+                    messageDiv.innerHTML = `<span style="background-color: #e0e0e0; padding: 8px 12px; border-radius: 15px; display: inline-block;">${text}</span>`;
+                } else {
+                    messageDiv.style.textAlign = 'left';
+                    messageDiv.style.marginBottom = '8px';
+                    messageDiv.innerHTML = `<span style="background-color: #d1e7dd; padding: 8px 12px; border-radius: 15px; display: inline-block;">${text}</span>`;
+                }
+                chatbotMessages.appendChild(messageDiv);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom
+            }
+
+            // Initial bot message when chatbot opens
+            addMessage('bot', 'Chào mừng bạn đến với hệ thống Hồ sơ Bệnh án Điện tử! Đây là nơi bạn có thể quản lý và xem lại tất cả thông tin y tế quan trọng của mình một cách có tổ chức. Bạn có thể tra cứu kết quả lâm sàng, kết quả xét nghiệm, đơn thuốc và nhiều hơn nữa. Tôi có thể giúp bạn tìm thông tin gì?');
+
+
+            // Function to send message to backend API
+                        async function sendMessage() {
+                const userMessage = chatbotInput.value.trim();
+                if (userMessage === '') return;
+
+                addMessage('user', userMessage);
+                chatbotInput.value = '';
+
+                try {
+                    const response = await fetch('/api/chatbot', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: userMessage })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        addMessage('bot', data.reply);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (error) {
+                    addMessage('bot', 'Đã xảy ra lỗi khi kết nối. Vui lòng thử lại sau.');
+                    console.error('Error:', error);
+                }
+
+                            function scrollToBottom() {
+                const messagesContainer = document.getElementById('chatbot-messages');
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            // Hiển thị trạng thái "Đang nhập..."
+            function showTypingIndicator() {
+                const typingIndicator = document.createElement('div');
+                typingIndicator.id = 'typing-indicator';
+                typingIndicator.innerHTML = '<i>Đang nhập...</i>';
+                chatbotMessages.appendChild(typingIndicator);
+                scrollToBottom();
+            }
+
+            // Ẩn trạng thái "Đang nhập..."
+            function hideTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) indicator.remove();
+            }
+            }
+
+
+
         </script>
+
+
+
     }
 
     @await RenderSectionAsync("Scripts", required: false)

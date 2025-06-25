@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 {
@@ -8,26 +9,28 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
         [Key]
         public int MaDonDieuTri { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Mã hồ sơ là bắt buộc")]
         public int MaHoSo { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Tên đơn điều trị là bắt buộc")]
+        [StringLength(100, ErrorMessage = "Tên đơn điều trị không được quá 100 ký tự")]
         public string TenDonDieuTri { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ngày bắt đầu là bắt buộc")]
         public DateTime NgayBatDau { get; set; }
 
         public DateTime? NgayKetThuc { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Mã bác sĩ là bắt buộc")]
         public int MaBacSi { get; set; }
 
-        // Navigation properties
+        // SỬA: Bỏ [Required] cho Navigation properties và thêm [ValidateNever]
         [ForeignKey("MaHoSo")]
-        public virtual HoSoBenhAn HoSo { get; set; }
+        [ValidateNever]
+        public virtual HoSoBenhAn? HoSo { get; set; }
 
         [ForeignKey("MaBacSi")]
-        public virtual BacSi BacSi { get; set; }
+        [ValidateNever]
+        public virtual BacSi? BacSi { get; set; }
     }
 }

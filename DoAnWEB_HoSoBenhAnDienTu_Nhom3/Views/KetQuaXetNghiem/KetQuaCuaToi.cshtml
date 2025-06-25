@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.ViewModels.KetQuaXetNghiemKetQuaCuaToiViewModel>
-<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/ketquaXetNghiem.css" />
 
-<div class="benhAnPro-container">
-    <h2 class="benhAnPro-title">Kết Quả Xét Nghiệm Của Tôi</h2>
-    <div class="benhAnPro-tableWrap">
-        <table class="benhAnPro-table">
+<div class="ketQuaXetNghiem-container">
+    <h2 class="ketQuaXetNghiem-title">Kết Quả Xét Nghiệm Của Tôi</h2>
+    <div class="ketQuaXetNghiem-tableWrap">
+        <table class="ketQuaXetNghiem-table">
             <thead>
                 <tr>
                     <th>Tên xét nghiệm</th>
@@ -27,7 +27,7 @@
                         <td>@item.NgayTraKetQua.ToString("dd/MM/yyyy")</td>
                         <td>@item.BacSiDanhGia</td>
                         <td>
-                            <a href="@Url.Action("ChiTietKetQuaCuaToi", "KetQuaXetNghiem", new { id = item.MaKetQuaXN })" class="benhAnPro-btnDanhGia benhAnPro-btnXem">Xem</a>
+                            <a href="@Url.Action("ChiTietKetQuaCuaToi", "KetQuaXetNghiem", new { id = item.MaKetQuaXN })" class="ketQuaXetNghiem-btnXem">Xem</a>
                         </td>
                     </tr>
                 }
@@ -35,4 +35,3 @@
         </table>
     </div>
 </div>
-

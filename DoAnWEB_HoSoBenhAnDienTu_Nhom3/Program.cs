@@ -9,8 +9,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddHttpClient();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+// Thêm logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Cấu hình Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
@@ -25,8 +30,23 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
+// ... các cấu hình khác
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+var app = builder.Build(); // <-- Đặt dòng này TRƯỚC khi dùng app
+
+app.UseCors("AllowAll");   // <-- Đặt dòng này SAU khi app đã được khởi tạo
+
+// ... các middleware khác
 
 // Tạo roles và admin user
 using (var scope = app.Services.CreateScope())
@@ -85,23 +105,5 @@ async Task CreateRolesAndAdminUser(UserManager<IdentityUser> userManager, RoleMa
         }
     }
 
-    // Tạo admin user
-    var adminEmail = "admin@gmail.com";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-    if (adminUser == null)
-    {
-        var newAdminUser = new IdentityUser
-        {
-            UserName = adminEmail,
-            Email = adminEmail,
-            EmailConfirmed = true
-        };
-
-        var createAdminUser = await userManager.CreateAsync(newAdminUser, "Admin123");
-        if (createAdminUser.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdminUser, "Admin");
-        }
-    }
+    
 }

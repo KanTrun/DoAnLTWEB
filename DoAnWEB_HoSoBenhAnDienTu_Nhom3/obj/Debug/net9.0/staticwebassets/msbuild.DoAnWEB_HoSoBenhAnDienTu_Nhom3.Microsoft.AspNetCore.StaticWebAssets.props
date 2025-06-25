@@ -1,5 +1,23 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\chatbot.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>DoAnWEB_HoSoBenhAnDienTu_Nhom3</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3</BasePath>
+      <RelativePath>chatbot.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>14g3i2oueq</Fingerprint>
+      <Integrity>r/F/b/MEDW2ctQhF5GJVv1zr7hx4L1YlDgourHtgvkM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\chatbot.png'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))">
       <SourceType>Package</SourceType>
       <SourceId>DoAnWEB_HoSoBenhAnDienTu_Nhom3</SourceId>
@@ -12,29 +30,29 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>0plk0uk870</Fingerprint>
-      <Integrity>1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk=</Integrity>
+      <Fingerprint>q9k3vpgf9b</Fingerprint>
+      <Integrity>XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css'))">
       <SourceType>Package</SourceType>
       <SourceId>DoAnWEB_HoSoBenhAnDienTu_Nhom3</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3</BasePath>
-      <RelativePath>DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css</RelativePath>
+      <RelativePath>DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>Reference</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName>ScopedCss</AssetTraitName>
       <AssetTraitValue>ProjectBundle</AssetTraitValue>
-      <Fingerprint>r2qvgmlv8m</Fingerprint>
-      <Integrity>w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=</Integrity>
+      <Fingerprint>p84fhbxw5x</Fingerprint>
+      <Integrity>x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))">
       <SourceType>Package</SourceType>

@@ -1,71 +1,544 @@
-﻿@model IEnumerable<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaLamSang>
+﻿@model X.PagedList.IPagedList<DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models.KetQuaLamSang>
+@using X.PagedList.Mvc.Core
+
 @{
     ViewData["Title"] = "Kết quả lâm sàng của bạn";
-    var stt = 1;
+    var stt = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 
-<div class="container my-4">
-    <h3 class="mb-4 text-center text-primary">
-        <i class="fas fa-file-medical-alt"></i> PHIẾU KẾT QUẢ LÂM SÀNG
-    </h3>
-    @if (!Model.Any())
-    {
-        <div class="alert alert-info text-center">
-            <i class="fas fa-info-circle"></i> Chưa có kết quả lâm sàng nào.
-        </div>
+<style>
+    /* Custom styling cho trang kết quả lâm sàng */
+    .medical-result-header {
+        background: linear-gradient(135deg, #3498db 0%, #5dade2 100%);
+        color: white;
+        padding: 25px 0;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
     }
-    else
-    {
-        foreach (var item in Model)
-        {
-            <div class="card mb-5 shadow custom-result-card">
-                <div class="card-header bg-primary bg-gradient text-white d-flex justify-content-between align-items-center rounded-top">
-                    <span class="fw-bold">Phiếu số: <span class="badge bg-light text-primary">@stt</span></span>
-                    <span><i class="fas fa-calendar-alt"></i> Ngày khám: <b>@item.NgayKham.ToString("dd/MM/yyyy")</b></span>
-                </div>
-                <div class="card-body p-4">
-                    <table class="table table-borderless table-hover custom-result-table mb-0">
-                        <tbody>
-                            <tr>
-                                <td class="fw-semibold">Bác sĩ khám:</td>
-                                <td>@item.BacSiKham</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Nhiệt độ (°C):</td>
-                                <td>@(item.NhietDo.HasValue ? item.NhietDo.Value.ToString("0.0") : "-")</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Huyết áp:</td>
-                                <td>@(string.IsNullOrEmpty(item.HuyetAp) ? "-" : item.HuyetAp)</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Nhịp tim (bpm):</td>
-                                <td>@(item.NhipTim.HasValue ? item.NhipTim.ToString() : "-")</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Nhịp thở (lần/phút):</td>
-                                <td>@(item.NhipTho.HasValue ? item.NhipTho.ToString() : "-")</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Chẩn đoán:</td>
-                                <td>@(string.IsNullOrEmpty(item.ChanDoan) ? "-" : item.ChanDoan)</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Kết quả chi tiết:</td>
-                                <td>@(string.IsNullOrEmpty(item.KetQua) ? "-" : item.KetQua)</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-semibold">Ghi chú:</td>
-                                <td>@(string.IsNullOrEmpty(item.GhiChu) ? "-" : item.GhiChu)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer text-end text-muted small rounded-bottom">
-                    <i class="fas fa-clock"></i> Ngày tạo phiếu: @item.NgayTao.ToString("dd/MM/yyyy HH:mm")
-                </div>
-            </div>
-            stt++;
+
+    .medical-result-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 30px;
+    }
+
+    .medical-result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .medical-card-header {
+        background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+        color: white;
+        padding: 20px 25px;
+        border: none;
+    }
+
+    .medical-card-body {
+        padding: 30px 25px;
+        background: #fafbfc;
+    }
+
+    .medical-info-table {
+        margin: 0;
+    }
+
+    .medical-info-table tr {
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .medical-info-table tr:last-child {
+        border-bottom: none;
+    }
+
+    .medical-info-table td {
+        padding: 15px 10px;
+        vertical-align: middle;
+    }
+
+    .medical-info-table .info-label {
+        font-weight: 600;
+        color: #2c3e50;
+        width: 35%;
+        position: relative;
+    }
+
+    .medical-info-table .info-label::after {
+        content: '';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 20px;
+        background: linear-gradient(135deg, #3498db, #5dade2);
+        border-radius: 2px;
+    }
+
+    .medical-info-table .info-value {
+        color: #34495e;
+        font-weight: 500;
+    }
+
+    .medical-card-footer {
+        background: #f8f9fa;
+        padding: 15px 25px;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .vital-signs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .vital-sign-item {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .vital-sign-item:hover {
+        border-color: #3498db;
+        transform: translateY(-2px);
+    }
+
+    .vital-sign-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #3498db;
+    }
+
+    .vital-sign-label {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        margin-bottom: 5px;
+    }
+
+    .vital-sign-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .diagnosis-section {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #3498db;
+        margin-bottom: 20px;
+    }
+
+    .diagnosis-title {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .diagnosis-content {
+        color: #34495e;
+        line-height: 1.6;
+        font-size: 1.05rem;
+    }
+
+    .no-data-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 2px dashed #bdc3c7;
+        border-radius: 15px;
+        padding: 60px 30px;
+        text-align: center;
+        color: #7f8c8d;
+    }
+
+    .no-data-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        color: #bdc3c7;
+    }
+
+    /* Pagination styling */
+    .pagination {
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    .pagination .page-link {
+        border: none;
+        color: #3498db;
+        font-weight: 500;
+        padding: 12px 18px;
+        margin: 0 3px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #3498db;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #2980b9;
+        border-color: #2980b9;
+    }
+
+    /* Badge styling */
+    .result-badge {
+        background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .medical-result-header {
+            padding: 20px 15px;
+            margin-bottom: 20px;
+        }
+
+        .medical-card-body {
+            padding: 20px 15px;
+        }
+
+        .vital-signs-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .medical-info-table .info-label {
+            width: 40%;
+            font-size: 0.9rem;
+        }
+
+        .medical-info-table .info-value {
+            font-size: 0.95rem;
         }
     }
+</style>
+
+<div class="container-fluid my-4">
+    <!-- Header Section -->
+    <div class="medical-result-header text-center">
+        <div class="container">
+            <h2 class="mb-3">
+                <i class="fas fa-file-medical-alt me-3"></i>
+                PHIẾU KẾT QUẢ LÂM SÀNG
+            </h2>
+            <p class="mb-0 opacity-90">Thông tin chi tiết về kết quả khám lâm sàng của bạn</p>
+        </div>
+    </div>
+
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <!-- No Data State -->
+            <div class="no-data-card">
+                <div class="no-data-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h4 class="mb-3">Chưa có kết quả lâm sàng</h4>
+                <p class="mb-0">Hiện tại bạn chưa có kết quả khám lâm sàng nào. Vui lòng liên hệ với bác sĩ để được tư vấn.</p>
+            </div>
+        }
+        else
+        {
+            var item = Model.First();
+            
+            <!-- Main Result Card -->
+            <div class="medical-result-card">
+                <!-- Card Header -->
+                <div class="medical-card-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5 class="mb-0">
+                                <i class="fas fa-file-medical me-2"></i>
+                                Phiếu số: <span class="result-badge">@stt</span>
+                            </h5>
+                        </div>
+                        <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            <strong>Ngày khám: @item.NgayKham.ToString("dd/MM/yyyy")</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="medical-card-body">
+                    <!-- Doctor Info -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center p-3 bg-white rounded-3 border">
+                                <div class="me-3">
+                                    <i class="fas fa-user-md fa-2x text-primary"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 text-primary">Bác sĩ thực hiện</h6>
+                                    <p class="mb-0 fw-bold text-dark">@item.BacSiKham</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vital Signs Grid -->
+                    <h6 class="mb-3 text-primary">
+                        <i class="fas fa-heartbeat me-2"></i>Chỉ số sinh hiệu
+                    </h6>
+                    <div class="vital-signs-grid">
+                        <div class="vital-sign-item">
+                            <div class="vital-sign-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="vital-sign-label">Nhiệt độ</div>
+                            <div class="vital-sign-value">
+                                @(item.NhietDo.HasValue ? item.NhietDo.Value.ToString("0.0") + "°C" : "-")
+                            </div>
+                        </div>
+                        <div class="vital-sign-item">
+                            <div class="vital-sign-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="vital-sign-label">Huyết áp</div>
+                            <div class="vital-sign-value">
+                                @(string.IsNullOrEmpty(item.HuyetAp) ? "-" : item.HuyetAp)
+                            </div>
+                        </div>
+                        <div class="vital-sign-item">
+                            <div class="vital-sign-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="vital-sign-label">Nhịp tim</div>
+                            <div class="vital-sign-value">
+                                @(item.NhipTim.HasValue ? item.NhipTim.ToString() + " bpm" : "-")
+                            </div>
+                        </div>
+                        <div class="vital-sign-item">
+                            <div class="vital-sign-icon">
+                                <i class="fas fa-lungs"></i>
+                            </div>
+                            <div class="vital-sign-label">Nhịp thở</div>
+                            <div class="vital-sign-value">
+                                @(item.NhipTho.HasValue ? item.NhipTho.ToString() + "/phút" : "-")
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnosis Section -->
+                    @if (!string.IsNullOrEmpty(item.ChanDoan))
+                    {
+                        <div class="diagnosis-section">
+                            <h6 class="diagnosis-title">
+                                <i class="fas fa-stethoscope"></i>
+                                Chẩn đoán
+                            </h6>
+                            <div class="diagnosis-content">
+                                @item.ChanDoan
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Detailed Results -->
+                    @if (!string.IsNullOrEmpty(item.KetQua))
+                    {
+                        <div class="diagnosis-section">
+                            <h6 class="diagnosis-title">
+                                <i class="fas fa-clipboard-check"></i>
+                                Kết quả chi tiết
+                            </h6>
+                            <div class="diagnosis-content">
+                                @item.KetQua
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Notes -->
+                    @if (!string.IsNullOrEmpty(item.GhiChu))
+                    {
+                        <div class="diagnosis-section">
+                            <h6 class="diagnosis-title">
+                                <i class="fas fa-sticky-note"></i>
+                                Ghi chú
+                            </h6>
+                            <div class="diagnosis-content">
+                                @item.GhiChu
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Card Footer -->
+                <div class="medical-card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                Ngày tạo phiếu: @item.NgayTao.ToString("dd/MM/yyyy HH:mm")
+                            </small>
+                        </div>
+                        <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                            <button class="btn btn-outline-primary btn-sm" onclick="window.print()">
+                                <i class="fas fa-print me-1"></i>In phiếu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                new PagedListRenderOptions
+                {
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    UlElementClasses = new[] { "pagination" },
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    LinkToFirstPageFormat = "<i class='fas fa-angle-double-left'></i>",
+                    LinkToPreviousPageFormat = "<i class='fas fa-angle-left'></i>",
+                    LinkToNextPageFormat = "<i class='fas fa-angle-right'></i>",
+                    LinkToLastPageFormat = "<i class='fas fa-angle-double-right'></i>"
+                })
+        </div>
+                }
+    </div>
 </div>
+
+<!-- Toast notification for actions -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @TempData["SuccessMessage"]
+            </div>
+        </div>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-exclamation-circle text-danger me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @TempData["ErrorMessage"]
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    // Auto-hide toasts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        var toasts = document.querySelectorAll('.toast');
+        toasts.forEach(function(toast) {
+            setTimeout(function() {
+                var bsToast = new bootstrap.Toast(toast);
+                bsToast.hide();
+            }, 5000);
+        });
+    });
+
+    // Print functionality
+    function printResult() {
+        window.print();
+    }
+
+    // Add smooth scrolling for better UX
+    document.addEventListener('DOMContentLoaded', function() {
+        // Smooth scroll to top when page loads
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Add loading animation for pagination
+    document.addEventListener('DOMContentLoaded', function() {
+        var paginationLinks = document.querySelectorAll('.pagination .page-link');
+        paginationLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                // Add loading spinner
+                var spinner = document.createElement('i');
+                spinner.className = 'fas fa-spinner fa-spin me-1';
+                this.prepend(spinner);
+
+                // Disable link temporarily
+                this.style.pointerEvents = 'none';
+                this.style.opacity = '0.7';
+            });
+        });
+    });
+</script>
+
+<!-- Additional CSS for print media -->
+<style media="print">
+    .medical-result-header,
+    .pagination,
+    .btn,
+    .toast-container {
+        display: none !important;
+    }
+
+    .medical-result-card {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+        page-break-inside: avoid;
+    }
+
+    .medical-card-header {
+        background: #f8f9fa !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .vital-sign-item {
+        border: 1px solid #000 !important;
+        background: white !important;
+    }
+
+    .diagnosis-section {
+        border: 1px solid #ddd !important;
+        background: white !important;
+    }
+
+    body {
+        font-size: 12pt !important;
+        line-height: 1.4 !important;
+    }
+
+    .container-fluid,
+    .container {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+</style>
+
+            

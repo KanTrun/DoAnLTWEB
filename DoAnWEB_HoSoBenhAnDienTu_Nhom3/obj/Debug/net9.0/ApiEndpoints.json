@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "ContainingType": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers.ChatbotController",
+    "Method": "Post",
+    "RelativePath": "api/Chatbot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers.ChatbotController\u002BChatRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers.ChatbotController",
+    "Method": "Test",
+    "RelativePath": "api/Chatbot/test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.Controllers.SearchController",
+    "Method": "GetSuggestions",
+    "RelativePath": "api/Search/GetSuggestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -2,7 +2,11 @@
   "Files": [
     {
       "Id": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css",
-      "PackagePath": "staticwebassets\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css"
+      "PackagePath": "staticwebassets\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\chatbot.png",
+      "PackagePath": "staticwebassets\\chatbot.png"
     },
     {
       "Id": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css",

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
 {
@@ -12,7 +13,7 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
         public int MaHoSo { get; set; }
 
         [Required]
-        public int MaBenh { get; set; } // SỬA: Đổi từ string sang int
+        public int MaBenh { get; set; }
 
         [Required]
         public int MaBacSi { get; set; }
@@ -21,21 +22,24 @@ namespace DoAnWEB_HoSoBenhAnDienTu_Nhom3.Models
         public DateTime NgayChanDoan { get; set; }
 
         [StringLength(20)]
-        public string LoaiChanDoan { get; set; } = "Sơ bộ"; // Sơ bộ, Xác định, Phân biệt
+        public string LoaiChanDoan { get; set; } = "Sơ bộ";
 
         [StringLength(1000)]
         public string? GhiChu { get; set; }
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
-        // Navigation properties
+        // Navigation properties - thêm ValidateNever để bỏ qua validation
         [ForeignKey("MaHoSo")]
-        public virtual HoSoBenhAn HoSo { get; set; }
+        [ValidateNever]
+        public virtual HoSoBenhAn? HoSo { get; set; }
 
         [ForeignKey("MaBenh")]
-        public virtual Benh Benh { get; set; }
+        [ValidateNever]
+        public virtual Benh? Benh { get; set; }
 
         [ForeignKey("MaBacSi")]
-        public virtual BacSi BacSi { get; set; }
+        [ValidateNever]
+        public virtual BacSi? BacSi { get; set; }
     }
 }

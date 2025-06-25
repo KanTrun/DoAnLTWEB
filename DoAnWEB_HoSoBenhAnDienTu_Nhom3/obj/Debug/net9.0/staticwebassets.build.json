@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8dYC43UPop/bUrS3xpv99Mfbn5V9acfatg7GyU4CaO0=",
+  "Hash": "QpGwd0FO+NDamJPJszQX7Zwm9eOvT6kEYYwMxY8BLHU=",
   "Source": "DoAnWEB_HoSoBenhAnDienTu_Nhom3",
   "BasePath": "_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3",
   "Mode": "Default",
@@ -1823,12 +1823,12 @@
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-r2qvgmlv8m.gz",
+      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-p84fhbxw5x.gz",
       "SourceId": "DoAnWEB_HoSoBenhAnDienTu_Nhom3",
       "SourceType": "Computed",
       "ContentRoot": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3",
-      "RelativePath": "DoAnWEB_HoSoBenhAnDienTu_Nhom3#[.{fingerprint=r2qvgmlv8m}]?.styles.css.gz",
+      "RelativePath": "DoAnWEB_HoSoBenhAnDienTu_Nhom3#[.{fingerprint=p84fhbxw5x}]?.styles.css.gz",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Alternative",
@@ -1837,8 +1837,8 @@
       "RelatedAsset": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.styles.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "rrza5qmta6",
-      "Integrity": "l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=",
+      "Fingerprint": "pf8rpxtoc1",
+      "Integrity": "i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.styles.css"
@@ -2222,12 +2222,12 @@
       "OriginalItemSpec": "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.6\\staticwebassets\\V5\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-0plk0uk870.gz",
+      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-q9k3vpgf9b.gz",
       "SourceId": "DoAnWEB_HoSoBenhAnDienTu_Nhom3",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3",
-      "RelativePath": "css/site#[.{fingerprint=0plk0uk870}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=q9k3vpgf9b}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -2236,8 +2236,8 @@
       "RelatedAsset": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "8wktip1yt1",
-      "Integrity": "CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w=",
+      "Fingerprint": "av4bm0btzk",
+      "Integrity": "mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css"
@@ -3692,12 +3692,12 @@
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-r2qvgmlv8m.gz",
+      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-p84fhbxw5x.gz",
       "SourceId": "DoAnWEB_HoSoBenhAnDienTu_Nhom3",
       "SourceType": "Computed",
       "ContentRoot": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3",
-      "RelativePath": "DoAnWEB_HoSoBenhAnDienTu_Nhom3#[.{fingerprint=r2qvgmlv8m}]!.bundle.scp.css.gz",
+      "RelativePath": "DoAnWEB_HoSoBenhAnDienTu_Nhom3#[.{fingerprint=p84fhbxw5x}]!.bundle.scp.css.gz",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Alternative",
@@ -3706,8 +3706,8 @@
       "RelatedAsset": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "rrza5qmta6",
-      "Integrity": "l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=",
+      "Fingerprint": "pf8rpxtoc1",
+      "Integrity": "i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css"
@@ -4000,8 +4000,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "r2qvgmlv8m",
-      "Integrity": "w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=",
+      "Fingerprint": "p84fhbxw5x",
+      "Integrity": "x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.styles.css"
@@ -4021,11 +4021,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "r2qvgmlv8m",
-      "Integrity": "w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=",
+      "Fingerprint": "p84fhbxw5x",
+      "Integrity": "x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\chatbot.png",
+      "SourceId": "DoAnWEB_HoSoBenhAnDienTu_Nhom3",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\",
+      "BasePath": "_content/DoAnWEB_HoSoBenhAnDienTu_Nhom3",
+      "RelativePath": "chatbot#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "14g3i2oueq",
+      "Integrity": "r/F/b/MEDW2ctQhF5GJVv1zr7hx4L1YlDgourHtgvkM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\chatbot.png"
     },
     {
       "Identity": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css",
@@ -4042,8 +4063,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "0plk0uk870",
-      "Integrity": "1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk=",
+      "Fingerprint": "q9k3vpgf9b",
+      "Integrity": "XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -5353,13 +5374,95 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.0plk0uk870.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-0plk0uk870.gz",
+      "Route": "chatbot.14g3i2oueq.png",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\chatbot.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "111251"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"r/F/b/MEDW2ctQhF5GJVv1zr7hx4L1YlDgourHtgvkM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 23 Jun 2025 12:15:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "14g3i2oueq"
+        },
+        {
+          "Name": "label",
+          "Value": "chatbot.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-r/F/b/MEDW2ctQhF5GJVv1zr7hx4L1YlDgourHtgvkM="
+        }
+      ]
+    },
+    {
+      "Route": "chatbot.png",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\chatbot.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "111251"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"r/F/b/MEDW2ctQhF5GJVv1zr7hx4L1YlDgourHtgvkM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 23 Jun 2025 12:15:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-r/F/b/MEDW2ctQhF5GJVv1zr7hx4L1YlDgourHtgvkM="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-q9k3vpgf9b.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000060139524"
+          "Quality": "0.000057577153"
         }
       ],
       "ResponseHeaders": [
@@ -5369,19 +5472,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16627"
+          "Value": "17367"
         },
         {
           "Name": "ETag",
-          "Value": "\"CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w=\""
+          "Value": "\"mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 19 Jun 2025 19:08:45 GMT"
+          "Value": "Mon, 23 Jun 2025 11:50:09 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -5397,26 +5500,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk=\""
+          "Value": "W/\"XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "0plk0uk870"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk="
+          "Value": "sha256-XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0="
         }
       ]
     },
     {
-      "Route": "css/site.0plk0uk870.css",
+      "Route": "css/site.css",
       "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -5426,7 +5521,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "91556"
+          "Value": "102295"
         },
         {
           "Name": "Content-Type",
@@ -5434,11 +5529,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk=\""
+          "Value": "\"XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 19 Jun 2025 19:08:45 GMT"
+          "Value": "Mon, 23 Jun 2025 11:50:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-q9k3vpgf9b.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17367"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 23 Jun 2025 11:50:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.q9k3vpgf9b.css",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-q9k3vpgf9b.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000057577153"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17367"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 23 Jun 2025 11:50:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9k3vpgf9b"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.q9k3vpgf9b.css",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "102295"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 23 Jun 2025 11:50:09 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5448,7 +5688,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "0plk0uk870"
+          "Value": "q9k3vpgf9b"
         },
         {
           "Name": "label",
@@ -5456,13 +5696,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk="
+          "Value": "sha256-XszCSKcL9OF+tkeTdLZNrXk1o22y4JnPamLm30HKDl0="
         }
       ]
     },
     {
-      "Route": "css/site.0plk0uk870.css.gz",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-0plk0uk870.gz",
+      "Route": "css/site.q9k3vpgf9b.css.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-q9k3vpgf9b.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5471,7 +5711,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "16627"
+          "Value": "17367"
         },
         {
           "Name": "Content-Type",
@@ -5479,11 +5719,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w=\""
+          "Value": "\"mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 19 Jun 2025 19:08:45 GMT"
+          "Value": "Mon, 23 Jun 2025 11:50:09 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5501,7 +5741,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "0plk0uk870"
+          "Value": "q9k3vpgf9b"
         },
         {
           "Name": "label",
@@ -5509,155 +5749,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-0plk0uk870.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000060139524"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "16627"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 19 Jun 2025 19:08:45 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "91556"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 19 Jun 2025 19:08:45 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-1CJ0hg5Y8LQXEOIqez+Ta2rrpGsQ/mBaWx522xKZkVk="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\c3z6skrmr1-0plk0uk870.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "16627"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 19 Jun 2025 19:08:45 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-CPXAiD6z67YFbqdkzaDEbl3yc2tA+BdbrAiZJ/p3I1w="
+          "Value": "sha256-mkxenB8ddXrKRhOtRg3qOo7Fncq5o6Q3502Dpj8E9kM="
         }
       ]
     },
     {
       "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-r2qvgmlv8m.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-p84fhbxw5x.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001766784452"
+          "Quality": "0.000307881773"
         }
       ],
       "ResponseHeaders": [
@@ -5667,15 +5770,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5695,13 +5798,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "W/\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
@@ -5716,7 +5819,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1148"
+          "Value": "11432"
         },
         {
           "Name": "Content-Type",
@@ -5724,11 +5827,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5738,13 +5841,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
     {
       "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css.gz",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-r2qvgmlv8m.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-p84fhbxw5x.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5753,7 +5856,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "Content-Type",
@@ -5761,11 +5864,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5783,18 +5886,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0="
+          "Value": "sha256-i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg="
         }
       ]
     },
     {
-      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-r2qvgmlv8m.gz",
+      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-p84fhbxw5x.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001766784452"
+          "Quality": "0.000307881773"
         }
       ],
       "ResponseHeaders": [
@@ -5804,15 +5907,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5832,13 +5935,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "W/\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "r2qvgmlv8m"
+          "Value": "p84fhbxw5x"
         },
         {
           "Name": "label",
@@ -5846,12 +5949,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
     {
-      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css",
+      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css",
       "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -5861,7 +5964,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1148"
+          "Value": "11432"
         },
         {
           "Name": "Content-Type",
@@ -5869,11 +5972,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5883,7 +5986,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "r2qvgmlv8m"
+          "Value": "p84fhbxw5x"
         },
         {
           "Name": "label",
@@ -5891,13 +5994,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
     {
-      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.bundle.scp.css.gz",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-r2qvgmlv8m.gz",
+      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.bundle.scp.css.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\wmg7kfv4gk-p84fhbxw5x.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5906,7 +6009,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "Content-Type",
@@ -5914,11 +6017,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5936,7 +6039,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "r2qvgmlv8m"
+          "Value": "p84fhbxw5x"
         },
         {
           "Name": "label",
@@ -5944,18 +6047,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0="
+          "Value": "sha256-i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg="
         }
       ]
     },
     {
-      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.styles.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-r2qvgmlv8m.gz",
+      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.styles.css",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-p84fhbxw5x.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001766784452"
+          "Quality": "0.000307881773"
         }
       ],
       "ResponseHeaders": [
@@ -5965,15 +6068,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5993,13 +6096,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "W/\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "r2qvgmlv8m"
+          "Value": "p84fhbxw5x"
         },
         {
           "Name": "label",
@@ -6007,12 +6110,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
     {
-      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.styles.css",
+      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.styles.css",
       "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DoAnWEB_HoSoBenhAnDienTu_Nhom3.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -6022,7 +6125,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1148"
+          "Value": "11432"
         },
         {
           "Name": "Content-Type",
@@ -6030,11 +6133,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6044,7 +6147,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "r2qvgmlv8m"
+          "Value": "p84fhbxw5x"
         },
         {
           "Name": "label",
@@ -6052,13 +6155,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
     {
-      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.r2qvgmlv8m.styles.css.gz",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-r2qvgmlv8m.gz",
+      "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.p84fhbxw5x.styles.css.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-p84fhbxw5x.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6067,7 +6170,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "Content-Type",
@@ -6075,11 +6178,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6097,7 +6200,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "r2qvgmlv8m"
+          "Value": "p84fhbxw5x"
         },
         {
           "Name": "label",
@@ -6105,18 +6208,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0="
+          "Value": "sha256-i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg="
         }
       ]
     },
     {
       "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.styles.css",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-r2qvgmlv8m.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-p84fhbxw5x.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001766784452"
+          "Quality": "0.000307881773"
         }
       ],
       "ResponseHeaders": [
@@ -6126,15 +6229,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6154,13 +6257,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "W/\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
@@ -6175,7 +6278,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1148"
+          "Value": "11432"
         },
         {
           "Name": "Content-Type",
@@ -6183,11 +6286,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU=\""
+          "Value": "\"x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6197,13 +6300,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-w83wg8BnILNYlTCnN9Adou+gI7lrMktMXwFAo1weroU="
+          "Value": "sha256-x2+qFkHgvUnMO9u70MChAmIfwliARofqztAmRzVR2Rs="
         }
       ]
     },
     {
       "Route": "DoAnWEB_HoSoBenhAnDienTu_Nhom3.styles.css.gz",
-      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-r2qvgmlv8m.gz",
+      "AssetFile": "D:\\ĐỒ ÁN HỒ SƠ BỆNH ÁN\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\DoAnWEB_HoSoBenhAnDienTu_Nhom3\\obj\\Debug\\net9.0\\compressed\\7g6jm7f3ie-p84fhbxw5x.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6212,7 +6315,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "565"
+          "Value": "3247"
         },
         {
           "Name": "Content-Type",
@@ -6220,11 +6323,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0=\""
+          "Value": "\"i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 17 Jun 2025 08:02:56 GMT"
+          "Value": "Mon, 23 Jun 2025 12:00:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6242,7 +6345,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-l0AH+y7gxAVtngjJ0T3p8P25kAK+R+cz6Rh8gfaZ8Z0="
+          "Value": "sha256-i+8xWHVvhUzCQkqqw54eAEIi3BfvjKYvZvyutZnAQNg="
         }
       ]
     },

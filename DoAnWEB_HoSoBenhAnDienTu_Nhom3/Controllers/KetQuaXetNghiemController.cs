@@ -200,7 +200,7 @@ public class KetQuaXetNghiemController : Controller
     }
 
     // USER: Kết quả của tôi
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Bệnh nhân")]
     public IActionResult KetQuaCuaToi()
     {
         var userName = User.Identity.Name;
@@ -232,7 +232,7 @@ public class KetQuaXetNghiemController : Controller
     }
 
     // USER: Xem chi tiết kết quả của tôi
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Bệnh nhân")]
     public IActionResult ChiTietKetQuaCuaToi(int id)
     {
         var userName = User.Identity.Name;
